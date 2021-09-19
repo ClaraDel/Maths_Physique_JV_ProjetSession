@@ -7,10 +7,10 @@ class Particule
 {
     private :
     double masse;
-    double inverseMasse; // voir quel type mettre
+    double inverseMasse; 
 
     public:
-
+    Particule(double m);
 	Particule operator*(float value) const;
 	void operator*=(float value);
     double GetInverseMasse(); //voir quel type mettre
@@ -21,7 +21,6 @@ class Particule
 // accesseurs pour l’attribut InverseMasse.
 double Particule::GetInverseMasse(){
 	return inverseMasse;
-
 }
 
 #endif
