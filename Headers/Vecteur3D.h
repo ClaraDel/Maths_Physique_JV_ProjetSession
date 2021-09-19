@@ -12,12 +12,14 @@ public:
 
 	double norme() const;
 	Vecteur3D normalisation() const;
+	void baseOrthogonal(Vecteur3D  a, Vecteur3D  b, Vecteur3D c);
 	Vecteur3D produitVectoriel(Vecteur3D const& vecteur) const;
 	double produitScalaire(Vecteur3D const& vecteur) const;
 	Vecteur3D additioner(Vecteur3D const& vecteur) const;
 	Vecteur3D soustraire(Vecteur3D const& vecteur) const;
 	Vecteur3D multiplier(double value) const;
 	Vecteur3D diviser(double value) const;
+	bool estEgal(Vecteur3D const& vecteur) const;
 
 	void afficher(ostream &flux) const;
 
