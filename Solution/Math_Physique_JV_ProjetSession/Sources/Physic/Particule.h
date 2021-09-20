@@ -1,6 +1,8 @@
 #ifndef DEF_PARTICULE
 #define DEF_PARTICULE
-#include "Vecteur3D.h"
+#include "../Math/Vecteur3D.h"
+#include <iostream>
+#include<vector>
 
 #pragma once
 
@@ -22,6 +24,7 @@ class Particule
     Particule(double m = 0.0, Vecteur3D pos = Vecteur3D(), Vecteur3D vit = Vecteur3D(), double f =0);
     ~Particule();
 	double getInverseMasse() const; 
+	Vecteur3D getPosition();
 	void setInverseMasse(double value);
 	void setMasse(double value);
 

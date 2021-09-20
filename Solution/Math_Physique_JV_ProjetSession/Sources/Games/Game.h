@@ -10,6 +10,8 @@ private :
 
 public :
 	Game(string nameGame, string descriptionGame);
+	string getName();
+	string getDescription();
 };
 
 #endif

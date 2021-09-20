@@ -2,8 +2,9 @@
 #define DEF_VECTEUR
 #include <math.h>
 #include <iostream>
+#include <vector>
 
-class Vecteur3D {
+class Vecteur3D {  
 
 public:
 
@@ -21,7 +22,7 @@ public:
 	Vecteur3D diviser(double value) const;
 	bool estEgal(Vecteur3D const& vecteur) const;
 
-	void afficher(ostream &flux) const;
+	void afficher(std::ostream& flux) const;
 
 	Vecteur3D& operator+=(Vecteur3D const& vecteur);
 	Vecteur3D& operator-=(Vecteur3D const& vecteur);
@@ -37,7 +38,7 @@ private:
 };
 
 //SOMME TABLEAU VECTEURS ###
-Vecteur3D sommeForces(vector<Vecteur3D> const& tablForces)
+Vecteur3D& sommeVecteurs(vector<Vecteur3D> const& tablForces);
 
 //OPERATEURS ###
 Vecteur3D operator*(double value,Vecteur3D const& vecteur);

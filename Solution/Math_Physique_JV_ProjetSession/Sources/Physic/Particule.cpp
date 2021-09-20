@@ -1,4 +1,4 @@
-#include "Headers/Particule.h"
+#include "Particule.h"
 #include <iostream>
 #include <string>
 #include <cmath>
@@ -37,6 +37,11 @@ void Particule::setInverseMasse(double value) {
 
 void Particule::setMasse(double value){
 	masse = value;
+}
+
+Vecteur3D Particule::getPosition() 
+{
+	return position;
 }
 
 Vecteur3D& Particule::miseAJourVecteur(Vecteur3D const& vecteurAIntegrer, double temps, Vecteur3D const& constanteIntegration){
