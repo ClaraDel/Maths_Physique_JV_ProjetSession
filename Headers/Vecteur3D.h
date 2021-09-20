@@ -36,6 +36,7 @@ private:
 
 };
 
+double& sommeForces(vector<Vecteur3D> const& forces)
 Vecteur3D operator*(double value,Vecteur3D const& vecteur);
 Vecteur3D operator/(double value,Vecteur3D const& vecteur);
 Vecteur3D operator+(Vecteur3D const& vecteur1,Vecteur3D const& vecteur2);

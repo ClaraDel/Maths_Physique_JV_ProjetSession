@@ -49,6 +49,7 @@ void Particule::ajoutForce(Vecteur3D forceAjout) {
 }
 
 void Particule::calculAcceleration() {
+	acceleration = inverseMasse * 
 	//forces
 	//A FAIRE
 }

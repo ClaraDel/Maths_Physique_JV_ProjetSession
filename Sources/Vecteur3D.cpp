@@ -126,30 +126,34 @@ Vecteur3D& Vecteur3D::operator/=(double value)
 	return *this;
 }
 
+//somme de forces physiques ###
+double& sommeForces(vector<Vecteur3D> const& forces) {
+	// a faire
+}
 
 //OPERATEURS ######
-Vecteur3D Vecteur3D::operator+(Vecteur3D const& a,Vecteur3D const& b)
+Vecteur3D operator+(Vecteur3D const& a,Vecteur3D const& b)
 {
 	Vecteur3D resultat;
 	resultat = a.addition(b);
 	return resultat;
 }
 
-Vecteur3D Vecteur3D::operator-(Vecteur3D const& a,Vecteur3D const& b)
+Vecteur3D operator-(Vecteur3D const& a,Vecteur3D const& b)
 {
 	Vecteur3D resultat;
 	resutlat = a.soustraire(b);
 	return resultat;
 }
 
-Vecteur3D Vecteur3D::operator*(double value,Vecteur3D const& b)
+Vecteur3D operator*(double value,Vecteur3D const& b)
 {
 	Vecteur3D resultat;
 	resutlat = a.multiplier(value);
 	return resultat;
 }
 
-Vecteur3D Vecteur3D::operator/(double value,Vecteur3D const& b)
+Vecteur3D operator/(double value,Vecteur3D const& b)
 {
 	Vecteur3D resultat;
 	resutlat = a.diviser(value);
@@ -169,6 +173,7 @@ bool operator!=(Vecteur3D const& a,Vecteur3D const& b)
 		return true;
 }
 
+//afficher un message ###
 std::ostream& operator<< (std::ostream& flux, Vecteur3D const& vecteur)
 {
 	vecteur.afficher(flux);
