@@ -24,7 +24,9 @@ int main() {
 			cout << "Which game do you choose ? " << endl;
 			int nbGameChosen;
 			cin >> nbGameChosen;
-			gameChosen = true;
+			if (nbGameChosen <= games.size() && nbGameChosen > 0) {
+				gameChosen = true;
+			}
 		}
 		//on lance le jeu qui correspond avec un switch
 		//l'utilisateur ferme le jeu

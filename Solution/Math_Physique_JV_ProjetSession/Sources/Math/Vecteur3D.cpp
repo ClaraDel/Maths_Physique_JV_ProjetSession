@@ -11,102 +11,102 @@ Vecteur3D::Vecteur3D():x(0.0),y(0.0),z(0.0){}
 Vecteur3D::Vecteur3D(double x1,double y1,double z1):x(x1),y(y1),z(z1){}
 
  
-double Vecteur3D::norme() const 
+double Vecteur3D::norm() const 
 {
 	double n(0.0);
 	n = sqrt((pow(x,2)+pow(y,2)+pow(z,2)));
 	return n;
 }
 
-Vecteur3D Vecteur3D::normalisation() const
+Vecteur3D Vecteur3D::normalization() const
 {
-	double n(this->norme());
+	double n(this->norm());
 	Vecteur3D resultat(x,y,z);
 	resultat /= n;
 	return resultat;
 }
 
-void Vecteur3D::baseOrthogonal(Vecteur3D  a, Vecteur3D b, Vecteur3D c)
+void Vecteur3D::orthogonalBase(Vecteur3D  a, Vecteur3D b, Vecteur3D c)
 {
-	a = a.normalisation();
-	c = a.produitVectoriel(b);
+	a = a.normalization();
+	c = a.vectorProduct(b);
 	if (c != Vecteur3D(0, 0, 0))
 	{
-		c = c.normalisation();
-		b = c.produitVectoriel(a);
+		c = c.normalization();
+		b = c.vectorProduct(a);
 	}
 	else
 		return;
 
 }
 
-Vecteur3D Vecteur3D::produitVectoriel(Vecteur3D const& vecteur) const
+Vecteur3D Vecteur3D::vectorProduct(Vecteur3D const& vector) const
 {
 	Vecteur3D resultat(0,0,0);
-	resultat.x = y*vecteur.z - z *vecteur.y;
-	resultat.y = z * vecteur.x - x * vecteur.z;
-	resultat.z = x*vecteur.y - y*vecteur.x;
+	resultat.x = y*vector.z - z *vector.y;
+	resultat.y = z * vector.x - x * vector.z;
+	resultat.z = x*vector.y - y*vector.x;
 	return resultat;
 }
-double Vecteur3D::produitScalaire(Vecteur3D const& vecteur) const
+double Vecteur3D::scalarProduct(Vecteur3D const& vector) const
 {
 	double ps(0.0);
-	ps = x*vecteur.x + y*vecteur.y +z*vecteur.z;
+	ps = x*vector.x + y*vector.y +z*vector.z;
 	return ps;
 }
 
-Vecteur3D Vecteur3D::additioner(Vecteur3D const& vecteur) const{
-	Vecteur3D resultat(x + vecteur.x, y + vecteur.y, z + vecteur.z);
+Vecteur3D Vecteur3D::add(Vecteur3D const& vector) const{
+	Vecteur3D resultat(x + vector.x, y + vector.y, z + vector.z);
 	return resultat;
 }
 
-Vecteur3D Vecteur3D::soustraire(Vecteur3D const& vecteur) const{
-	Vecteur3D resultat(x - vecteur.x, y - vecteur.y, z - vecteur.z);
+Vecteur3D Vecteur3D::substract(Vecteur3D const& vector) const{
+	Vecteur3D resultat(x - vector.x, y - vector.y, z - vector.z);
 	return resultat;
 }
 
-Vecteur3D Vecteur3D::multiplier(double value) const{
+Vecteur3D Vecteur3D::multiply(double value) const{
 	Vecteur3D resultat(x*value, y*value, z*value);
 	return resultat;
 }
 
-Vecteur3D Vecteur3D::diviser(double value) const{
+Vecteur3D Vecteur3D::divide(double value) const{
 	if(value != 0.0) {
-		Vecteur3D resultat(x/value, y/value, z/value);
-		return resultat;
+		Vecteur3D result(x/value, y/value, z/value);
+		return result;
 	} else {
 		cout << "Impossible de diviser par 0";
 		return *this;
 	}
 }
 
-bool Vecteur3D::estEgal(Vecteur3D const& vecteur) const
+bool Vecteur3D::isEqual(Vecteur3D const& vector) const
 {
-	if ( x == vecteur.x  && y == vecteur.y && z == vecteur.z) {
+	if ( x == vector.x  && y == vector.y && z == vector.z) {
 		return true;
 	} else {
 		return false;
 	}
 }
 
-void Vecteur3D::afficher(ostream& flux) const
+void Vecteur3D::print(ostream& flux) const
 {
 	flux << "(" << x << "," << y << "," << z << ")";
 }
 
-Vecteur3D& Vecteur3D::operator+=(Vecteur3D const& vecteur)
+Vecteur3D& Vecteur3D::operator+=(Vecteur3D const& vector)
 {
-	x += vecteur.x;
-	y += vecteur.y;
-	z += vecteur.z;
+	x += vector.x;
+	y += vector.y;
+	z += vector.z;
 	return *this;
 }
 
-Vecteur3D& Vecteur3D::operator-=(Vecteur3D const& vecteur)
+Vecteur3D& Vecteur3D::operator-=(Vecteur3D const& vector)
 {
-	x -= vecteur.x;
-	y -= vecteur.y;
-	z -= vecteur.z;
+	x -= vector.x;
+	y -= vector.y;
+	z -= vector.z;
 	return *this;
 }
 
@@ -126,47 +126,58 @@ Vecteur3D& Vecteur3D::operator/=(double value)
 	return *this;
 }
 
-//somme de forces physiques ###
-Vecteur3D& sommeVecteurs(vector<Vecteur3D> const& tablForces) {
-	Vecteur3D somme;
-	for (int i(0); i < tablForces.size(); i++) {
-		somme += tablForces[i];
+	double Vecteur3D::getX() const {
+		return x;
 	}
-	return &somme;
+	double Vecteur3D::getY() const {
+		return y;
+	}
+
+	double Vecteur3D::getZ() const {
+		return z;
+	}
+
+//somme de forces physiques ###
+Vecteur3D sumVectors(vector<Vecteur3D> const& tablForces) {
+	Vecteur3D sum;
+	for (int i(0); i < tablForces.size(); i++) {
+		sum += tablForces[i];
+	}
+	return sum;
 }
 
 //OPERATEURS ######
 Vecteur3D operator+(Vecteur3D const& a,Vecteur3D const& b)
 {
-	Vecteur3D resultat;
-	resultat = a.additioner(b);
-	return resultat;
+	Vecteur3D result;
+	result = a.add(b);
+	return result;
 }
 
 Vecteur3D operator-(Vecteur3D const& a,Vecteur3D const& b)
 {
-	Vecteur3D resultat;
-	resultat = a.soustraire(b);
-	return resultat;
+	Vecteur3D result;
+	result = a.substract(b);
+	return result;
 }
 
 Vecteur3D operator*(double value, Vecteur3D const& a)
 {
-	Vecteur3D resultat;
-	resultat = a.multiplier(value);
-	return resultat;
+	Vecteur3D result;
+	result = a.multiply(value);
+	return result;
 }
 
 Vecteur3D operator/(double value,Vecteur3D const& a)
 {
-	Vecteur3D resultat;
-	resultat = a.diviser(value);
-	return resultat;
+	Vecteur3D result;
+	result = a.divide(value);
+	return result;
 }
 
 bool operator==(Vecteur3D const& a,Vecteur3D const& b)
 {
-	return a.estEgal(b);
+	return a.isEqual(b);
 }
 
 bool operator!=(Vecteur3D const& a,Vecteur3D const& b)
@@ -180,6 +191,6 @@ bool operator!=(Vecteur3D const& a,Vecteur3D const& b)
 //afficher un message ###
 std::ostream& operator<< (std::ostream& flux, Vecteur3D const& vecteur)
 {
-	vecteur.afficher(flux);
+	vecteur.print(flux);
 	return flux;
 }

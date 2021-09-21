@@ -12,8 +12,9 @@ Particule::Particule(double m, Vecteur3D pos, Vecteur3D vit, double d){
 	positionInitiale = pos;
 	velocity = vit;
 	initialVelocity = vit;
-	acceleration = Vecteur3D acc();
-	dampling = d;
+	acceleration = Vecteur3D();
+	damping = d;
+	vector<Vecteur3D> tablForces;
 	
 	if(m!=0){
 		inverseMasse = 1/m;
@@ -25,6 +26,10 @@ Particule::Particule(double m, Vecteur3D pos, Vecteur3D vit, double d){
 Particule::~Particule()
 {
 
+}
+
+vector<Vecteur3D> Particule::getTablForces()  {
+	return tablForces;
 }
 
 double Particule::getInverseMasse() const{
@@ -39,31 +44,41 @@ void Particule::setMasse(double value){
 	masse = value;
 }
 
-Vecteur3D Particule::getPosition() 
-{
+Vecteur3D Particule::getPosition() {
 	return position;
 }
-
-Vecteur3D& Particule::miseAJourVecteur(Vecteur3D const& vecteurAIntegrer, double temps, Vecteur3D const& constanteIntegration){
-	constanteIntegration = vecteurAIntegrer * temps + constanteIntegration;
-	return constanteIntegration;
+void Particule::setPosition(Vecteur3D const& p) {
+	position = p;
 }
-void Particule::integrate(double temps) {
+void Particule::setPosition(double const x, double const y, double const z) {
+	position = Vecteur3D(x, y, z);
+
+}
+void Particule::setAcceleration(double const x, double const y, double const z) {
+	acceleration = Vecteur3D(x, y, z);
+}
+
+void Particule::setVelocity(double const x, double const y, double const z) {
+	velocity = Vecteur3D(x, y, z);
+}
+
+void Particule::updateVector(Vecteur3D const& integrateVector, double deltaTime, Vecteur3D& vector){
+	vector += deltaTime * integrateVector ;
+}
+void Particule::integrate(double deltaTime) {
 	//acceleration constante en fonction du temps
-	if (temps > 0) {
-		position = miseAjourVecteur(vitesse, temps, position);
-		calculAcceleration();
-		vitesse = miseAJourVecteur(acceleration, temps, vitesse);
-		vitesse *= pow(damping, temps);
-		
-		/*vitesse = acceleration * temps * inverseMasse + vitesseInitiale;
-		position = 0.5 * pow(temps,2) * acceleration * inverseMasse + vitesseInitiale * temps + positionInitiale;*/
+	if (deltaTime > 0) {
+		updateVector(velocity, deltaTime, position);
+		accelerationCalcul();
+		updateVector(acceleration, deltaTime, velocity);
+		velocity *= pow(damping, deltaTime);
 	}
-
-void Particule::ajoutForce(Vecteur3D forceAjout) {
-	tablForces.push_back(forceAjout);
 }
 
-void Particule::calculAcceleration() {
-	acceleration = inverseMasse * sommeVecteurs(tablForces) ;
+void Particule::addForce(Vecteur3D forceToAdd) {
+	tablForces.push_back(forceToAdd);
+}
+
+void Particule::accelerationCalcul() {
+	acceleration = inverseMasse * sumVectors(tablForces) ;
 }

@@ -30,25 +30,34 @@
     <ClCompile Include="main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\Games\Game.cpp">
-      <Filter>Fichiers sources\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Sources\Math\Vecteur3D.cpp">
       <Filter>Fichiers sources\Math</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Physic\Particule.cpp">
       <Filter>Fichiers sources\Physic</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\Games\Game1.cpp">
+      <Filter>Fichiers sources\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI1.cpp">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Games\GameBase.cpp">
+      <Filter>Fichiers sources\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Sources\Games\Game.h">
-      <Filter>Fichiers sources\Game</Filter>
-    </ClInclude>
     <ClInclude Include="Sources\Math\Vecteur3D.h">
       <Filter>Fichiers sources\Math</Filter>
     </ClInclude>
     <ClInclude Include="Sources\Physic\Particule.h">
       <Filter>Fichiers sources\Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Games\Game1.h">
+      <Filter>Fichiers sources\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Games\GameBase.h">
+      <Filter>Fichiers sources\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

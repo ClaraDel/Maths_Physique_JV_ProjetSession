@@ -11,18 +11,22 @@ public:
 	Vecteur3D();
 	Vecteur3D(double x1,double y1,double z1);
 
-	double norme() const;
-	Vecteur3D normalisation() const;
-	void baseOrthogonal(Vecteur3D  a, Vecteur3D  b, Vecteur3D c);
-	Vecteur3D produitVectoriel(Vecteur3D const& vecteur) const;
-	double produitScalaire(Vecteur3D const& vecteur) const;
-	Vecteur3D additioner(Vecteur3D const& vecteur) const;
-	Vecteur3D soustraire(Vecteur3D const& vecteur) const;
-	Vecteur3D multiplier(double value) const;
-	Vecteur3D diviser(double value) const;
-	bool estEgal(Vecteur3D const& vecteur) const;
+	double norm() const;
+	Vecteur3D normalization() const;
+	void orthogonalBase(Vecteur3D  a, Vecteur3D  b, Vecteur3D c);
+	Vecteur3D vectorProduct(Vecteur3D const& vecteur) const;
+	double scalarProduct(Vecteur3D const& vecteur) const;
+	Vecteur3D add(Vecteur3D const& vecteur) const;
+	Vecteur3D substract(Vecteur3D const& vecteur) const;
+	Vecteur3D multiply(double value) const;
+	Vecteur3D divide(double value) const;
+	bool isEqual(Vecteur3D const& vecteur) const;
 
-	void afficher(std::ostream& flux) const;
+	void print(std::ostream& flux) const;
+
+	double getX() const;
+	double getY() const;
+	double getZ() const;
 
 	Vecteur3D& operator+=(Vecteur3D const& vecteur);
 	Vecteur3D& operator-=(Vecteur3D const& vecteur);
@@ -38,7 +42,7 @@ private:
 };
 
 //SOMME TABLEAU VECTEURS ###
-Vecteur3D& sommeVecteurs(vector<Vecteur3D> const& tablForces);
+Vecteur3D sumVectors(std::vector<Vecteur3D> const& tablForces);
 
 //OPERATEURS ###
 Vecteur3D operator*(double value,Vecteur3D const& vecteur);
