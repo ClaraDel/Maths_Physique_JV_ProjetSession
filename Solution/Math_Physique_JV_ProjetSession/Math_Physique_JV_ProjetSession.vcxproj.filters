@@ -22,9 +22,6 @@
     <Filter Include="Fichiers sources\Game">
       <UniqueIdentifier>{5bc3de49-84f3-4988-ace4-5fa867c6c9f2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\GUI">
-      <UniqueIdentifier>{39cc2bd3-fb2a-4b28-802b-20ffefaa4fcd}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -38,9 +35,6 @@
     </ClCompile>
     <ClCompile Include="Sources\Games\Game1.cpp">
       <Filter>Fichiers sources\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI1.cpp">
-      <Filter>Fichiers sources\GUI</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Games\GameBase.cpp">
       <Filter>Fichiers sources\Game</Filter>

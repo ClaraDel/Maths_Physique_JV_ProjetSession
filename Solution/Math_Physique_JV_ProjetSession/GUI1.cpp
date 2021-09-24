@@ -29,7 +29,7 @@ double angle = 3.14;
 // actual vector representing the camera's direction
 double camX = 0.0, camZ = 1.0;
 
-Particule TableauParticule[20];
+Particule tableauParticule[20];
 
 
 void display() {
@@ -40,9 +40,10 @@ void display() {
 	glRotatef(beta, 1, 0, 0);
 
 
-	for (Particule* particule = TableauParticule; particule < TableauParticule + 20; particule++) {
-		updatePhysics(particule);
-		drawParticule(particule);
+	for (Particule* particule = tableauParticule; particule < tableauParticule + 20; particule++) {
+		//calcul temps
+		//updatePhysics(particule);
+		//drawParticule(particule);
 		
 	}
 		
@@ -73,14 +74,11 @@ void updatePhysics(Particule* particule) {
 	glutPostRedisplay();
 }
 
-void updateOutput() {
-//dessiner la particule sous sa nouvelle position
-}
 
 void  launchParticule() {
 
 	//faire un switch 
-	Particule* pointeurTableau = TableauParticule;
+	Particule* pointeurTableau = tableauParticule;
 	pointeurTableau->setMasse(10);
 	pointeurTableau->setVelocity(0, 0, 50);
 	pointeurTableau->setAcceleration(0, -2, 0);
@@ -174,3 +172,4 @@ int launch(int argc, char* argv[]) //ça dans GameBase et les fct different class
 	return EXIT_SUCCESS;
 	
 }
+
