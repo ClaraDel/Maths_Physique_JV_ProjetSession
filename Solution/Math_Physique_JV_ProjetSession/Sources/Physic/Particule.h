@@ -37,6 +37,7 @@ class Particule
 	void setVelocity(double const x, double const y, double const z);
 	
 	void setMasse(double value);
+    void setDamping(double d);
 
     //APPLICATION LOIS PHYSIQUES
     void updateVector(Vecteur3D const& vecteurAIntegrer, double temps, Vecteur3D& constanteIntegration);

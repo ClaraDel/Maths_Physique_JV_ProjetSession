@@ -14,15 +14,22 @@ static double lastTime = 0;
 
 #define SPEED 0.1 //OpenGL unit
 #define ANG_SPEED 0.5 //degrees
+using namespace std;
+
 
 // Global variables  
 //cam position
 double X = 0.0;
-double Z = -5.0;
+double Z = 5.0;
+
 
 //cam direction
-double alpha = 0; // camera along y axis
 double beta = 0; //camera along z axis
+double angle = 3.14;
+// actual vector representing the camera's direction
+double camX = 0.0, camZ = 1.0;
+
+
 
 struct Object {
 	Particule particule;
@@ -32,7 +39,7 @@ struct Object {
 		Vecteur3D position;
 		position = particule.getPosition();
 
-		glColor3f(1, 1, 1); // black 
+		glColor3f(0, 0, 0); // black 
 		glPushMatrix();
 		glTranslatef(position.getX(), position.getY(), position.getZ()); // put the object at his position
 		glutSolidSphere(0.3, 10, 10); // object is a sphere 
@@ -41,52 +48,102 @@ struct Object {
 	}
 };
 
-Object tableauObjet[20];
-
-void DrawPlan()
-{
-
-	glColor3f(0, 1, 0);//green
-	glBegin(GL_QUADS); // set the plan 
-	glVertex3f(-100.0, 0.0, -100.0); 
-	glVertex3f(-100.0, 0.0, 100.0);
-	glVertex3f(100.0, 0.0, 100.0);
-	glVertex3f(100.0, 0.0, -100.0);
-	glEnd();
-
-}
+Object tableauObject[20];
 
 
-void display()
-{
-	
+void display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
-	gluLookAt(X, 1.0, Z, X  , 1.0, Z + 1, 0.0, 1.0, 0.0);	//Place the camera
-	glRotatef(beta, 1, 0, 0);          // rotate around x
-	glRotatef(alpha, 0, 1, 0);          // rotate around Z
 
-	DrawPlan(); 
-	for (Object* objet = tableauObjet; objet < tableauObjet + 20; objet++) {
+	gluLookAt(X, 1.0f, Z, X + camX, 1.0f, Z + camZ, 0.0f, 1.0f, 0.0f);
+	glRotatef(beta, 1, 0, 0);
 
-		objet->DrawParticule();
+	for (Object* object = tableauObject; object < tableauObject + 20; object++) {
+		object->DrawParticule();
+		
 	}
+
 	glutSwapBuffers();
 
-	//glEnable(GL_DEPTH_TEST);
-	double deltaTime = updateTime(lastTime);
-	updateInput();
-	updatePhysics(deltaTime);
-	updateOutput();
+	glClearColor(0.9f, 0.95f, 1.0f, 1.0f);
+	glEnable(GL_DEPTH_TEST);
+
 }
 
 double updateTime(double lastTime) {
 	//UPDATE le temps 
-	
 	lastTime = currentTime;
 	currentTime = glutGet(GLUT_ELAPSED_TIME); //getTime();
 	double detaTime = (currentTime - lastTime);
 	return detaTime;
+}
+
+
+
+void updatePhysics() {
+	float duration = (float)30 * 0.001;
+	if (duration <= 0.0f) return;
+
+	for (Object* object = tableauObject; object < tableauObject + 20; object++) {
+			object->particule.integrate(duration);
+	}
+	glutPostRedisplay();
+}
+
+void updateOutput() {
+//dessiner la particule sous sa nouvelle position
+}
+
+
+
+void launchParticule() {
+
+	Object* object;
+	
+	object->particule.setMasse(10);
+	object->particule.setPosition(X, 0.75, Z);
+	object->particule.setVelocity(0, 0, 50);
+	object->particule.setAcceleration(0, -2, 0);
+	object->particule.setDamping(1);
+	
+
+}
+
+void keyboard(unsigned char key, int x, int y) {
+
+	switch (key) {
+	case 32: //  barre espace
+		launchParticule();
+		break;
+	case 'esc':
+	case 27: 
+		exit(EXIT_SUCCESS);
+	default:
+		break;
+	}
+}
+
+void arrows(int key, int xx, int yy) {
+	switch (key) {
+	case GLUT_KEY_UP:
+		beta += ANG_SPEED;
+		break;
+	case GLUT_KEY_DOWN:
+		beta -= ANG_SPEED;
+		break;
+	case GLUT_KEY_LEFT:
+		angle -= (2 / ANG_SPEED) * (0.01f);
+		camX = sin(angle);
+		camZ = -cos(angle);
+		break;
+	case GLUT_KEY_RIGHT:
+		angle += (2 / ANG_SPEED) * 0.01f;
+		camX = sin(angle);
+		camZ = -cos(angle);
+		break;
+	default:
+		break;
+	}
 }
 
 void updateInput() {
@@ -94,98 +151,27 @@ void updateInput() {
 	glutSpecialFunc(arrows);
 }
 
-void updatePhysics(double deltaTime) {
-	//appeler la méthode integrate de la particule qui met à jour les vecteurs
-	for (Object* objet = tableauObjet; objet < tableauObjet + 20; objet++) {
-		objet->particule.integrate(deltaTime);
-	}
-}
-
-void updateOutput() {
-//dessiner la particule sous sa nouvelle position
-}
-
-void keyboard(unsigned char key, int x, int y)
-{
-	switch (key)
-	{
-	case 'esc':
-	case 27:
-		exit(0);
-		break;
-	case 'a':
-		Object* objet;
-		objet = new Object();
-		objet->particule.setMasse(20.0);
-		objet->particule.setAcceleration(0, -2, 0);
-		objet->particule.setVelocity(0, 0, 20);
-		objet->particule.setPosition(X, 0.75, Z);
-		break;
-	default:
-		break;
-	}
-	
-	glutPostRedisplay();
-}
-
-void arrows(int key, int x, int y)
-{
-	
-	switch (key)
-	{
-	case GLUT_KEY_LEFT:
-		alpha = alpha + ANG_SPEED;
-		break;
-	case GLUT_KEY_RIGHT:
-		alpha = alpha - ANG_SPEED;
-		break;
-	case GLUT_KEY_UP:
-		beta = beta + ANG_SPEED;
-		break;
-	case GLUT_KEY_DOWN:
-		beta = beta - ANG_SPEED;
-		break;
-	default:
-		break;
-	}
-	glutPostRedisplay();
-}
-
-void reshape(int width, int height)
-{
+void reshape(int width, int height) {
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
 	glViewport(0, 0, width, height);
-	if (width < height)
-		glViewport(0, (height - width) / 2, width, width);
-	else
-		glViewport((width - height) / 2, 0, height, height);
+	gluPerspective(45.0, width * 1.0 / height, 0.1, 100.0);
+	glMatrixMode(GL_MODELVIEW);
 }
 
-int launch(int argc, char* argv[])
+int launchGame(int argc, char* argv[])
 {
 	glutInit(&argc, argv);
 
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-	glutInitWindowSize(1280, 720);
 	glutInitWindowPosition(100, 100);
+	glutInitWindowSize(1280, 720);
 	glutCreateWindow(argv[0]);
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glLoadIdentity();
-	gluLookAt(X, 1.0, Z, X, 1.0, Z + 1, 0.0, 1.0, 0.0);	//Place the camera
-	glRotatef(beta, 1, 0, 0);          // rotate around x
-	glRotatef(alpha, 0, 1, 0);          // rotate around Z
-
-	glutReshapeFunc(reshape);
 	glutDisplayFunc(display);
-	
-	
-
-	// define the projection transformation
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluPerspective(60, 1, 1, 10);
-	// define the viewing transformation
-	glMatrixMode(GL_MODELVIEW);
+	glutReshapeFunc(reshape);
+	glutIdleFunc(updateInput);
+	glutIdleFunc(updatePhysics);
 
 	glutMainLoop();
 	return EXIT_SUCCESS;

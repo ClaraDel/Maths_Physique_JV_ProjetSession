@@ -42,6 +42,13 @@ void Particule::setInverseMasse(double value) {
 
 void Particule::setMasse(double value){
 	masse = value;
+	if (value!= 0) {
+		inverseMasse = 1 / value;
+	}
+	else {
+		inverseMasse = 0;
+		cout << "Masse de la particule nulle";
+	}
 }
 
 Vecteur3D Particule::getPosition() {
@@ -60,6 +67,10 @@ void Particule::setAcceleration(double const x, double const y, double const z) 
 
 void Particule::setVelocity(double const x, double const y, double const z) {
 	velocity = Vecteur3D(x, y, z);
+}
+
+void Particule::setDamping(double d){
+	damping = d;
 }
 
 void Particule::updateVector(Vecteur3D const& integrateVector, double deltaTime, Vecteur3D& vector){
