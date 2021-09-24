@@ -6,6 +6,8 @@
 
 using namespace std;
 
+Vecteur3D gravity(0, -10, 0);
+
 Particule::Particule(double m, Vecteur3D pos, Vecteur3D vit, double d){
 	masse = m;
 	position = pos;
@@ -15,6 +17,7 @@ Particule::Particule(double m, Vecteur3D pos, Vecteur3D vit, double d){
 	acceleration = Vecteur3D();
 	damping = d;
 	vector<Vecteur3D> tablForces;
+	tablForces.push_back(gravity);
 	
 	if(m!=0){
 		inverseMasse = 1/m;

@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
 #include "GameBase.h"
+#include <windows.h>
+#include <gl/glut.h>
+#include <ctime>
 
 using namespace std;
 

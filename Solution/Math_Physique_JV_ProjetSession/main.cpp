@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "Sources/Games/Game.h"
+#include "Sources/Games/GameBase.h"
+#include "Sources/Games/Game1.h"
 
 using namespace std;  
 
@@ -9,9 +10,9 @@ using namespace std;
 
 int main() {
 
-	vector<Game> games(1);
-	Game game1("Phase 1", "Launching some projectiles");
-	games[0] = game1;
+	vector<GameBase> games;
+	Game1 game1("Phase 1", "Launching some projectiles");
+	games.push_back(game1);
 
 	bool gameRunning = true;
 
