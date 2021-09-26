@@ -1,6 +1,7 @@
 #include <iostream>
 #include <windows.h>
-#include <gl/glut.h>
+#include<GL/glew.h>
+#include<GL/freeglut.h>
 #include <string>
 #include "Game1.h"
 #include <ctime>
@@ -9,12 +10,12 @@
 using namespace std;
 
 
-Game1::Game1(string nameGame, string descriptionGame) : GameBase(nameGame, descriptionGame)
+Game1::Game1(string nameGame, string descriptionGame) : GameBase(name, description)
 {
 
 }
 
-void keyboard(unsigned char key, int x, int y) {
+void Game1::keyboard2(unsigned char key, int x, int y) {
 
 	switch (key) {
 	case 32: //  barre espace
@@ -59,7 +60,7 @@ void Game1::updatePhysics(Particule* particule) {
 	glutPostRedisplay();
 }
 
-void display() {
+void Game1::display2() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
@@ -78,8 +79,16 @@ void display() {
 	glEnable(GL_DEPTH_TEST);
 }
 
-int Game1::launch()
+
+
+int Game1::launch(int argc, char* argv[])
 {
+
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+	glutInitWindowPosition(100, 100);
+	glutInitWindowSize(1280, 720);
+	glutCreateWindow("Game");
 
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);

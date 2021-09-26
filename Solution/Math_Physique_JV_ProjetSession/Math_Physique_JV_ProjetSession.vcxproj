@@ -88,11 +88,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\hello\Documents\GitHub\Maths_Physique_JV_ProjetSession\Solution\Math_Physique_JV_ProjetSession\library\glew-1.11.0\include;C:\Users\hello\Documents\GitHub\Maths_Physique_JV_ProjetSession\Solution\Math_Physique_JV_ProjetSession\library\freeglut\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>freeglut.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\hello\Documents\GitHub\Maths_Physique_JV_ProjetSession\Solution\Math_Physique_JV_ProjetSession\library\glew-1.11.0\lib;C:\Users\hello\Documents\GitHub\Maths_Physique_JV_ProjetSession\Solution\Math_Physique_JV_ProjetSession\library\freeglut\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

@@ -1,7 +1,8 @@
 #pragma comment (lib, "Winmm.lib")
 
 #include <iostream>
-#include<gl/glut.h>
+#include<GL/glew.h>
+#include<GL/freeglut.h>
 #include <string>
 #include <vector>
 #include "Sources/Games/GameBase.h"
@@ -14,13 +15,7 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
 
-	glutInit(&argc, argv);
-
-	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-	glutInitWindowPosition(100, 100);
-	glutInitWindowSize(1280, 720);
-	glutCreateWindow(argv[0]);
-
+	
 
 	vector<GameBase> games;
 	Game1 game1("Phase 1", "Launching some projectiles");
@@ -42,7 +37,7 @@ int main(int argc, char* argv[]) {
 			}
 		}
 		//on lance le jeu qui correspond
-		games[nbGameChosen - 1].launch();
+		games[nbGameChosen - 1].launch(argc,  argv);
 		if (glutGet(GLUT_WINDOW_FORMAT_ID) == 0) {
 			//l'utilisateur ferme le jeu
 			cout << "Do you want to quit ? Yes : 1, No : 0" << endl;
