@@ -16,7 +16,7 @@ class Particule
     Vecteur3D velocity;
     Vecteur3D acceleration;
     Vecteur3D rvbColor;
-    Vecteur3D sphereSize;
+    Vecteur3D formSize;
     std::vector<Vecteur3D> tablForces;
 
     public:
@@ -31,7 +31,7 @@ class Particule
 
 	Vecteur3D getPosition();
     Vecteur3D getRVBColor() const;
-    Vecteur3D getSphereSize() const;
+    Vecteur3D getFormSize() const;
     Vecteur3D getAcceleration();
 	void setPosition(Vecteur3D const& position);
 	void setPosition(double const x, double const y, double const z);

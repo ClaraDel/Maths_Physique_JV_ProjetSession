@@ -5,15 +5,15 @@
 
 using namespace std;
 
-Particule::Particule(double m, Vecteur3D pos, Vecteur3D vit, double d, Vecteur3D rvbC, Vecteur3D sphereS){
+Particule::Particule(double m, Vecteur3D pos, Vecteur3D vit, double d, Vecteur3D rvbC, Vecteur3D form){
 	masse = m;
 	position = pos;
 	velocity = vit;
 	acceleration = Vecteur3D();
 	damping = d;
-	rvbColor = rvbC;
-	sphereSize = sphereS;
-	vector<Vecteur3D> tablForces;
+	rvbColor = rvbC; //Particule color 
+	formSize = form; //vector that contains information about particule's shape 
+	vector<Vecteur3D> tablForces; //set of forces applied
 	Vecteur3D gravity= Vecteur3D(0, - 10 * masse, 0);
 	addForce(gravity);
 	
@@ -44,8 +44,8 @@ Vecteur3D Particule::getAcceleration() {
 	return acceleration;
 }
 
-Vecteur3D Particule::getSphereSize() const {
-	return sphereSize;
+Vecteur3D Particule::getFormSize() const {
+	return formSize;
 }
 
 void Particule::setInverseMasse(double value) {
@@ -88,7 +88,6 @@ void Particule::updateVector(Vecteur3D const& integrateVector, double deltaTime,
 	vector += deltaTime * integrateVector ;
 }
 void Particule::integrate(double deltaTime) {
-	//acceleration constante en fonction du temps
 	if (deltaTime > 0) {
 		updateVector(velocity, deltaTime, position);
 		accelerationCalcul();
@@ -100,6 +99,8 @@ void Particule::integrate(double deltaTime) {
 void Particule::addForce(Vecteur3D forceToAdd) {
 	tablForces.push_back(forceToAdd);
 }
+
+//Application of Newton's law
 void Particule::accelerationCalcul() {
 	acceleration = inverseMasse * sumVectors(tablForces) ;
 }
