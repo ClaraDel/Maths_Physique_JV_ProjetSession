@@ -12,9 +12,9 @@ Particule::Particule(double m, Vecteur3D pos, Vecteur3D vit, double d, Vecteur3D
 	acceleration = Vecteur3D();
 	damping = d;
 	rvbColor = rvbC; //Particule color 
-	formSize = form; //vector that contains information about particule's shape 
+	formSize = form; //vector that contains information about particle's shape 
 	vector<Vecteur3D> tablForces; //set of forces applied
-	Vecteur3D gravity= Vecteur3D(0, - 10 * masse, 0);
+	Vecteur3D gravity= Vecteur3D(0, - 10 * masse, 0); //gravity is applied to all particles
 	addForce(gravity);
 	
 	if(m!=0){
@@ -84,18 +84,24 @@ void Particule::setDamping(double d){
 	damping = d;
 }
 
+//integrate the chosen vector and update its value
 void Particule::updateVector(Vecteur3D const& integrateVector, double deltaTime, Vecteur3D& vector){
 	vector += deltaTime * integrateVector ;
 }
+
+//update of particle's position, acceleration and then velocity
 void Particule::integrate(double deltaTime) {
 	if (deltaTime > 0) {
-		updateVector(velocity, deltaTime, position);
-		accelerationCalcul();
-		updateVector(acceleration, deltaTime, velocity);
-		velocity *= pow(damping, deltaTime);
+		updateVector(velocity, deltaTime, position); //calculates the new position
+		accelerationCalcul(); //calculates the new acceleration
+		updateVector(acceleration, deltaTime, velocity); //calculates the new velocity
+		//velocity *= pow(damping, deltaTime);
+		velocity *= damping;
 	}
 }
 
+
+//if we want to add some forces to our particle
 void Particule::addForce(Vecteur3D forceToAdd) {
 	tablForces.push_back(forceToAdd);
 }

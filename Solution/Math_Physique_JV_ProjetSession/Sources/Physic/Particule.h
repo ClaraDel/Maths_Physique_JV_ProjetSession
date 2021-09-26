@@ -42,7 +42,7 @@ class Particule
 	void setMasse(double value);
     void setDamping(double d);
 
-    //APPLICATION LOIS PHYSIQUES
+    //PHYSIC LAWS
     void updateVector(Vecteur3D const& vecteurAIntegrer, double temps, Vecteur3D& constanteIntegration);
     void integrate(double temps);
     void addForce(Vecteur3D forceAjout);
