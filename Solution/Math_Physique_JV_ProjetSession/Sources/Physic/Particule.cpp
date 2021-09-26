@@ -3,24 +3,24 @@
 #include <string>
 #include <cmath>
 
-
 using namespace std;
 
-Particule::Particule(double m, Vecteur3D pos, Vecteur3D vit, double d){
+Particule::Particule(double m, Vecteur3D pos, Vecteur3D vit, double d, Vecteur3D rvbC, Vecteur3D sphereS){
 	masse = m;
 	position = pos;
-	positionInitiale = pos;
 	velocity = vit;
-	initialVelocity = vit;
 	acceleration = Vecteur3D();
 	damping = d;
+	rvbColor = rvbC;
+	sphereSize = sphereS;
 	vector<Vecteur3D> tablForces;
+	Vecteur3D gravity= Vecteur3D(0, - 10 * masse, 0);
+	addForce(gravity);
 	
 	if(m!=0){
 		inverseMasse = 1/m;
 	} else {
 		inverseMasse = 0;
-		cout << "Masse de la particule nulle";
 	}
 }
 Particule::~Particule()
@@ -36,6 +36,18 @@ double Particule::getInverseMasse() const{
 	return inverseMasse;
 }
 
+Vecteur3D Particule::getRVBColor() const {
+	return rvbColor;
+}
+
+Vecteur3D Particule::getAcceleration() {
+	return acceleration;
+}
+
+Vecteur3D Particule::getSphereSize() const {
+	return sphereSize;
+}
+
 void Particule::setInverseMasse(double value) {
 	inverseMasse = value;
 }
@@ -47,7 +59,6 @@ void Particule::setMasse(double value){
 	}
 	else {
 		inverseMasse = 0;
-		cout << "Masse de la particule nulle";
 	}
 }
 
@@ -89,7 +100,6 @@ void Particule::integrate(double deltaTime) {
 void Particule::addForce(Vecteur3D forceToAdd) {
 	tablForces.push_back(forceToAdd);
 }
-
 void Particule::accelerationCalcul() {
 	acceleration = inverseMasse * sumVectors(tablForces) ;
 }
