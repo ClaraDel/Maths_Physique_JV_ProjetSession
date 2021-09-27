@@ -1,7 +1,6 @@
 #include <iostream>
 #include <windows.h>
-#include<GL/glew.h>
-#include<GL/freeglut.h>
+#include<GL/glut.h>
 #include <string>
 #include "GameBase.h"
 #include <ctime>
@@ -11,6 +10,8 @@ using namespace std;
 
 static double currentTime = 0;
 static double lastTime = 0;
+
+GameBase* GameBase::instanceGameBase = nullptr;
 
 GameBase::GameBase(){
 	name = "";
@@ -22,7 +23,7 @@ GameBase::GameBase(){
 	camX = 0.0;
 	camZ = 1.0;
 	ANG_SPEED = 0.5;
-	if (instanceGameBase != nullptr) {
+	if (instanceGameBase == nullptr) {
 		instanceGameBase = this;
 	}
 	else {
@@ -38,7 +39,7 @@ GameBase::GameBase(string nameGame, string descriptionGame):name(nameGame), desc
 	camX = 0.0;
 	camZ = 1.0;
 	ANG_SPEED = 0.5;
-	if (instanceGameBase != nullptr) {
+	if (instanceGameBase == nullptr) {
 		instanceGameBase = this;
 	}
 	else {

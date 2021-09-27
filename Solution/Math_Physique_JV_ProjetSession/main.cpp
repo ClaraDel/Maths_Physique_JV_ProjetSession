@@ -1,8 +1,7 @@
 #pragma comment (lib, "Winmm.lib")
 
 #include <iostream>
-#include<GL/glew.h>
-#include<GL/freeglut.h>
+#include<GL/glut.h>
 #include <string>
 #include <vector>
 #include "Sources/Games/GameBase.h"
@@ -16,10 +15,11 @@ using namespace std;
 int main(int argc, char* argv[]) {
 
 	
-
+	cout << "test0";
 	vector<GameBase> games;
 	Game1 game1("Phase 1", "Launching some projectiles");
 	games.push_back(game1);
+	games[0].launch(argc, argv);
 
 	bool gameRunning = true;
 

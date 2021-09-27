@@ -20,7 +20,7 @@ protected :
 	double camX;
 	double camZ;
 	double ANG_SPEED;
-	static GameBase* instanceGameBase;
+	static GameBase* instanceGameBase ;
 
 
 public :

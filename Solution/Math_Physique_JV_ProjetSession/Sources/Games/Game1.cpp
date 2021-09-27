@@ -1,7 +1,6 @@
 #include <iostream>
 #include <windows.h>
-#include<GL/glew.h>
-#include<GL/freeglut.h>
+#include<GL/glut.h>
 #include <string>
 #include "Game1.h"
 #include <ctime>
