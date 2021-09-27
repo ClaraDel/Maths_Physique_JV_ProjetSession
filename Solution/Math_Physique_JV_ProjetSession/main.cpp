@@ -51,8 +51,8 @@ int main(int argc, char* argv[]) {
 			}
 		}
 		//launching corresponding game
-		games[nbGameChosen - 1].launch(argc,  argv);
-		if (glutGet(GLUT_WINDOW_FORMAT_ID) == 0) {
+		int hasExit = games[nbGameChosen - 1].launch(argc,  argv);
+		if (hasExit == 0) {
 			//the user closes the game
 			cout << "Do you want to quit ? Yes : 1, No : 0" << endl;
 			int quit;

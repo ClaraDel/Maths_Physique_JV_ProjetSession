@@ -153,7 +153,7 @@ int GameBase::launch(int argc, char* argv[])
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(1280, 720);
-	glutCreateWindow("Launching some projectiles");
+	glutCreateWindow("Game");
 
 	//give to glut our function for display, reshape, keyboard input and arrows management
 	glutDisplayFunc(display);
