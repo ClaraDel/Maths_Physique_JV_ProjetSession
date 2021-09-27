@@ -11,15 +11,29 @@
 using namespace std;  
 #define GLUT_WINDOW_FORMAT_ID ((GLenum) 123)
 
+void initConsole() {
+	//allow a new console
+	AllocConsole();
+	FILE* fDummy;
+	//reopen the standard flux before using them
+	freopen_s(&fDummy, "CONOUT$", "w", stdout);
+	freopen_s(&fDummy, "CONOUT$", "w", stderr);
+	freopen_s(&fDummy, "CONIN$", "r", stdin);
+	std::cout.clear();
+	std::clog.clear();
+	std::cerr.clear();
+	std::cin.clear();
+}
 
 int main(int argc, char* argv[]) {
+	//so we can use the console
+	initConsole();
 
-	
-	cout << "test0";
+	//initialization of a game's table
 	vector<GameBase> games;
 	Game1 game1("Phase 1", "Launching some projectiles");
 	games.push_back(game1);
-	games[0].launch(argc, argv);
+	
 
 	bool gameRunning = true;
 
@@ -36,10 +50,10 @@ int main(int argc, char* argv[]) {
 				gameChosen = true;
 			}
 		}
-		//on lance le jeu qui correspond
+		//launching corresponding game
 		games[nbGameChosen - 1].launch(argc,  argv);
 		if (glutGet(GLUT_WINDOW_FORMAT_ID) == 0) {
-			//l'utilisateur ferme le jeu
+			//the user closes the game
 			cout << "Do you want to quit ? Yes : 1, No : 0" << endl;
 			int quit;
 			cin >> quit;

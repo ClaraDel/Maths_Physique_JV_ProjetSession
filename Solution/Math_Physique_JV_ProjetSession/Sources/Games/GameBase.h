@@ -10,15 +10,18 @@ class GameBase{
 protected :
 	std::string name;
 	std::string description;
-	//template < class T, class Alloc = allocator<T> > class list;
-	double X;
-	double Z;
-	//cam direction
+
+	// Global variables  
+	//cam position
+	double X, Z;
+
+	//cam position
 	double beta; //camera along z axis
 	double angle;
+
 	// actual vector representing the camera's direction
-	double camX;
-	double camZ;
+	double camX, camZ;
+
 	double ANG_SPEED;
 	static GameBase* instanceGameBase ;
 
@@ -30,21 +33,22 @@ public :
 	std::string getName();
 	std::string getDescription();
 	
-	double updateTime(double lastTime);
-	void updatePhysics(Particule* particule);
-	
-	void drawParticule(Particule* particule);
+	double updateTime();
+
+	void drawParticule(Particule particule);
 	virtual int launch(int argc, char* argv[]);
 
 	static void arrows(int key, int xx, int yy);
 	static void display();
 	static void keyboard(unsigned char key, int x, int y);
 	static void reshape(int width, int height);
+	static void updatePhysics();
 
 	virtual void arrows2(int key, int xx, int yy);
 	virtual void display2();
 	virtual void keyboard2(unsigned char key, int x, int y);
 	virtual void reshape2(int width, int height);
+	virtual void updatePhysics2();
 };
 	
 

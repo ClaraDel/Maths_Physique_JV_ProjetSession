@@ -8,14 +8,11 @@
 
 using namespace std;
 
-static double currentTime = 0;
-static double lastTime = 0;
-
 GameBase* GameBase::instanceGameBase = nullptr;
 
 GameBase::GameBase(){
-	name = "";
-	description = "";
+	name = "GameBase";
+	description = "Common game base with all games";
 	X = 0.0;
 	Z = 5.0;
 	beta = 0;
@@ -31,7 +28,9 @@ GameBase::GameBase(){
 	}
 }
 
-GameBase::GameBase(string nameGame, string descriptionGame):name(nameGame), description(descriptionGame){
+GameBase::GameBase(string nameGame, string descriptionGame){
+	name = nameGame;
+	description = descriptionGame;
 	X = 0.0;
 	Z = 5.0;
 	beta = 0;
@@ -59,7 +58,18 @@ string GameBase::getDescription() {
 	return description;
 }
 
-void GameBase::drawParticule(Particule* particule) { //gamebase et spécifier dans game1
+void GameBase::drawParticule(Particule particule) { 
+}
+
+double GameBase::updateTime() {
+	static double current_time = 0;
+	static double last_time = 0;
+
+	last_time = current_time;
+	current_time = glutGet(GLUT_ELAPSED_TIME);
+	//calculates the time spent between two frames 
+	double deltaTime = (current_time - last_time) * 0.001; 
+	return deltaTime;
 }
 
 
@@ -78,23 +88,12 @@ void GameBase::keyboard(unsigned char key, int x, int y) {
 	instanceGameBase -> keyboard2(key, x, y);
 }
 
-void GameBase::updatePhysics(Particule* particule) {
-	float duration = (float)30 * 0.001;
-	if (duration <= 0.0f) return;
-	particule->integrate(duration);
-
-	glutPostRedisplay();
+void GameBase::updatePhysics2() {
 }
 
 
-
-double GameBase::updateTime(double lastTime) {
-	//UPDATE le temps 
-	//A FAIRE MARCHER
-	lastTime = currentTime;
-	currentTime = glutGet(GLUT_ELAPSED_TIME); //getTime();
-	double detaTime = (currentTime - lastTime);
-	return detaTime;
+void GameBase::updatePhysics() {
+	instanceGameBase -> updatePhysics2();
 }
 
 void GameBase::display2() {
@@ -105,6 +104,7 @@ void GameBase::display() {
 	instanceGameBase -> display2();
 }
 
+//reshape the window
 void GameBase::reshape2(int width, int height) {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -117,6 +117,7 @@ void GameBase::reshape(int width, int height) {
 	instanceGameBase->reshape2(width, height);
 }
 
+//rotate the camera with directional keys
 void GameBase::arrows2(int key, int xx, int yy) {
 	switch (key) {
 	case GLUT_KEY_UP:
@@ -146,15 +147,19 @@ void GameBase::arrows(int key, int xx, int yy) {
 
 int GameBase::launch(int argc, char* argv[])
 {	
+	//initialization of glut
 	glutInit(&argc, argv);
+
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(1280, 720);
-	glutCreateWindow("Game");
+	glutCreateWindow("Launching some projectiles");
 
+	//give to glut our function for display, reshape, keyboard input and arrows management
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
 	glutKeyboardFunc(keyboard);
+	glutSpecialFunc(arrows);
 
 	glutMainLoop();
 	return EXIT_SUCCESS;

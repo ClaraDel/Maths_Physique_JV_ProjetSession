@@ -3,27 +3,24 @@
 #include <string>
 #include <cmath>
 
-
 using namespace std;
 
-Vecteur3D gravity(0, -10, 0);
-
-Particule::Particule(double m, Vecteur3D pos, Vecteur3D vit, double d){
+Particule::Particule(double m, Vecteur3D pos, Vecteur3D vit, double d, Vecteur3D rvbC, Vecteur3D form){
 	masse = m;
 	position = pos;
-	positionInitiale = pos;
 	velocity = vit;
-	initialVelocity = vit;
 	acceleration = Vecteur3D();
 	damping = d;
-	vector<Vecteur3D> tablForces;
-	tablForces.push_back(masse*gravity);
+	rvbColor = rvbC; //Particule color 
+	formSize = form; //vector that contains information about particle's shape 
+	vector<Vecteur3D> tablForces; //set of forces applied
+	Vecteur3D gravity= Vecteur3D(0, - 10 * masse, 0); //gravity is applied to all particles
+	addForce(gravity);
 	
 	if(m!=0){
 		inverseMasse = 1/m;
 	} else {
 		inverseMasse = 0;
-		cout << "Masse de la particule nulle";
 	}
 }
 Particule::~Particule()
@@ -39,6 +36,18 @@ double Particule::getInverseMasse() const{
 	return inverseMasse;
 }
 
+Vecteur3D Particule::getRVBColor() const {
+	return rvbColor;
+}
+
+Vecteur3D Particule::getAcceleration() {
+	return acceleration;
+}
+
+Vecteur3D Particule::getFormSize() const {
+	return formSize;
+}
+
 void Particule::setInverseMasse(double value) {
 	inverseMasse = value;
 }
@@ -50,7 +59,6 @@ void Particule::setMasse(double value){
 	}
 	else {
 		inverseMasse = 0;
-		cout << "Masse de la particule nulle";
 	}
 }
 
@@ -76,23 +84,28 @@ void Particule::setDamping(double d){
 	damping = d;
 }
 
+//integrate the chosen vector and update its value
 void Particule::updateVector(Vecteur3D const& integrateVector, double deltaTime, Vecteur3D& vector){
 	vector += deltaTime * integrateVector ;
 }
+
+//update of particle's position, acceleration and then velocity
 void Particule::integrate(double deltaTime) {
-	//acceleration constante en fonction du temps
 	if (deltaTime > 0) {
-		updateVector(velocity, deltaTime, position);
-		accelerationCalcul();
-		updateVector(acceleration, deltaTime, velocity);
+		updateVector(velocity, deltaTime, position); //calculates the new position
+		accelerationCalcul(); //calculates the new acceleration
+		updateVector(acceleration, deltaTime, velocity); //calculates the new velocity
 		velocity *= pow(damping, deltaTime);
+		
 	}
 }
 
+//if we want to add some forces to our particle
 void Particule::addForce(Vecteur3D forceToAdd) {
 	tablForces.push_back(forceToAdd);
 }
 
+//Application of Newton's law
 void Particule::accelerationCalcul() {
 	acceleration = inverseMasse * sumVectors(tablForces) ;
 }
