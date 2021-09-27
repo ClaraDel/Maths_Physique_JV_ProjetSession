@@ -95,8 +95,8 @@ void Particule::integrate(double deltaTime) {
 		updateVector(velocity, deltaTime, position); //calculates the new position
 		accelerationCalcul(); //calculates the new acceleration
 		updateVector(acceleration, deltaTime, velocity); //calculates the new velocity
-		//velocity *= pow(damping, deltaTime);
-		velocity *= damping;
+		velocity *= pow(damping, deltaTime);
+		
 	}
 }
 
