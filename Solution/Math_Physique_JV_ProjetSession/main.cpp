@@ -7,7 +7,7 @@
 #include "Sources/Math/Vecteur3D.h"
 #include "Sources/Physic/Particule.h"
 
-#define ProjectileMax 8
+#define ProjectileMax 7
 #define SPEED 0.1 //OpenGL unit
 #define ANG_SPEED 0.5 //constant to move the camera
 using namespace std;
