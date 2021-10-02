@@ -27,6 +27,9 @@ public:
 	double getX() const;
 	double getY() const;
 	double getZ() const;
+	void setX(double value);
+	void setY(double value) ;
+	void setZ(double value) ;
 
 	Vecteur3D& operator+=(Vecteur3D const& vecteur);
 	Vecteur3D& operator-=(Vecteur3D const& vecteur);

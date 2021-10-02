@@ -13,9 +13,10 @@ Particule::Particule(double m, Vecteur3D pos, Vecteur3D vit, double d, Vecteur3D
 	damping = d;
 	rvbColor = rvbC; //Particule color 
 	formSize = form; //vector that contains information about particle's shape 
-	vector<Vecteur3D> tablForces; //set of forces applied
-	Vecteur3D gravity= Vecteur3D(0, - 10 * masse, 0); //gravity is applied to all particles
-	addForce(gravity);
+	forceApplied = Vecteur3D();
+	//vector<Vecteur3D> tablForces; //set of forces applied
+	/*Vecteur3D gravity= Vecteur3D(0, - 10 * masse, 0); //gravity is applied to all particles
+	addForce(gravity);*/
 	
 	if(m!=0){
 		inverseMasse = 1/m;
@@ -28,12 +29,16 @@ Particule::~Particule()
 
 }
 
-vector<Vecteur3D> Particule::getTablForces()  {
+/*vector<Vecteur3D> Particule::getTablForces()  {
 	return tablForces;
-}
+}*/
 
 double Particule::getInverseMasse() const{
 	return inverseMasse;
+}
+
+double Particule::getMasse() const {
+	return masse;
 }
 
 Vecteur3D Particule::getRVBColor() const {
@@ -42,6 +47,10 @@ Vecteur3D Particule::getRVBColor() const {
 
 Vecteur3D Particule::getAcceleration() {
 	return acceleration;
+}
+
+Vecteur3D Particule::getVelocity() {
+	return velocity;
 }
 
 Vecteur3D Particule::getFormSize() const {
@@ -102,10 +111,10 @@ void Particule::integrate(double deltaTime) {
 
 //if we want to add some forces to our particle
 void Particule::addForce(Vecteur3D forceToAdd) {
-	tablForces.push_back(forceToAdd);
+	forceApplied += forceToAdd;
 }
 
 //Application of Newton's law
 void Particule::accelerationCalcul() {
-	acceleration = inverseMasse * sumVectors(tablForces) ;
+	acceleration = inverseMasse * forceApplied ;
 }

@@ -161,7 +161,16 @@ double Vecteur3D::getY() const {
 double Vecteur3D::getZ() const {
 	return z;
 }
+void Vecteur3D::setX(double value){
+	x = value;
+}
+void Vecteur3D::setY(double value) {
+	y = value;
+}
 
+void Vecteur3D::setZ(double value){
+	z = value;
+}
 //to sum more than two vectors stored in a table
 Vecteur3D sumVectors(vector<Vecteur3D> const& tablForces) {
 	Vecteur3D sum;
