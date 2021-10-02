@@ -1,6 +1,6 @@
 #pragma once
-#ifndef DEF_PARTICULEANCHOREDSPRING
-#define DEF_PARTICULEANCHOREDSPRING
+#ifndef DEF_PARTICULESPRING
+#define DEF_PARTICULESPRING
 #include"../Particule.h"
 #include"ParticleForceGenerator.h"
 

@@ -1,5 +1,12 @@
 #include"ParticleBuoyancy.h"
 
+ParticleBuoyancy::ParticleBuoyancy(double maxDepth, double volume, double waterHeight, double liquidDensity) {
+	m_maxDepth = maxDepth;
+	m_waterHeight = waterHeight;
+	m_volume = volume;
+	m_liquidDensity = liquidDensity;
+}
+
 void ParticleBuoyancy::UpdateForce(Particule* particule, double duration)
 {
 	//submersion depth
@@ -7,16 +14,16 @@ void ParticleBuoyancy::UpdateForce(Particule* particule, double duration)
 	Vecteur3D force;
 
 	//Are they out of the water ?
-	if (depth >= waterHeight + maxDepth) {
+	if (depth >= m_waterHeight + m_maxDepth) {
 
 	 // are they in the water ?
 	}
-	else if (depth <= waterHeight - maxDepth) {
-		force.setY(liquidDensity * volume);
+	else if (depth <= m_waterHeight - m_maxDepth) {
+		force.setY(m_liquidDensity * m_volume);
 		particule->addForce(force);
 		//partly submerged
 	} else {
-		force.setY(liquidDensity * volume * (depth - maxDepth - waterHeight) / 2 * maxDepth);
+		force.setY(m_liquidDensity * m_volume * (depth - m_maxDepth - m_waterHeight) / 2 * m_maxDepth);
 		particule->addForce(force);
 	}
 }
