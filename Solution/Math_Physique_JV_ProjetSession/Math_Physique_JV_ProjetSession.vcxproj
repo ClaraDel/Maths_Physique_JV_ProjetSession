@@ -144,15 +144,31 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Sources\Games\Game2.cpp" />
     <ClCompile Include="Sources\Games\GameBase.cpp" />
     <ClCompile Include="Sources\Games\Game1.cpp" />
     <ClCompile Include="Sources\Math\Vecteur3D.cpp" />
+    <ClCompile Include="Sources\Physic\ForceGenerator\ParticleAnchoredSpring.cpp" />
+    <ClCompile Include="Sources\Physic\ForceGenerator\ParticleBuoyancy.cpp" />
+    <ClCompile Include="Sources\Physic\ForceGenerator\ParticleDrag.cpp" />
+    <ClCompile Include="Sources\Physic\ForceGenerator\ParticleForceGenerator.cpp" />
+    <ClCompile Include="Sources\Physic\ForceGenerator\ParticleForceRegistry.cpp" />
+    <ClCompile Include="Sources\Physic\ForceGenerator\ParticleGravity.cpp" />
+    <ClCompile Include="Sources\Physic\ForceGenerator\ParticleSpring.cpp" />
     <ClCompile Include="Sources\Physic\Particule.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sources\Games\Game2.h" />
     <ClInclude Include="Sources\Games\GameBase.h" />
     <ClInclude Include="Sources\Games\Game1.h" />
     <ClInclude Include="Sources\Math\Vecteur3D.h" />
+    <ClInclude Include="Sources\Physic\ForceGenerator\ParticleAnchoredSpring.h" />
+    <ClInclude Include="Sources\Physic\ForceGenerator\ParticleBuoyancy.h" />
+    <ClInclude Include="Sources\Physic\ForceGenerator\ParticleDrag.h" />
+    <ClInclude Include="Sources\Physic\ForceGenerator\ParticleForceGenerator.h" />
+    <ClInclude Include="Sources\Physic\ForceGenerator\ParticleForceRegistry.h" />
+    <ClInclude Include="Sources\Physic\ForceGenerator\ParticleGravity.h" />
+    <ClInclude Include="Sources\Physic\ForceGenerator\ParticleSpring.h" />
     <ClInclude Include="Sources\Physic\Particule.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

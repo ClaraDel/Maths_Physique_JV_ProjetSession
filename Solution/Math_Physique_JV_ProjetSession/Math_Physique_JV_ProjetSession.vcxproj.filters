@@ -22,6 +22,9 @@
     <Filter Include="Fichiers sources\Game">
       <UniqueIdentifier>{5bc3de49-84f3-4988-ace4-5fa867c6c9f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Physic\ForceGenerator">
+      <UniqueIdentifier>{57febce9-d531-44d9-b5a3-8d81ba3078be}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -39,6 +42,30 @@
     <ClCompile Include="Sources\Games\GameBase.cpp">
       <Filter>Fichiers sources\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\Physic\ForceGenerator\ParticleAnchoredSpring.cpp">
+      <Filter>Fichiers sources\Physic\ForceGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Physic\ForceGenerator\ParticleBuoyancy.cpp">
+      <Filter>Fichiers sources\Physic\ForceGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Physic\ForceGenerator\ParticleDrag.cpp">
+      <Filter>Fichiers sources\Physic\ForceGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Physic\ForceGenerator\ParticleForceGenerator.cpp">
+      <Filter>Fichiers sources\Physic\ForceGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Physic\ForceGenerator\ParticleForceRegistry.cpp">
+      <Filter>Fichiers sources\Physic\ForceGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Physic\ForceGenerator\ParticleGravity.cpp">
+      <Filter>Fichiers sources\Physic\ForceGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Physic\ForceGenerator\ParticleSpring.cpp">
+      <Filter>Fichiers sources\Physic\ForceGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Games\Game2.cpp">
+      <Filter>Fichiers sources\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Math\Vecteur3D.h">
@@ -51,6 +78,30 @@
       <Filter>Fichiers sources\Game</Filter>
     </ClInclude>
     <ClInclude Include="Sources\Games\GameBase.h">
+      <Filter>Fichiers sources\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\ForceGenerator\ParticleAnchoredSpring.h">
+      <Filter>Fichiers sources\Physic\ForceGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\ForceGenerator\ParticleBuoyancy.h">
+      <Filter>Fichiers sources\Physic\ForceGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\ForceGenerator\ParticleDrag.h">
+      <Filter>Fichiers sources\Physic\ForceGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\ForceGenerator\ParticleForceGenerator.h">
+      <Filter>Fichiers sources\Physic\ForceGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\ForceGenerator\ParticleGravity.h">
+      <Filter>Fichiers sources\Physic\ForceGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\ForceGenerator\ParticleSpring.h">
+      <Filter>Fichiers sources\Physic\ForceGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\ForceGenerator\ParticleForceRegistry.h">
+      <Filter>Fichiers sources\Physic\ForceGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Games\Game2.h">
       <Filter>Fichiers sources\Game</Filter>
     </ClInclude>
   </ItemGroup>
