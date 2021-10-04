@@ -5,14 +5,12 @@
 
 using namespace std;
 
-Particule::Particule(double m, Vecteur3D pos, Vecteur3D vit, double d, Vecteur3D rvbC, Vecteur3D form){
+Particule::Particule(double m, Vecteur3D pos, Vecteur3D vit, double d){
 	masse = m;
 	position = pos;
 	velocity = vit;
 	acceleration = Vecteur3D();
 	damping = d;
-	rvbColor = rvbC; //Particule color 
-	formSize = form; //vector that contains information about particle's shape 
 	forceApplied = Vecteur3D();
 	//vector<Vecteur3D> tablForces; //set of forces applied
 	/*Vecteur3D gravity= Vecteur3D(0, - 10 * masse, 0); //gravity is applied to all particles
@@ -41,9 +39,6 @@ double Particule::getMasse() const {
 	return masse;
 }
 
-Vecteur3D Particule::getRVBColor() const {
-	return rvbColor;
-}
 
 Vecteur3D Particule::getAcceleration() {
 	return acceleration;
@@ -51,10 +46,6 @@ Vecteur3D Particule::getAcceleration() {
 
 Vecteur3D Particule::getVelocity() {
 	return velocity;
-}
-
-Vecteur3D Particule::getFormSize() const {
-	return formSize;
 }
 
 void Particule::setInverseMasse(double value) {

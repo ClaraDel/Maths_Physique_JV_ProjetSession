@@ -73,7 +73,7 @@ double GameBase::updateTime() {
 }
 
 
-void GameBase::keyboard2(unsigned char key, int x, int y) {
+void GameBase::doKeyboard(unsigned char key, int x, int y) {
 	switch (key) {
 	case 'esc':
 	case 27:
@@ -85,27 +85,27 @@ void GameBase::keyboard2(unsigned char key, int x, int y) {
 }
 
 void GameBase::keyboard(unsigned char key, int x, int y) {
-	instanceGameBase -> keyboard2(key, x, y);
+	instanceGameBase -> doKeyboard(key, x, y);
 }
 
-void GameBase::updatePhysics2() {
+void GameBase::doUpdatePhysics() {
 }
 
 
 void GameBase::updatePhysics() {
-	instanceGameBase -> updatePhysics2();
+	instanceGameBase -> doUpdatePhysics();
 }
 
-void GameBase::display2() {
+void GameBase::doDisplay() {
 
 }
 
 void GameBase::display() {
-	instanceGameBase -> display2();
+	instanceGameBase -> doDisplay();
 }
 
 //reshape the window
-void GameBase::reshape2(int width, int height) {
+void GameBase::doReshape(int width, int height) {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glViewport(0, 0, width, height);
@@ -114,11 +114,11 @@ void GameBase::reshape2(int width, int height) {
 }
 
 void GameBase::reshape(int width, int height) {
-	instanceGameBase->reshape2(width, height);
+	instanceGameBase->doReshape(width, height);
 }
 
 //rotate the camera with directional keys
-void GameBase::arrows2(int key, int xx, int yy) {
+void GameBase::doArrows(int key, int xx, int yy) {
 	switch (key) {
 	case GLUT_KEY_UP:
 		beta += ANG_SPEED;
@@ -142,11 +142,11 @@ void GameBase::arrows2(int key, int xx, int yy) {
 }
 
 void GameBase::arrows(int key, int xx, int yy) {
-	instanceGameBase->arrows2(key, xx, yy);
+	instanceGameBase->doArrows(key, xx, yy);
 }
 
 int GameBase::launch(int argc, char* argv[])
-{	
+{	            
 	//initialization of glut
 	glutInit(&argc, argv);
 

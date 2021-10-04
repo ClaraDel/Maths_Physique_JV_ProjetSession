@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
 #include "../Physic/Particule.h"
-#ifndef DEF_GAME
-#define DEF_GAME
+#ifndef DEF_GAMEBASE
+#define DEF_GAMEBASE
 
 
 class GameBase{
@@ -44,11 +44,11 @@ public :
 	static void reshape(int width, int height);
 	static void updatePhysics();
 
-	virtual void arrows2(int key, int xx, int yy);
-	virtual void display2();
-	virtual void keyboard2(unsigned char key, int x, int y);
-	virtual void reshape2(int width, int height);
-	virtual void updatePhysics2();
+	virtual void doArrows(int key, int xx, int yy);
+	virtual void doDisplay();
+	virtual void doKeyboard(unsigned char key, int x, int y);
+	virtual void doReshape(int width, int height);
+	virtual void doUpdatePhysics();
 };
 	
 

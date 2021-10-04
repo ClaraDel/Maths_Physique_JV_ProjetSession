@@ -5,11 +5,12 @@
 #include "../Physic/Particule.h"
 #ifndef DEF_GAME1
 #define DEF_GAME1
-#include <list>
 #include<vector>
+#include "../GUI/GUI1.h"
 
 class Game1 : public GameBase {
 private : 
+	GUI1 gui;
 	std::vector<Particule> partTabl;
 	
 
@@ -18,11 +19,11 @@ public :
 	
 	void drawParticule(Particule particule);
 	void launchParticule();
-	void updatePhysics2() override;
+	void doUpdatePhysics() override;
  
 	int launch(int argc, char* argv[]) override;
-	void keyboard2(unsigned char key, int x, int y) override;
-	void display2() override;
+	void doKeyboard(unsigned char key, int x, int y) override;
+	void doDisplay() override;
 };
 
 
