@@ -9,8 +9,16 @@ void ParticleForceRegistry::add(Particule* particule, ParticleForceGenerator* pa
 	registry.push_back(pfe);
 }
 
-void ParticleForceRegistry::substract(Particule* particule, ParticleForceGenerator* particuleFg) {
+void ParticleForceRegistry::remove(Particule* particule, ParticleForceGenerator* particuleFg) {
 	//parcourir le registre trouver le bon struct et l'enlever '
+	Registry::iterator i = registry.begin();
+	for (; i != registry.end(); i++)
+	{
+		if(i->forceGenerator == particuleFg && i->particule == particule){
+			registry.erase(i);
+		}
+	}
+
 }
 
 void ParticleForceRegistry::UpdateForce(double duration)

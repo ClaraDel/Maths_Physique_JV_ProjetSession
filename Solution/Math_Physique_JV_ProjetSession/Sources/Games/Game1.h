@@ -6,11 +6,9 @@
 #ifndef DEF_GAME1
 #define DEF_GAME1
 #include<vector>
-#include "../GUI/GUI1.h"
 
 class Game1 : public GameBase {
 private : 
-	GUI1 gui;
 	std::vector<Particule> partTabl;
 	
 

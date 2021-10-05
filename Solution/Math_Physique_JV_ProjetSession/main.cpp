@@ -6,6 +6,7 @@
 #include <vector>
 #include "Sources/Games/GameBase.h"
 #include "Sources/Games/Game1.h"
+#include "Sources/Games/Game2.h"
 
 
 using namespace std;  
@@ -52,11 +53,11 @@ int main(int argc, char* argv[]) {
 			game1.launch(argc, argv);
 			break;
 		}
-		/*case 2: {
+		case 2: {
 			Game2 game2("Phase 2", "Controlling a blob");
 			game2.launch(argc, argv);
 			break;
-		}*/
+		}
 		default:
 
 			break;

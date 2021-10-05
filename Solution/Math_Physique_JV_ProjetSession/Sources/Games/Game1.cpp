@@ -8,6 +8,8 @@
 
 #define ProjectileMax 7
 using namespace std;
+
+//PARTICULE'S ATTRIBUTES
 int projectileChosen = 0; //type of projectile chosen
 int shape = 0;// 0 -> Sphere, 1-> Cube, 2->Torus, 3-> Teapot,4->ellipse 3D
 Vecteur3D rvbColor; //Particule color 
@@ -36,13 +38,14 @@ void Game1::doKeyboard(unsigned char key, int x, int y) {
 }
 
 //Draw the particle 
-void Game1::drawParticule(Particule particule) { //gamebase et spécifier dans game1
+void Game1::drawParticule(Particule particule) { 
 	Vecteur3D position;
 	position = particule.getPosition();
 
 	glColor3f(rvbColor.getX(), rvbColor.getY(), rvbColor.getZ());
 	glPushMatrix();
 	glTranslatef(position.getX(), position.getY(), position.getZ());
+
 	//choose the shape of your particle 
 	switch (shape) {
 	case 0:
@@ -194,7 +197,6 @@ void Game1::doDisplay() {
 	glEnable(GL_DEPTH_TEST);
 	
 }
-
 
 
 int Game1::launch(int argc, char* argv[])
