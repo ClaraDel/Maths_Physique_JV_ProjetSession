@@ -25,6 +25,12 @@
     <Filter Include="Fichiers sources\Physic\ForceGenerator">
       <UniqueIdentifier>{57febce9-d531-44d9-b5a3-8d81ba3078be}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\GUI">
+      <UniqueIdentifier>{da6880e4-eff3-467e-afb2-a6a624d33fcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\PhysicWorld">
+      <UniqueIdentifier>{9c3fed2a-7ace-4781-973f-eff601294bcb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -66,6 +72,18 @@
     <ClCompile Include="Sources\Games\Game2.cpp">
       <Filter>Fichiers sources\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\GUI\GUI1.cpp">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\GUI\GUI2.cpp">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\GUI\GUIBase.cpp">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\PhysicWorld\PhysicWorld.cpp">
+      <Filter>Fichiers sources\PhysicWorld</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Math\Vecteur3D.h">
@@ -103,6 +121,18 @@
     </ClInclude>
     <ClInclude Include="Sources\Games\Game2.h">
       <Filter>Fichiers sources\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GUI\GUI1.h">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GUI\GUIBase.h">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GUI\GUI2.h">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\PhysicWorld\PhysicWorld.h">
+      <Filter>Fichiers sources\PhysicWorld</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
