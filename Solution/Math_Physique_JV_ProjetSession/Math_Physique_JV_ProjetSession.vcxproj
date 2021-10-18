@@ -148,6 +148,7 @@
     <ClCompile Include="Sources\Games\GameBase.cpp" />
     <ClCompile Include="Sources\Games\Game1.cpp" />
     <ClCompile Include="Sources\Math\Vecteur3D.cpp" />
+    <ClCompile Include="Sources\Physic\Collision\ParticleContact.cpp" />
     <ClCompile Include="Sources\Physic\ForceGenerator\ConstantForce.cpp" />
     <ClCompile Include="Sources\Physic\ForceGenerator\ParticleAnchoredSpring.cpp" />
     <ClCompile Include="Sources\Physic\ForceGenerator\ParticleBuoyancy.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Sources\Games\GameBase.h" />
     <ClInclude Include="Sources\Games\Game1.h" />
     <ClInclude Include="Sources\Math\Vecteur3D.h" />
+    <ClInclude Include="Sources\Physic\Collision\ParticleContact.h" />
     <ClInclude Include="Sources\Physic\ForceGenerator\ConstantForce.h" />
     <ClInclude Include="Sources\Physic\ForceGenerator\ParticleAnchoredSpring.h" />
     <ClInclude Include="Sources\Physic\ForceGenerator\ParticleBuoyancy.h" />

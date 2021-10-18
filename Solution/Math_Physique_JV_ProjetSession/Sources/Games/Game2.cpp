@@ -14,22 +14,34 @@ Game2::Game2(string nameGame, string descriptionGame) : GameBase(nameGame, descr
 }
 
 void Game2::doKeyboard(unsigned char key, int x, int y) {
-
+	Vecteur3D force ;
+	
 	switch (key) {
 	// a faire plus tard
 	case 27:// echap
 		exit(EXIT_SUCCESS);
 		break;
-	case 'q':
-		
+	case 'q': 
+		force = Vecteur3D(-50.0, 0.0, 0.0);
 		break;
+	
 	case's':
+		force = Vecteur3D(0.0, -50.0, 0.0);
+		break;
 	case'z':
+		force = Vecteur3D(0.0, 50.0, 0.0);
+		break;
 	case'd':
+		force = Vecteur3D(50.0, 0.0, 0.0);
+		break;
 	case 32: //sapce bar
 	default:
 		break;
 	}
+	//ConstantForce* cf = new ConstantForce(force);
+	//m_registry.add(m_blob[0], cf);
+	m_blob[0]->addForce(force);
+	
 }
 
 void Game2::createBlob(){

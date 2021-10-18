@@ -25,6 +25,9 @@
     <Filter Include="Fichiers sources\Physic\ForceGenerator">
       <UniqueIdentifier>{57febce9-d531-44d9-b5a3-8d81ba3078be}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Physic\Collision">
+      <UniqueIdentifier>{a3c40508-fc90-4ab5-8297-0f1eee25114e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -69,6 +72,9 @@
     <ClCompile Include="Sources\Physic\ForceGenerator\ConstantForce.cpp">
       <Filter>Fichiers sources\Physic\ForceGenerator</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\Physic\Collision\ParticleContact.cpp">
+      <Filter>Fichiers sources\Physic\Collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Math\Vecteur3D.h">
@@ -109,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="Sources\Physic\ForceGenerator\ConstantForce.h">
       <Filter>Fichiers sources\Physic\ForceGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\Collision\ParticleContact.h">
+      <Filter>Fichiers sources\Physic\Collision</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
