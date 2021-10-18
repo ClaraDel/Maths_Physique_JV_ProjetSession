@@ -38,7 +38,7 @@ void Game2::createBlob(){
 	ParticleGravity* pg =  new ParticleGravity();
 		for (int i = 0; i < m_nbParticules; i++) {
 		// on créée les particules avec leurs attribus
-		double masse = 50000;
+		double masse = 50;
 		Vecteur3D velocity;
 		Vecteur3D position;
 		double damping = 0.9;
@@ -57,7 +57,7 @@ void Game2::createBlob(){
 		for (int j=0; j < m_blob.size();j++){
 			for(int k=0;k<m_blob.size();k++){
 				if(j!=k){
-					ParticleSpring* ps = new ParticleSpring(m_blob[k], 2000.0, 0.8);
+					ParticleSpring* ps = new ParticleSpring(m_blob[k], 100.0, 0.7);
 					m_registry.add(m_blob[j], ps);
 				}
 			}
