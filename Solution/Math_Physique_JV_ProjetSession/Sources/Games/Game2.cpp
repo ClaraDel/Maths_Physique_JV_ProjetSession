@@ -41,7 +41,7 @@ void Game2::createBlob(){
 		double masse = 50000;
 		Vecteur3D velocity;
 		Vecteur3D position;
-		double damping = 0.2;
+		double damping = 0.9;
 		Particule* p =  new Particule(masse, position, velocity, damping);
 		m_blob.push_back(p);
 			//On initialise la position des particules du blob
@@ -57,7 +57,7 @@ void Game2::createBlob(){
 		for (int j=0; j < m_blob.size();j++){
 			for(int k=0;k<m_blob.size();k++){
 				if(j!=k){
-					ParticleSpring* ps = new ParticleSpring(m_blob[k], 200.0, 1.0);
+					ParticleSpring* ps = new ParticleSpring(m_blob[k], 2000.0, 0.8);
 					m_registry.add(m_blob[j], ps);
 				}
 			}
@@ -90,7 +90,7 @@ void Game2::doUpdatePhysics() {
 
 void Game2::doDisplay() {
 
-	cout << m_blob[0]->getPosition();
+	//cout << m_blob[0]->getPosition();
 	//clear buffer (indicate the buffer to clear)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
 	//replaces the current matrix with the identity matrix
@@ -98,34 +98,31 @@ void Game2::doDisplay() {
 
 	//specifies the position of the eye point, the reference point
 	//and the direction of the up vector
-	gluLookAt(m_blob[0]->getPosition().getX(), m_blob[0]->getPosition().getY(), m_blob[0]->getPosition().getZ()-8, m_blob[0]->getPosition().getX(), m_blob[0]->getPosition().getY(), m_blob[0]->getPosition().getZ(), 0.0, 1.0, 0.0); //a changer avec position particule
+	gluLookAt(X,0.5,Z, X,0.5,0, 0.0, 1.0, 0.0); //a changer avec position particule
 	
 
 	//apply the fonction updatePhysics
 	glutIdleFunc(updatePhysics); 
 
 	//Draw ground
-	glColor3f(1.0, 0.0, 0.0); //brown
+	glColor3f(0.1, 0.0, 0.0); //brown
 	glBegin(GL_QUADS);
-	glVertex3f(-20, 0.0, -20);
-	glVertex3f(-20, 0.0, 20);
-	glVertex3f(20, 0.0, 20);
-	glVertex3f(20, 0.0, -20);
+	glVertex3f(-10, 0.0, -10);
+	glVertex3f(-10, 0.0, 10);
+	glVertex3f(0.0, 0.0, 10.0);
+	glVertex3f(0.0, 0.0, -10);
 	glEnd();
 	//Draw water
 	glColor3f(0.5, 1.0, 1.0); //cyan 
 	glBegin(GL_QUADS);
-	glVertex3f(-10, -1, -20);
-	glVertex3f(10, -1, -20);
-	glVertex3f(10,-1, -10);
-	glVertex3f(-10, -1, 10);
+	glVertex3f(0.0, -1, -10.0);
+	glVertex3f(0.0, -1, -10.0);
+	glVertex3f(10,-1, -10.0);
+	glVertex3f(0.0, -1, 10);
 	glEnd();
 
-
-	Vecteur3D position;
-
 	//for the first particle (the one we can control)
-	position = m_blob[0]->getPosition();
+	Vecteur3D position = m_blob[0]->getPosition();
 	glColor3f(1, 0, 0); //red
 	glPushMatrix();
 	glTranslatef(position.getX(), position.getY(), position.getZ());

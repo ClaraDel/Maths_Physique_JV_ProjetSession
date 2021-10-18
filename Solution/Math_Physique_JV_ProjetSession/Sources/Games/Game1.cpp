@@ -151,6 +151,7 @@ void Game1::launchParticule() {
 			formSize = Vecteur3D(0.5, 100, 100);
 			break;
 	}
+	p.addForce(Vecteur3D(0, -10 * p.getMasse(), 0));
 }
 
 //updates the position, acceleration and speed of 

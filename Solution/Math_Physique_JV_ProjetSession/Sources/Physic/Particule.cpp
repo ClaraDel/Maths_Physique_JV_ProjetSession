@@ -92,11 +92,12 @@ void Particule::updateVector(Vecteur3D const& integrateVector, double deltaTime,
 //update of particle's position, acceleration and then velocity
 void Particule::integrate(double deltaTime) {
 	if (deltaTime > 0) {
-		updateVector(velocity, deltaTime, position); //calculates the new position
+		
 		accelerationCalcul(); //calculates the new acceleration
 		updateVector(acceleration, deltaTime, velocity); //calculates the new velocity
 		velocity *= pow(damping, deltaTime);
-		
+		updateVector(velocity, deltaTime, position); //calculates the new position
+		forceApplied = Vecteur3D();
 	}
 }
 
