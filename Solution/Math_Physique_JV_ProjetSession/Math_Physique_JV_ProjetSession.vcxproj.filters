@@ -75,6 +75,15 @@
     <ClCompile Include="Sources\Physic\Collision\ParticleContact.cpp">
       <Filter>Fichiers sources\Physic\Collision</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\Physic\Collision\ParticleLink.cpp">
+      <Filter>Fichiers sources\Physic\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Physic\Collision\ParticleContactResolver.cpp">
+      <Filter>Fichiers sources\Physic\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Physic\Collision\ParticleContactGenerator.cpp">
+      <Filter>Fichiers sources\Physic\Collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Math\Vecteur3D.h">
@@ -118,6 +127,15 @@
     </ClInclude>
     <ClInclude Include="Sources\Physic\Collision\ParticleContact.h">
       <Filter>Fichiers sources\Physic\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\Collision\ParticleContactGenerator.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\Collision\ParticleContactResolver.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\Collision\ParticleLink.h">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

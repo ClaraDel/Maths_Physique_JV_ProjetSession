@@ -17,14 +17,12 @@ void Game2::doKeyboard(unsigned char key, int x, int y) {
 	Vecteur3D force ;
 	
 	switch (key) {
-	// a faire plus tard
 	case 27:// echap
 		exit(EXIT_SUCCESS);
 		break;
 	case 'q': 
 		force = Vecteur3D(-50.0, 0.0, 0.0);
 		break;
-	
 	case's':
 		force = Vecteur3D(0.0, -50.0, 0.0);
 		break;
@@ -38,8 +36,6 @@ void Game2::doKeyboard(unsigned char key, int x, int y) {
 	default:
 		break;
 	}
-	//ConstantForce* cf = new ConstantForce(force);
-	//m_registry.add(m_blob[0], cf);
 	m_blob[0]->addForce(force);
 	
 }
@@ -65,7 +61,7 @@ void Game2::createBlob(){
 			m_blob[i]->setPosition(Vecteur3D(0.5, 0.75, 0.0));
 			// on créée la/les forces en passant la particule concernée en paramètre
 			// on ajoute tout cela au registry
-		//m_registry.add(m_blob[i], pg);
+		m_registry.add(m_blob[i], pg);
 		for (int j=0; j < m_blob.size();j++){
 			for(int k=0;k<m_blob.size();k++){
 				if(j!=k){

@@ -7,21 +7,22 @@ class ParticleContact {
 
 private : 
 	Particule* m_particules[2];
-	float m_restituion;
-	float m_penetration;
+	double m_restitution;
+	double m_penetration;
 	Vecteur3D m_contactNormal;
 
+	void resolveVelocity();
+	void resolveInterpenetration();
 
 
 public : 
 	ParticleContact();
-	ParticleContact(Particule p1, Particule p2, float restitution, float penetration, Vecteur3D contactNormal);
+	ParticleContact(Particule* p1, Particule* p2, float restitution, float penetration, Vecteur3D contactNormal);
 
-	void resolve(float duration);
-	void resolveVelocity();
-	void resolveInterpenetration();
-	float calculateSeperatingVelocity();
+	void resolve(double duration);
+	double calculateSeperatingVelocity();
 
+	
 };
 
 #endif
