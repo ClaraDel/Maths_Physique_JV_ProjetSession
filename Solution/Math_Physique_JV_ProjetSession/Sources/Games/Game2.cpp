@@ -39,7 +39,19 @@ void Game2::doKeyboard(unsigned char key, int x, int y) {
 	m_blob[0]->addForce(force);
 	
 }
+unsigned int Game2::createContacts(){
 
+	unsigned int limit = maxContacts;
+	ParticleContact* contacts = m_contacts;
+	for(int i =0; i<m_generator.size(); i++ ){
+		unsigned int entier = m_generator[i]->addContact(contacts, limit);
+		limit-= entier;
+		contacts += entier;
+		if (limit <= 0)
+			break;
+		}
+	return maxContacts - limit;
+}
 void Game2::createBlob(){
 	//equivalent du lauch particule de game1
 	Particule p;
@@ -73,6 +85,19 @@ void Game2::createBlob(){
 	}
 }
 
+void Game2::checkParticleCollisions(){
+	//for each particle, we check if they ar in collision with the ground
+	//for (int i = 0 ; i< )
+}
+
+void Game2::checkWaterInteractions() {
+	//for each particle, we check if its under water
+
+}
+
+
+
+
 void Game2::drawParticule(Particule* particule) {
 	Vecteur3D position;
 	position = particule->getPosition();
@@ -92,6 +117,11 @@ void Game2::doUpdatePhysics() {
 	for (int i = 0; i < m_nbParticules; i++) {
 		//calculates with respect to the position and speed of the previous frame 
 		m_blob[i]->integrate(deltaTime);  //loi de Newton et mise à jour des positions et vitesses
+	}
+	unsigned int numberContact = createContacts();
+	if (numberContact>0){
+		//m_resolver.setIterations(numberContact*2);
+		m_resolver.resolveContacts(m_contacts, numberContact);
 	}
 	glutPostRedisplay();
 }

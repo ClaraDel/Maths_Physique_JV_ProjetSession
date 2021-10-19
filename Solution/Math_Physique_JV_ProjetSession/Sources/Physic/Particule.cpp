@@ -80,6 +80,10 @@ void Particule::setVelocity(double const x, double const y, double const z) {
 	velocity = Vecteur3D(x, y, z);
 }
 
+void Particule::setVelocity(Vecteur3D v) {
+	velocity = v;
+}
+
 void Particule::setDamping(double d){
 	damping = d;
 }

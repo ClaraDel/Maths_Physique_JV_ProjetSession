@@ -15,7 +15,7 @@ void ParticleBuoyancy::UpdateForce(Particule* particule, double duration)
 
 	//Are they out of the water ?
 	if (depth >= m_waterHeight + m_maxDepth) {
-
+		return;
 	 // are they in the water ?
 	}
 	else if (depth <= m_waterHeight - m_maxDepth) {

@@ -36,6 +36,7 @@ class Particule
 
 	void setAcceleration(double const x, double const y, double const z);
 	void setVelocity(double const x, double const y, double const z);
+    void setVelocity(Vecteur3D v);
 	
 	void setMasse(double value);
     void setDamping(double d);

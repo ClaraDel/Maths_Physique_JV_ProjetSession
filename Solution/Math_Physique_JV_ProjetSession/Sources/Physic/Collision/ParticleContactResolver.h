@@ -1,18 +1,20 @@
 #pragma once
 #ifndef DEF_PARTICLECONTACTRESOLV
 #define DEF_PARTICLECONTACTRESOLV
+#include "ParticleContact.h"
 
 class ParticleContactResolver
 {
-protected :
+protected:
 	//number of allowed interaction
-	unsigned int interaction;
+	unsigned int nbIterations;
+	unsigned int iteractionsUsed;
 
-public :
+public:
 
 	void resolveContacts(ParticleContact* contactArray,
 		unsigned int numContact,
 		float duraction);
-}
+};
 
 #endif

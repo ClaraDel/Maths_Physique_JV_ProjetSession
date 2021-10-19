@@ -26,24 +26,57 @@ double ParticleContact::calculateSeperatingVelocity() {
 	}
 }
 
-void ParticleContact::resolve(double duration) {
-	resolveVelocity(duration);
+void ParticleContact::resolve() {
+	resolveVelocity();
 	resolveInterpenetration();
 }
 
 void  ParticleContact::resolveVelocity() {
+	double separatingVelocity = calculateSeperatingVelocity();
 
+	//check if it needs to be resolved
+	if (separatingVelocity > 0) {
+		return; 
+	}
+
+	//we apply restitution coefficient
+	double newSV = -separatingVelocity * m_restitution;
+
+	Vecteur3D vRel = m_particules[0]->getVelocity();
+	double inverseMasseParticule1 = 0;
+
+	if (m_particules[1] != nullptr) {
+		vRel -= m_particules[1]->getVelocity();
+		inverseMasseParticule1 = m_particules[1]->getInverseMasse();
+	}
+
+	// 1/m0 + 1/m1 if m1 exists
+	double coeffInvertMass = m_particules[0]->getInverseMasse() + inverseMasseParticule1;
+
+	double k = (m_restitution + 1) * vRel.scalarProduct(m_contactNormal) / coeffInvertMass;
+
+	//we calcule new velocity for each particle
+	m_particules[0]->setVelocity(m_particules[0]->getVelocity() - k * m_particules[0]->getInverseMasse() * m_contactNormal);
+	if (m_particules[1] != nullptr) {
+		m_particules[1]->setVelocity(m_particules[1]->getVelocity() + k * m_particules[1]->getInverseMasse() * m_contactNormal);
+	}
 }
 
 void  ParticleContact::resolveInterpenetration() {
 	if (m_penetration <= 0) return;
 
-	float sumInverseMass = m_particules[0]->getInverseMasse() + m_particules[1]->getInverseMasse();
+	if (m_particules[1] != nullptr) {
+		float sumInverseMass = m_particules[0]->getInverseMasse() + m_particules[1]->getInverseMasse();
 
-	Vecteur3D particuleMovement[2];
-	particuleMovement[0] = m_particules[1]->getMasse() * m_penetration * sumInverseMass * m_contactNormal;
-	particuleMovement[1] = - m_particules[0]->getMasse() * m_penetration * sumInverseMass * m_contactNormal;
+		Vecteur3D particuleMovement[2];
+		particuleMovement[0] = m_particules[1]->getMasse() * m_penetration * sumInverseMass * m_contactNormal;
+		particuleMovement[1] = - m_particules[0]->getMasse() * m_penetration * sumInverseMass * m_contactNormal;
 
-	m_particules[0]->setPosition(m_particules[0]->getPosition() + particuleMovement[0]);
-	m_particules[1]->setPosition(m_particules[1]->getPosition() + particuleMovement[1]);
+		m_particules[0]->setPosition(m_particules[0]->getPosition() + particuleMovement[0]);
+		m_particules[1]->setPosition(m_particules[1]->getPosition() + particuleMovement[1]);
+	}
+	else {
+		m_particules[0]->setPosition(m_particules[0]->getPosition() + m_penetration * m_contactNormal);
+	}
+	
 }

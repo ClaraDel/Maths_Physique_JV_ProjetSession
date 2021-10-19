@@ -19,7 +19,7 @@ public :
 	ParticleContact();
 	ParticleContact(Particule* p1, Particule* p2, float restitution, float penetration, Vecteur3D contactNormal);
 
-	void resolve(double duration);
+	void resolve();
 	double calculateSeperatingVelocity();
 
 	
