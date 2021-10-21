@@ -35,7 +35,7 @@ void Game2::doKeyboard(unsigned char key, int x, int y) {
 		force = Vecteur3D(0.0, 50.0, 0.0);
 		break;
 	case 'd':
-		force = Vecteur3D(300.0, 0.0, 0.0);
+		force = Vecteur3D(500.0, 0.0, 0.0);
 		break;
 	case 32: //sapce bar
 	default:
@@ -51,7 +51,7 @@ void Game2::createBlob(){
 	ParticleGravity* pg =  new ParticleGravity();
 		for (int i = 0; i < m_nbParticules; i++) {
 		// on créée les particules avec leurs attribus
-		double masse = 50;
+		double masse = 4;
 		Vecteur3D velocity;
 		Vecteur3D position;
 		double damping = 0.9;
@@ -98,7 +98,6 @@ void Game2::checkWaterInteractions() {
 	//for each particle, we check if its under water
 	for (int i = 0; i < m_nbParticules; i++) {
 		if (m_blob[i]->getPosition().getY() < 1 && m_blob[i]->getPosition().getX() >= 0 && m_blob[i]->getPosition().getX() <= 100){
-			cout << 1 << endl;
 			double volume = 4.f / 3.f * 3.14 * std::pow(particuleSize, 3);
 			ParticleBuoyancy* buoyancy = new ParticleBuoyancy(1-particuleSize, volume, 1, 1000);
 			m_registry.add(m_blob[i], buoyancy);
@@ -139,11 +138,8 @@ void Game2::drawParticule(Particule* particule) {
 }
 
 void Game2::doUpdatePhysics() {
-
-	particuleContactList = vector<ParticleContact*>();
-
 	double deltaTime = updateTime();
-
+	particuleContactList = vector<ParticleContact*>();
 	//on met à jour quelle particule a quelle force
 
 	//toutes les particules ont la gravité

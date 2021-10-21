@@ -21,14 +21,15 @@ void ParticleBuoyancy::UpdateForce(Particule* particule, double duration)
 		return;
 	 // are they in the water ?
 	}
-	else if (depth <= m_waterHeight - m_maxDepth) {
+	else if (depth <=  m_maxDepth) {
 		force.setY(m_liquidDensity * m_volume * 10);
-		cout << force.getY() <<endl;
+		cout << "CAS 1" <<endl;
 		particule->addForce(force);
-		//partly submerged
+	
+	//partly submerged
 	} else {
 		force.setY(m_liquidDensity * m_volume * (depth - m_maxDepth - m_waterHeight) / 2 * m_maxDepth* 10) ;
-		cout << force.getY() << endl;
-		particule->addForce(force);
+		cout << "CAS 2" << endl; //PROBLEME ICI 
+		particule->addForce(Vecteur3D(0,400,0));
 	}
 }
