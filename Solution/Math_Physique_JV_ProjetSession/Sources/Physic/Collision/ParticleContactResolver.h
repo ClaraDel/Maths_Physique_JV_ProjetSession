@@ -12,9 +12,7 @@ protected:
 
 public:
 
-	void resolveContacts(ParticleContact* contactArray,
-		unsigned int numContact,
-		float duraction);
+	void resolveContacts(std::vector<ParticleContact*>  particuleContactList);
 };
 
 #endif

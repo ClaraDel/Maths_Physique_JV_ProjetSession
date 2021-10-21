@@ -21,6 +21,11 @@ void ParticleForceRegistry::remove(Particule* particule, ParticleForceGenerator*
 
 }
 
+void ParticleForceRegistry::clear()
+{
+	registry.clear();
+}
+
 void ParticleForceRegistry::UpdateForce(double duration)
 {
 	Registry::iterator i = registry.begin();

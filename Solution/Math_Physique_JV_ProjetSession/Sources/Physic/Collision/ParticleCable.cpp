@@ -1,22 +1,22 @@
 #include "ParticleCable.h"
 
-unsigned addContact(ParticleContact* contact, unsigned int limit) const
+unsigned int ParticleCable::addContact(ParticleContact* contact, unsigned int limit) const
 {
-	float length = currentLength();
-	if (length < maxLength)
-	{
+	double currentLenght = ParticleLink::currentLenght();
+
+	if (currentLenght < maxLenght) {
 		return 0;
+
 	}
-	else {
-		contact->m_particule[0] = particule[0];
-		contact->m_particule[1] = particule[1];
+	else { 
+		contact->setParticules(particule[0], particule[1]);
 
 		Vecteur3D normal = particule[1]->getPosition() - particule[0]->getPosition();
 		normal.normalization();
-		contact->contactNormal = normal;
+		contact->setContactNormal(normal);
 
-		contact->m_penetration = length - maxLength;
-		contact->m_restitution = restitution;
+		contact->setPenetration(currentLenght - maxLenght);
+		contact->setRestitution(0);
 
 		return 1;
 	}

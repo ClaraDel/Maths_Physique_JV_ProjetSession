@@ -11,6 +11,7 @@
 #include"../Physic/Collision/ParticleContactResolver.h"
 #include"../Physic/Collision/ParticleContact.h"
 #include"../Physic/Collision/ParticleContactGenerator.h"
+#include "../Physic/ForceGenerator/ParticleBuoyancy.h"
 #ifndef DEF_GAME2
 #define DEF_GAME2
 #include<vector>
@@ -19,13 +20,12 @@ class Game2 : GameBase {
 
 private :
 	int m_nbParticules;
+	float particuleSize;
+	float particuleRestitution ;
 	ParticleForceRegistry m_registry;
-	std::vector<ParticleContactGenerator*> m_generator;
+	std::vector<ParticleContact*> particuleContactList;	
 	ParticleContactResolver m_resolver;
-	ParticleContact* m_contacts;
-	unsigned int maxContacts;
 	std::vector<Particule*> m_blob;
-
 
 public :
 	Game2(std::string nameGame, std::string descriptionGame);
@@ -33,7 +33,8 @@ public :
 	void createBlob();
 	unsigned int createContacts();
 	void checkWaterInteractions();
-	void Game2::checkParticleCollisions();
+	void checkParticleCollisions();
+	void checkGroundCollisions();
 
 	void drawParticule(Particule *particule);
 	void launchParticule();

@@ -1,31 +1,34 @@
 #include"ParticleContactResolver.h"
+#include<vector>
+using namespace std;
 
-void ParticleContactResolver::resolveContacts(ParticleContact* contactArray, unsigned int numContact, float duration) {
+void ParticleContactResolver::resolveContacts(std::vector<ParticleContact*> particuleContactList) {
 
-	unsigned i;
-	unsigned maxIndex = numContacts;
+    int nbContactResolved = 0;
+    while (nbContactResolved < particuleContactList.size()) {
+        double minSepVel = 0;
+        int minIndex = 0;
+        for (int i = 0; i < particuleContactList.size(); i++) {
+            //particuleContactList is the list of all contacts we want to resolve
+            double separatingVelocity = particuleContactList[i]->calculateSeperatingVelocity();
 
-	int interationUsed = 0;
-	double maxSepVel = contactArray[0].calculateSeperatingVelocity();
+            if (separatingVelocity >= 0) {
+                nbContactResolved++;
+                //exit the algotithm
+                break;
+            }
+            else {
+                if (separatingVelocity < minSepVel) {
+                    //we keep track of the lowest value
+                    minSepVel = separatingVelocity;
+                    minIndex = i;
+                }
+            }
+        }
 
-	while(iterationUsed < nbIterations) {
-		
-		for (i = 1; i < numContact, i++) {
-			double separatingVelocity = contactArray[i].calculateSeperatingVelocity();
-			if (separatingVelocity < maxSepVel && (separatingVelocity < 0) //ou pénétration positive à voir
-			{
-				maxSepVel = separatingVelocity
-				maxIndex = i;
-			}
-		}
+        //resolve the contact with the lowest separatingVelocity 
+        particuleContactList[minIndex]->resolve();
 
-		//if(maxIndex == numContacts) break ;
-
-		//resolve the contact
-		contactArray[maxIndex].resolve(duration);
-		
-		interationUsed++;
-		
-	}
-
+        nbContactResolved++;
+    }
 }

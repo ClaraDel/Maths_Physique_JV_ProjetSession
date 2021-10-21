@@ -19,6 +19,7 @@ private:
 
 public:
 	//Registry accessors
+	void clear();
 	void add(Particule* particule, ParticleForceGenerator* particuleFg);
 	void remove(Particule* particule, ParticleForceGenerator* particuleFg);
 	void UpdateForce(double duration);

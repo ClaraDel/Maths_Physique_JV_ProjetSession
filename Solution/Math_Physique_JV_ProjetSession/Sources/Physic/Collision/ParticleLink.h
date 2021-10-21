@@ -9,7 +9,7 @@ class ParticleLink : public ParticleContactGenerator
 public:
 	Particule* particule[2];
 
-	float currentLength() const;
+	double currentLenght() const;
 	virtual unsigned int addContact(ParticleContact* contact, unsigned int limit) const = 0;
 
 };

@@ -1,4 +1,7 @@
 #include"ParticleBuoyancy.h"
+#include <iostream>
+
+using namespace std;
 
 ParticleBuoyancy::ParticleBuoyancy(double maxDepth, double volume, double waterHeight, double liquidDensity) {
 	m_maxDepth = maxDepth;
@@ -19,11 +22,13 @@ void ParticleBuoyancy::UpdateForce(Particule* particule, double duration)
 	 // are they in the water ?
 	}
 	else if (depth <= m_waterHeight - m_maxDepth) {
-		force.setY(m_liquidDensity * m_volume);
+		force.setY(m_liquidDensity * m_volume * 10);
+		cout << force.getY() <<endl;
 		particule->addForce(force);
 		//partly submerged
 	} else {
-		force.setY(m_liquidDensity * m_volume * (depth - m_maxDepth - m_waterHeight) / 2 * m_maxDepth);
+		force.setY(m_liquidDensity * m_volume * (depth - m_maxDepth - m_waterHeight) / 2 * m_maxDepth* 10) ;
+		cout << force.getY() << endl;
 		particule->addForce(force);
 	}
 }

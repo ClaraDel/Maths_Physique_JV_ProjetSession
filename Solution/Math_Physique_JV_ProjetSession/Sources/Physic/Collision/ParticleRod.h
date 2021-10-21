@@ -1,6 +1,7 @@
 #pragma once
 #ifndef DEF_PARTICLEROD
 #define DEF_PARTICLEROD
+#include "ParticleLink.h"
 
 class ParticleRod : public ParticleLink
 {
@@ -9,7 +10,7 @@ public:
 
 public:
 
-	virtual unisgned addContact(ParticleContact* contact, unsigned limit) const;
+	virtual unsigned addContact(ParticleContact* contact, unsigned limit) const;
 
 };
 
