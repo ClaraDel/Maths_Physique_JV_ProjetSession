@@ -24,7 +24,7 @@ Game2::Game2(string nameGame, string descriptionGame) : GameBase(nameGame, descr
 
 void Game2::doKeyboard(unsigned char key, int x, int y) {
 	ConstantForce* force = new ConstantForce();
-	double coeff = 50;
+	double coeff = 500;
 	
 	switch (key) {
 	case 27:// echap
