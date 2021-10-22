@@ -12,19 +12,20 @@ Game2::Game2(string nameGame, string descriptionGame) : GameBase(nameGame, descr
 {	
 	m_groundHeight = 1.5;
 	m_waterHeight = 1;
-	m_k = 2;
+	m_k = 30;
 	l0 = 0.3;
-	Z = 10;
-	m_nbParticules = 3;
+	Y = 1;
+	Z = 5;
+	m_nbParticules = 5;
 	m_blob = vector<Particule*>(); 
-	particuleSize = 0.1 ;
+	particuleSize = 0.07 ;
 	particuleRestitution = 0.6;
 	particuleContactList = vector<ParticleContact*>();
 }
 
 void Game2::doKeyboard(unsigned char key, int x, int y) {
 	ConstantForce* force = new ConstantForce();
-	double coeff = 500;
+	double coeff = 50;
 	
 	switch (key) {
 	case 27:// echap
@@ -34,7 +35,7 @@ void Game2::doKeyboard(unsigned char key, int x, int y) {
 		force = new ConstantForce(Vecteur3D(-coeff, 0.0, 0.0));
 		break;
 	case 's':
-		force = new ConstantForce(Vecteur3D(0.0, -coeff, 0.0));
+		force = new ConstantForce(Vecteur3D(0.0, -coeff*4, 0.0));
 		break;
 	case 'z':
 		force = new ConstantForce(Vecteur3D(0.0, coeff, 0.0));
@@ -53,21 +54,25 @@ void Game2::doKeyboard(unsigned char key, int x, int y) {
 void Game2::createBlob(){
 	//equivalent du lauch particule de game1
 	Particule p;
-		for (int i = 0; i < m_nbParticules; i++) {
+	for (int i = 0; i < m_nbParticules; i++) {
 		// on créée les particules avec leurs attribus
-		double masse = 3.5;
+		double masse = 0.7;
 		Vecteur3D velocity;
 		Vecteur3D position;
-		double damping = 0.9;
+		double damping = 0.8;
 		Particule* p =  new Particule(masse, position, velocity, damping);
 		m_blob.push_back(p);
 			//On initialise la position des particules du blob
 		if (i == 0) //triangle
-			m_blob[i]->setPosition(Vecteur3D(-4.5, 5, 0.0));
+			m_blob[i]->setPosition(Vecteur3D(-2.2, m_groundHeight +particuleSize, 0.0));
 		else if (i == 1)
-			m_blob[i]->setPosition(Vecteur3D(-4, 5, 0.0));
-		else
-			m_blob[i]->setPosition(Vecteur3D(-4.5, 5.5, 0.0));
+			m_blob[i]->setPosition(Vecteur3D(-2, m_groundHeight + particuleSize, 0.0));
+		else if (i == 2)
+			m_blob[i]->setPosition(Vecteur3D(-1.8, m_groundHeight + particuleSize, 0.0));
+		else if (i == 3)
+			m_blob[i]->setPosition(Vecteur3D(-2.1, m_groundHeight + 2*particuleSize, 0.0));
+		else if (i == 4)
+			m_blob[i]->setPosition(Vecteur3D(-1.9, m_groundHeight + 2 * particuleSize, 0.0));
 	}
 }
 
@@ -104,13 +109,21 @@ void Game2::checkGroundCollisions(){
 		float distance = m_blob[i]->getPosition().getY()-m_groundHeight;
 
 		// check if the particule is above or under ground 
-		if(std::abs(distance) <= radius && m_blob[i]->getPosition().getX() < 0 && m_blob[i]->getPosition().getX() >= -100)
+		if(distance <= radius && m_blob[i]->getPosition().getX() < 0 && m_blob[i]->getPosition().getX() >= -100)
 			{
 				float penetration = radius - distance;
 				Vecteur3D normal= Vecteur3D(0.0, 1.0, 0.0);
 	            ParticleContact* particleContact = new ParticleContact(m_blob[i],NULL,0.5,penetration,normal);
 				particuleContactList.push_back(particleContact);	
 			}
+
+		if (m_blob[i]->getPosition().getX() < particuleSize && m_blob[i]->getPosition().getY() <= m_groundHeight)
+		{
+			float penetration = radius - m_blob[i]->getPosition().getX();
+			Vecteur3D normal = Vecteur3D(1.0, 0.0, 0.0);
+			ParticleContact* particleContact = new ParticleContact(m_blob[i], NULL, 0.5, penetration, normal);
+			particuleContactList.push_back(particleContact);
+		}
 	}
 }
 
@@ -175,7 +188,7 @@ void Game2::doDisplay() {
 
 	//specifies the position of the eye point, the reference point
 	//and the direction of the up vector
-	gluLookAt(X,0.5,Z, 0,0.5,0, 0.0, 1.0, 0.0); //a changer avec position particule
+	gluLookAt(X,Y,Z, 0,Y,0, 0.0, 1.0, 0.0); //a changer avec position particule
 	
 
 	//apply the fonction updatePhysics

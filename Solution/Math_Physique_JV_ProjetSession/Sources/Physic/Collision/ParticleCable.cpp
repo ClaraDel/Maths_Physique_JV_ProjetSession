@@ -1,5 +1,12 @@
 #include "ParticleCable.h"
 
+ParticleCable::ParticleCable(Particule* p1, Particule* p2, float length)
+{
+	particule[0] = p1;
+	particule[1] = p2;
+	maxLenght = length;
+}
+
 unsigned int ParticleCable::addContact(ParticleContact* contact, unsigned int limit) const
 {
 	double currentLenght = ParticleLink::currentLenght();

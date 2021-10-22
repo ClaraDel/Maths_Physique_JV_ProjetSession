@@ -19,6 +19,7 @@
 class Game2 : GameBase {
 
 private :
+	int Y;
 	double m_groundHeight;
 	double m_waterHeight;
 	int m_nbParticules;
