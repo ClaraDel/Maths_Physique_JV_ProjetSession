@@ -19,8 +19,12 @@
 class Game2 : GameBase {
 
 private :
+	double m_groundHeight;
+	double m_waterHeight;
 	int m_nbParticules;
 	float particuleSize;
+	double m_k;
+	double l0;
 	float particuleRestitution ;
 	ParticleForceRegistry m_registry;
 	std::vector<ParticleContact*> particuleContactList;	

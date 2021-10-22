@@ -3,8 +3,9 @@
 
 using namespace std;
 
-ParticleBuoyancy::ParticleBuoyancy(double maxDepth, double volume, double waterHeight, double liquidDensity) {
-	m_maxDepth = maxDepth;
+ParticleBuoyancy::ParticleBuoyancy(float particuleSize, double volume, double waterHeight, double liquidDensity) {
+	m_maxDepth = 1- particuleSize ;
+	m_particuleSize = particuleSize;
 	m_waterHeight = waterHeight;
 	m_volume = volume;
 	m_liquidDensity = liquidDensity;
@@ -23,13 +24,17 @@ void ParticleBuoyancy::UpdateForce(Particule* particule, double duration)
 	}
 	else if (depth <=  m_maxDepth) {
 		force.setY(m_liquidDensity * m_volume * 10);
-		cout << "CAS 1" <<endl;
+		cout << "TOTAL" <<endl;
+		cout << force.getY() << endl;
 		particule->addForce(force);
 	
 	//partly submerged
 	} else {
-		force.setY(m_liquidDensity * m_volume * (depth - m_maxDepth - m_waterHeight) / 2 * m_maxDepth* 10) ;
-		cout << "CAS 2" << endl; //PROBLEME ICI 
-		particule->addForce(Vecteur3D(0,400,0));
+			double d = (m_waterHeight - (depth - m_particuleSize))/(2*m_particuleSize)  ;
+		double forceY = m_liquidDensity * m_volume * d * 10;
+		force.setY(forceY) ;
+		cout << "PARTLY" << endl;
+		cout << force.getY() << endl; 
+		particule->addForce(force);
 	}
 }

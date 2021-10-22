@@ -4,19 +4,20 @@
 #include "GameBase.h"
 #include "../Physic/Particule.h"
 #include "../Physic/ForceGenerator/ParticleGravity.h"
+#include "../Physic/ForceGenerator/ParticleForceRegistry.h"
 #ifndef DEF_GAME1
 #define DEF_GAME1
 #include<vector>
 
 class Game1 : public GameBase {
 private : 
-	std::vector<Particule> partTabl;
-	
+	std::vector<Particule*> partTabl;
+	ParticleForceRegistry m_registry;
 
 public : 
 	Game1(std::string nameGame, std::string descriptionGame);
 	
-	void drawParticule(Particule particule);
+	void drawParticule(Particule* particule);
 	void launchParticule();
 	void doUpdatePhysics() override;
  

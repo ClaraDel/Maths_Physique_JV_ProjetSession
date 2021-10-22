@@ -9,15 +9,16 @@ class ParticleBuoyancy : public ParticleForceGenerator
 {
 private:
 	//particle properties
-	double m_maxDepth;
+	float m_particuleSize;
 	double m_volume;
+	double m_maxDepth;
 
 	//effect properties
 	double m_waterHeight;
 	double m_liquidDensity;
 
 public:
-	ParticleBuoyancy(double maxDepth, double volume, double waterHeight, double liquidDensity);
+	ParticleBuoyancy(float particuleSize, double volume, double waterHeight, double liquidDensity);
 	//apply Buoyancy based on particle position
 	void UpdateForce(Particule* particule, double duration);
 };

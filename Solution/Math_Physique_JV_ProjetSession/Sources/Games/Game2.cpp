@@ -10,6 +10,10 @@ using namespace std;
 
 Game2::Game2(string nameGame, string descriptionGame) : GameBase(nameGame, descriptionGame)
 {	
+	m_groundHeight = 1.5;
+	m_waterHeight = 1;
+	m_k = 2;
+	l0 = 0.3;
 	Z = 10;
 	m_nbParticules = 3;
 	m_blob = vector<Particule*>(); 
@@ -19,39 +23,39 @@ Game2::Game2(string nameGame, string descriptionGame) : GameBase(nameGame, descr
 }
 
 void Game2::doKeyboard(unsigned char key, int x, int y) {
-	Vecteur3D force ;
+	ConstantForce* force = new ConstantForce();
+	double coeff = 50;
 	
 	switch (key) {
 	case 27:// echap
 		exit(EXIT_SUCCESS);
 		break;
 	case 'q': 
-		force = Vecteur3D(-50.0, 0.0, 0.0);
+		force = new ConstantForce(Vecteur3D(-coeff, 0.0, 0.0));
 		break;
 	case 's':
-		force = Vecteur3D(0.0, -50.0, 0.0);
+		force = new ConstantForce(Vecteur3D(0.0, -coeff, 0.0));
 		break;
 	case 'z':
-		force = Vecteur3D(0.0, 50.0, 0.0);
+		force = new ConstantForce(Vecteur3D(0.0, coeff, 0.0));
 		break;
 	case 'd':
-		force = Vecteur3D(500.0, 0.0, 0.0);
+		force = new ConstantForce(Vecteur3D(coeff, 0.0, 0.0));
 		break;
 	case 32: //sapce bar
 	default:
 		break;
 	}
-	m_blob[0]->addForce(force);
-	
+	//m_blob[0]->addForce(force);
+	m_registry.add(m_blob[0], force);
 }
 
 void Game2::createBlob(){
 	//equivalent du lauch particule de game1
 	Particule p;
-	ParticleGravity* pg =  new ParticleGravity();
 		for (int i = 0; i < m_nbParticules; i++) {
 		// on créée les particules avec leurs attribus
-		double masse = 4;
+		double masse = 3.5;
 		Vecteur3D velocity;
 		Vecteur3D position;
 		double damping = 0.9;
@@ -59,22 +63,11 @@ void Game2::createBlob(){
 		m_blob.push_back(p);
 			//On initialise la position des particules du blob
 		if (i == 0) //triangle
-			m_blob[i]->setPosition(Vecteur3D(-5, 4, 0.0));
-		else if (i == 1)
-			m_blob[i]->setPosition(Vecteur3D(-4, 4, 0.0));
-		else
 			m_blob[i]->setPosition(Vecteur3D(-4.5, 5, 0.0));
-			// on créée la/les forces en passant la particule concernée en paramètre
-			// on ajoute tout cela au registry
-		m_registry.add(m_blob[i], pg);
-		for (int j=0; j < m_blob.size();j++){
-			for(int k=0;k<m_blob.size();k++){
-				if(j!=k){
-					ParticleSpring* ps = new ParticleSpring(m_blob[k], 10.0, 0.7);
-					m_registry.add(m_blob[j], ps);
-				}
-			}
-		}
+		else if (i == 1)
+			m_blob[i]->setPosition(Vecteur3D(-4, 5, 0.0));
+		else
+			m_blob[i]->setPosition(Vecteur3D(-4.5, 5.5, 0.0));
 	}
 }
 
@@ -97,9 +90,9 @@ void Game2::checkParticleCollisions() {
 void Game2::checkWaterInteractions() {
 	//for each particle, we check if its under water
 	for (int i = 0; i < m_nbParticules; i++) {
-		if (m_blob[i]->getPosition().getY() < 1 && m_blob[i]->getPosition().getX() >= 0 && m_blob[i]->getPosition().getX() <= 100){
+		if (m_blob[i]->getPosition().getY() <= m_waterHeight + particuleSize && m_blob[i]->getPosition().getX() >= 0 && m_blob[i]->getPosition().getX() <= 100){
 			double volume = 4.f / 3.f * 3.14 * std::pow(particuleSize, 3);
-			ParticleBuoyancy* buoyancy = new ParticleBuoyancy(1-particuleSize, volume, 1, 1000);
+			ParticleBuoyancy* buoyancy = new ParticleBuoyancy(particuleSize, volume, m_waterHeight, 1000);
 			m_registry.add(m_blob[i], buoyancy);
 		}
 	}
@@ -108,18 +101,13 @@ void Game2::checkWaterInteractions() {
 void Game2::checkGroundCollisions(){
 	for (int i = 0; i < m_nbParticules; i++) {
 		float radius = particuleSize;
-		float distance = m_blob[i]->getPosition().getY()-2;
+		float distance = m_blob[i]->getPosition().getY()-m_groundHeight;
 
 		// check if the particule is above or under ground 
 		if(std::abs(distance) <= radius && m_blob[i]->getPosition().getX() < 0 && m_blob[i]->getPosition().getX() >= -100)
 			{
 				float penetration = radius - distance;
-				Vecteur3D normal;
-				if(distance >= 0 ){
-					normal = Vecteur3D(0.0, 1.0, 0.0);
-				} else {
-					normal = Vecteur3D(0.0, -1, 0.0);
-				}
+				Vecteur3D normal= Vecteur3D(0.0, 1.0, 0.0);
 	            ParticleContact* particleContact = new ParticleContact(m_blob[i],NULL,0.5,penetration,normal);
 				particuleContactList.push_back(particleContact);	
 			}
@@ -152,7 +140,7 @@ void Game2::doUpdatePhysics() {
 	for (int j = 0; j < m_blob.size(); j++) {
 		for (int k = 0; k < m_blob.size(); k++) {
 			if (j != k) {
-				m_registry.add(m_blob[j], new ParticleSpring(m_blob[k], 100.0, 0.7));
+				m_registry.add(m_blob[j], new ParticleSpring(m_blob[k], m_k, l0));
 			}
 		}
 	}
@@ -196,18 +184,18 @@ void Game2::doDisplay() {
 	//Draw ground
 	glColor3f(0.1, 0.0, 0.0); //brown
 	glBegin(GL_QUADS);
-	glVertex3f(-100, 2, 0);
+	glVertex3f(-100, m_groundHeight, 0);
 	glVertex3f(-100, -150, 0.0);
 	glVertex3f(0.0, -150, 0.0);
-	glVertex3f(0.0, 2.0, 0.0);
+	glVertex3f(0.0, m_groundHeight, 0.0);
 	glEnd();
 	//Draw water
 	glColor3f(0.5, 1.0, 1.0); //cyan 
 	glBegin(GL_QUADS);
-	glVertex3f(0, 1, 0);
+	glVertex3f(0, m_waterHeight, 0);
 	glVertex3f(0, -150, 0.0);
 	glVertex3f(100, -150, 0.0);
-	glVertex3f(100, 1, 0.0);
+	glVertex3f(100, m_waterHeight, 0.0);
 	glEnd();
 
 	//for the first particle (the one we can control)

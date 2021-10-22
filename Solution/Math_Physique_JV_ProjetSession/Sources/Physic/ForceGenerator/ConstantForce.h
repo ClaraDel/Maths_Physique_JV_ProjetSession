@@ -10,7 +10,7 @@ private:
 	Vecteur3D m_force;
 
 public:
-	ConstantForce(const Vecteur3D& force);
+	ConstantForce(const Vecteur3D& force = Vecteur3D());
 	void UpdateForce(Particule* particule, double duration);
 };
 
