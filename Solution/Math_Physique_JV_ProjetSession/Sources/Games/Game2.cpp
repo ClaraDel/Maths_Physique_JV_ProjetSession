@@ -70,7 +70,7 @@ void Game2::createBlob(){
 		for (int j=0; j < m_blob.size();j++){
 			for(int k=0;k<m_blob.size();k++){
 				if(j!=k){
-					ParticleSpring* ps = new ParticleSpring(m_blob[k], 100.0, 0.7);
+					ParticleSpring* ps = new ParticleSpring(m_blob[k], 10.0, 0.7);
 					m_registry.add(m_blob[j], ps);
 				}
 			}
