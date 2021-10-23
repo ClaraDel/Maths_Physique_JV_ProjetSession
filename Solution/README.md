@@ -34,16 +34,16 @@ Ces étapes vous permettent de créer le project à ouvrir dans VS:
   
   * 'dir'
   
-***Si vous n'avez pas de terminal -> Créer un dossier build
+*** Si vous n'avez pas de terminal -> Créer un dossier build
 Ouvrir Cmake , source code : le dossier , where to build : dossier/build , choisir comme Generator: Visual Studio 16 2019.
-Appuyer sur configure puis sur Generate
+Appuyer sur configure puis sur Generate ***
 
 * Vous devriez trouver un fichier nommé 'MathsPhysique.sln' dans le dossier build
 
 
 ### Compiler, build et lancer
 
-*Ouvrir 'MathsPhysique.sln' dans VS
+* Ouvrir 'MathsPhysique.sln' dans VS
 
 * build la solution (**Build Solution** from the **Build menu**)
 
@@ -55,7 +55,7 @@ Appuyer sur configure puis sur Generate
   
   * Puis choisir sur la barre du menu **Debug** -> **Start debuggin**
 
-###Comment jouer 
+### Comment jouer 
 Vous pouvez choisir entre le jeu 1 ou 2
 Pour le jeu 1 :
 Vous pouvez lancer des projectiles en appuyant sur espace, mais aussi faire rotater la caméra avec les touches directionnelles. 
