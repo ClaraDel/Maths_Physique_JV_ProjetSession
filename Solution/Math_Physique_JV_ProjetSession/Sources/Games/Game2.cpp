@@ -44,11 +44,10 @@ void Game2::doKeyboard(unsigned char key, int x, int y) {
 	case 'd':
 		force = new ConstantForce(Vecteur3D(coeff, 0.0, 0.0));
 		break;
-	case 32: //sapce bar
+	case 32: //space bar
 	default:
 		break;
 	}
-	//m_blob[0]->addForce(force);
 	m_registry.add(m_blob[0], force);
 }
 
