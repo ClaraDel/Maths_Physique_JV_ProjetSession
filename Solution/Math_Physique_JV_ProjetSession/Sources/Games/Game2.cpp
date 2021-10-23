@@ -56,7 +56,7 @@ void Game2::createBlob(){
 	Particule p;
 	for (int i = 0; i < m_nbParticules; i++) {
 		// on créée les particules avec leurs attribus
-		double masse = 0.7;
+		double masse = 1;
 		Vecteur3D velocity;
 		Vecteur3D position;
 		double damping = 0.8;
@@ -64,15 +64,15 @@ void Game2::createBlob(){
 		m_blob.push_back(p);
 			//On initialise la position des particules du blob
 		if (i == 0) //triangle
-			m_blob[i]->setPosition(Vecteur3D(-2.2, m_groundHeight +2*particuleSize, 0.0));
+			m_blob[i]->setPosition(Vecteur3D(-2.2, m_groundHeight +particuleSize, 0.0));
 		else if (i == 1)
-			m_blob[i]->setPosition(Vecteur3D(-2, m_groundHeight + 2*particuleSize, 0.0));
+			m_blob[i]->setPosition(Vecteur3D(-1.8, m_groundHeight + particuleSize, 0.0));
 		else if (i == 2)
-			m_blob[i]->setPosition(Vecteur3D(-1.8, m_groundHeight + 2*particuleSize, 0.0));
+			m_blob[i]->setPosition(Vecteur3D(-1.4, m_groundHeight + particuleSize, 0.0));
 		else if (i == 3)
-			m_blob[i]->setPosition(Vecteur3D(-2.1, m_groundHeight + 4*particuleSize, 0.0));
+			m_blob[i]->setPosition(Vecteur3D(-2.1, m_groundHeight + 2*particuleSize, 0.0));
 		else if (i == 4)
-			m_blob[i]->setPosition(Vecteur3D(-1.9, m_groundHeight + 4 * particuleSize, 0.0));
+			m_blob[i]->setPosition(Vecteur3D(-1.9, m_groundHeight + 2*particuleSize, 0.0));
 	}
 	for (int i = 0; i < m_nbParticules; i++) {
 		for (int k = i + 1; k < m_nbParticules; k++) {
