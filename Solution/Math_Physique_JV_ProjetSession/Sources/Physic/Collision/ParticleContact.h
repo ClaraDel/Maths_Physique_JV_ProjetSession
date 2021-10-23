@@ -18,7 +18,7 @@ private :
 
 public : 
 	ParticleContact();
-	ParticleContact(Particule* p1, Particule* p2, float restitution, float penetration, Vecteur3D contactNormal);
+	ParticleContact(Particule* p1, Particule* p2, float restitution = 0, float penetration = 0, Vecteur3D contactNormal = Vecteur3D());
 
 	void setPenetration(double penetration);
 	void setRestitution(double restitution);

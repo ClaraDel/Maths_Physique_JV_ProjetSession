@@ -1,6 +1,6 @@
 #include "ParticleRod.h"
 
-unsigned ParticleRod::addContact(ParticleContact* contact, unsigned limit) const
+unsigned ParticleRod::addContact(ParticleContact* contact) 
 {
 	double currentLenght = ParticleLink::currentLenght(); 
 	

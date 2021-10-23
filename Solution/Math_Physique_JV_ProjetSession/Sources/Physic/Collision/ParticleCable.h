@@ -10,7 +10,7 @@ class ParticleCable : public ParticleLink
 public:
 	float maxLenght;
 
-	unsigned int addContact(ParticleContact* contact, unsigned int limit) const;
+	unsigned int addContact(ParticleContact* contact) override;
 	ParticleCable(Particule* p1, Particule* p2, float maxLenght);
 };
 

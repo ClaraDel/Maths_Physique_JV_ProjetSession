@@ -74,12 +74,12 @@ void Game2::createBlob(){
 		else if (i == 4)
 			m_blob[i]->setPosition(Vecteur3D(-1.9, m_groundHeight + 2 * particuleSize, 0.0));
 	}
-	for (int i = 0; i < m_nbParticules; i++) {
+	/*for (int i = 0; i < m_nbParticules; i++) {
 		for (int k = i + 1; k < m_nbParticules; k++) {
-			ParticleCable* particuleCable = new ParticleCable(m_blob[i], m_blob[k], l0 * 5);
+			ParticleCable* particuleCable = new ParticleCable(m_blob[i], m_blob[k], l0 * 10000000);
 			m_cables.push_back(particuleCable);
 		}
-	}
+	}*/
 }
 
 void Game2::checkParticleCollisions() {
@@ -128,7 +128,7 @@ void Game2::checkGroundCollisions(){
 			float penetration = radius - m_blob[i]->getPosition().getX();
 			Vecteur3D normal = Vecteur3D(1.0, 0.0, 0.0);
 			ParticleContact* particleContact = new ParticleContact(m_blob[i], NULL, 0.5, penetration, normal);
-			particuleContactList.push_back(particleContact);
+			particuleContactList.push_back(particleContacst);
 		}
 	}
 }
@@ -165,15 +165,15 @@ void Game2::doUpdatePhysics() {
 	}
 
 	//cables
-	for (int i = 0; i < m_cables.size(); i++) {
+	/*for (int i = 0; i < m_cables.size(); i++) {
 		ParticleContact* contacts = new ParticleContact();
-		unsigned numContactsGround = m_cables[i]->addContact(contacts, 2 * m_nbParticules);
+		unsigned numContactsGround = m_cables[i]->addContact(contacts);
 		if (numContactsGround > 0) {
 			vector<ParticleContact*> contactArray;
-			contactArray.push_back(&contacts[i]);
+			contactArray.push_back(contacts);
 			m_resolver.resolveContacts(contactArray);
 		}
-	}
+	}*/
 	
 	checkWaterInteractions();
 	

@@ -10,7 +10,7 @@ public:
 	Particule* particule[2];
 
 	double currentLenght() const;
-	virtual unsigned int addContact(ParticleContact* contact, unsigned int limit) const = 0;
+	virtual unsigned int addContact(ParticleContact* contact) = 0;
 
 };
 
