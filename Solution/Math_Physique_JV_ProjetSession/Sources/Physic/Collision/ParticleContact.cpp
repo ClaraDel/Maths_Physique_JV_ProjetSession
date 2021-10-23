@@ -2,10 +2,10 @@
 
 
 ParticleContact::ParticleContact(){
-	m_particules[0] = nullptr;
+	m_particules[0] = nullptr; 
 	m_particules[1] = nullptr;
-	m_restitution = 0;
-	m_penetration = 0;
+	m_restitution = 0; //restitution coefficient
+	m_penetration = 0; //distance of penetration between the two particle
 	m_contactNormal = Vecteur3D();
 }
 
@@ -17,6 +17,7 @@ ParticleContact::ParticleContact(Particule* p1, Particule* p2, float restitution
 	m_contactNormal = contactNormal;
 }
 
+//calculate the separating velocity
 double ParticleContact::calculateSeperatingVelocity() {
 	if (m_particules[1] == nullptr) {
 		return m_particules[0]->getVelocity().scalarProduct(m_contactNormal);
@@ -26,6 +27,7 @@ double ParticleContact::calculateSeperatingVelocity() {
 	}
 }
 
+//Resolve interpenetration and velocity 
 void ParticleContact::resolve() {
 	resolveVelocity();
 	resolveInterpenetration();
@@ -48,6 +50,7 @@ void ParticleContact::setPenetration(double penetration) {
 	m_penetration = penetration;
 }
 
+//calculate and apply the new velocity of the two particle
 void  ParticleContact::resolveVelocity() {
 	double separatingVelocity = calculateSeperatingVelocity();
 
@@ -56,12 +59,13 @@ void  ParticleContact::resolveVelocity() {
 		return; 
 	}
 
-	//we apply restitution coefficient
+	//apply the restitution coefficient
 	double newSV = -separatingVelocity * m_restitution;
 
 	Vecteur3D vRel = m_particules[0]->getVelocity();
 	double inverseMasseParticule1 = 0;
 
+	//if particle is not the ground
 	if (m_particules[1] != nullptr) {
 		vRel -= m_particules[1]->getVelocity();
 		inverseMasseParticule1 = m_particules[1]->getInverseMasse();
@@ -70,6 +74,7 @@ void  ParticleContact::resolveVelocity() {
 	// 1/m0 + 1/m1 if m1 exists
 	double coeffInvertMass = m_particules[0]->getInverseMasse() + inverseMasseParticule1;
 
+	//calculate the coefficient k required to calculate the impulse
 	double k = (m_restitution + 1) * vRel.scalarProduct(m_contactNormal) / coeffInvertMass;
 
 	//we calcule new velocity for each particle
@@ -79,22 +84,29 @@ void  ParticleContact::resolveVelocity() {
 	}
 }
 
+//resolve the interpenetration
 void  ParticleContact::resolveInterpenetration() {
-	if (m_penetration <= 0) return;
+	if (m_penetration <= 0) return; //there is no interpenetration
 
 	float sumInverseMass = m_particules[0]->getInverseMasse();
+
 	if (m_particules[1] != nullptr) {
+		//if penetration occurs with two particle
+		// 1/m0 + 1/m1 if m1 exists
 		sumInverseMass += m_particules[1]->getInverseMasse();
 		if(sumInverseMass <=0 ) return;
 
 		Vecteur3D particuleMovement[2];
+		// calculate the distance of displacement required to resolve interpenetration
 		particuleMovement[0] = m_particules[0]->getInverseMasse() * (m_penetration / sumInverseMass) * m_contactNormal;
 		particuleMovement[1] = - m_particules[1]->getInverseMasse() * (m_penetration /sumInverseMass) * m_contactNormal;
 
+		//update the positions of particles
 		m_particules[0]->setPosition(m_particules[0]->getPosition() + particuleMovement[0]);
 		m_particules[1]->setPosition(m_particules[1]->getPosition() + particuleMovement[1]);
 	}
 	else {
+		//if penetration occurs with the ground
 		m_particules[0]->setPosition(m_particules[0]->getPosition() +  m_penetration  * m_contactNormal);
 	}
 	

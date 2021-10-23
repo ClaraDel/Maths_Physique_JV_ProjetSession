@@ -7,7 +7,7 @@
 class ParticleSpring : public ParticleForceGenerator
 {
 private:
-	//other anchor
+	//other particle
 	Particule* m_other;
 	//Spring constant
 	double m_k;

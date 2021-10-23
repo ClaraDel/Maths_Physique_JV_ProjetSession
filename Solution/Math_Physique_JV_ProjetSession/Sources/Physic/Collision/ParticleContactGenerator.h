@@ -3,7 +3,7 @@
 #define DEF_PARTICLECONTACTGENERATOR
 #include "ParticleContact.h"
 
-
+//abstract class
 class ParticleContactGenerator
 {
 public:

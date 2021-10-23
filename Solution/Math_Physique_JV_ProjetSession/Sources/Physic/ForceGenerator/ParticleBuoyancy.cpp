@@ -24,8 +24,6 @@ void ParticleBuoyancy::UpdateForce(Particule* particule, double duration)
 	}
 	else if (depth <=  m_maxDepth) {
 		force.setY(m_liquidDensity * m_volume * 10);
-		cout << "TOTAL" <<endl;
-		cout << force.getY() << endl;
 		particule->addForce(force);
 	
 	//partly submerged
@@ -33,8 +31,6 @@ void ParticleBuoyancy::UpdateForce(Particule* particule, double duration)
 		double d = (m_waterHeight - (depth - m_particuleSize))/(2*m_particuleSize)  ;
 		double forceY = m_liquidDensity * m_volume * d * 10;
 		force.setY(forceY) ;
-		cout << "PARTLY" << endl;
-		cout << force.getY() << endl; 
 		particule->addForce(force);
 	}
 }
