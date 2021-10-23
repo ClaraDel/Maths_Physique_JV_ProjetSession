@@ -16,7 +16,7 @@ Game2::Game2(string nameGame, string descriptionGame) : GameBase(nameGame, descr
 	l0 = 0.3;
 	Y = 1;
 	Z = 5;
-	m_nbParticules = 5;
+	m_nbParticules = 3;
 	m_cables = vector<ParticleCable*>();
 	m_blob = vector<Particule*>(); 
 	particuleSize = 0.07 ;
@@ -64,19 +64,19 @@ void Game2::createBlob(){
 		m_blob.push_back(p);
 			//On initialise la position des particules du blob
 		if (i == 0) //triangle
-			m_blob[i]->setPosition(Vecteur3D(-2.2, m_groundHeight +particuleSize, 0.0));
+			m_blob[i]->setPosition(Vecteur3D(-2.2, m_groundHeight +2*particuleSize, 0.0));
 		else if (i == 1)
-			m_blob[i]->setPosition(Vecteur3D(-2, m_groundHeight + particuleSize, 0.0));
+			m_blob[i]->setPosition(Vecteur3D(-2, m_groundHeight + 2*particuleSize, 0.0));
 		else if (i == 2)
-			m_blob[i]->setPosition(Vecteur3D(-1.8, m_groundHeight + particuleSize, 0.0));
+			m_blob[i]->setPosition(Vecteur3D(-1.8, m_groundHeight + 2*particuleSize, 0.0));
 		else if (i == 3)
-			m_blob[i]->setPosition(Vecteur3D(-2.1, m_groundHeight + 2*particuleSize, 0.0));
+			m_blob[i]->setPosition(Vecteur3D(-2.1, m_groundHeight + 4*particuleSize, 0.0));
 		else if (i == 4)
-			m_blob[i]->setPosition(Vecteur3D(-1.9, m_groundHeight + 2 * particuleSize, 0.0));
+			m_blob[i]->setPosition(Vecteur3D(-1.9, m_groundHeight + 4 * particuleSize, 0.0));
 	}
 	for (int i = 0; i < m_nbParticules; i++) {
 		for (int k = i + 1; k < m_nbParticules; k++) {
-			ParticleCable* particuleCable = new ParticleCable(m_blob[i], m_blob[k], l0 * 5);
+			ParticleCable* particuleCable = new ParticleCable(m_blob[i], m_blob[k], l0 * 20);
 			m_cables.push_back(particuleCable);
 		}
 	}
@@ -131,6 +131,7 @@ void Game2::checkGroundCollisions(){
 			particuleContactList.push_back(particleContact);
 		}
 	}
+	
 }
 
 void Game2::drawParticule(Particule* particule) {
@@ -149,12 +150,7 @@ void Game2::doUpdatePhysics() {
 	particuleContactList = vector<ParticleContact*>();
 	//on met à jour quelle particule a quelle force
 
-	//toutes les particules ont la gravité
-	for (int i = 0; i < m_nbParticules; i++)
-	{
-		m_registry.add(m_blob[i], new ParticleGravity());
-	}
-
+	
 	//les ressorts les uns avec les autres
 	for (int j = 0; j < m_blob.size(); j++) {
 		for (int k = 0; k < m_blob.size(); k++) {
@@ -170,24 +166,39 @@ void Game2::doUpdatePhysics() {
 		unsigned numContactsGround = m_cables[i]->addContact(contacts, 2 * m_nbParticules);
 		if (numContactsGround > 0) {
 			vector<ParticleContact*> contactArray;
-			contactArray.push_back(&contacts[i]);
+			contactArray.push_back(contacts);
 			m_resolver.resolveContacts(contactArray);
 		}
 	}
+
+	//toutes les particules ont la gravité
+	for (int i = 0; i < m_nbParticules; i++)
+	{
+		m_registry.add(m_blob[i], new ParticleGravity());
+	}
+
+
 	
 	checkWaterInteractions();
 	
+	
+	
 	m_registry.UpdateForce(deltaTime); //update each force 
+
+	checkGroundCollisions();
+	checkParticleCollisions();
+	
+	m_resolver.resolveContacts(particuleContactList);
 
 	for (int i = 0; i < m_nbParticules; i++) {
 		m_blob[i]->integrate(deltaTime);
 	}
 	
-	checkParticleCollisions();
-	checkGroundCollisions();
+	
 
 	//cout << particuleContactList.size()<<endl;
-	m_resolver.resolveContacts(particuleContactList);
+	
+
 
 	m_registry.clear();
 

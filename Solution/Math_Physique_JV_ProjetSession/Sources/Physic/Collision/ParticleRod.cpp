@@ -8,22 +8,20 @@ unsigned ParticleRod::addContact(ParticleContact* contact, unsigned limit) const
 		return 0;
 
 	} else {
-		contact->setParticules(particule[0], particule[1]);
-
+		float penetration;
 		//calculate the normal between these two particle
 		Vecteur3D normal = particule[1]->getPosition() - particule[0]->getPosition();
 		normal.normalization();
 
 		if (currentLenght > lenght) {
-			contact->setContactNormal(normal);
-			contact->setPenetration(currentLenght - lenght);
+			 penetration =currentLenght - lenght;
 		} else {
-			contact->setContactNormal(-1*normal);
-			contact->setPenetration(lenght - currentLenght);
+			normal =-1*normal;
+		     penetration = lenght - currentLenght;
 		}
 
 		//we don't want boudiness
-		contact->setRestitution(0);
+		*contact = ParticleContact(particule[0], particule[1], 0, penetration, normal);
 
 		return 1;
 	}

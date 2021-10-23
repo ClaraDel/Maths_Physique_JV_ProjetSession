@@ -15,16 +15,11 @@ unsigned int ParticleCable::addContact(ParticleContact* contact, unsigned int li
 		return 0;
 
 	}
-	else { 
-		contact->setParticules(particule[0], particule[1]);
-
+	else {
 		Vecteur3D normal = particule[1]->getPosition() - particule[0]->getPosition();
 		normal.normalization();
-		contact->setContactNormal(normal);
-
-		contact->setPenetration(currentLenght - maxLenght);
-		contact->setRestitution(0);
-
+		double penetration = currentLenght - maxLenght;
+		*contact =  ParticleContact(particule[0], particule[1], 0, penetration, normal);
 		return 1;
 	}
 }

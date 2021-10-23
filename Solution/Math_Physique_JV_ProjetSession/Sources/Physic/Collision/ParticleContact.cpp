@@ -18,6 +18,9 @@ ParticleContact::ParticleContact(Particule* p1, Particule* p2, float restitution
 }
 
 double ParticleContact::calculateSeperatingVelocity() {
+	if (m_particules[0] == nullptr) {
+		return 0;
+	}
 	if (m_particules[1] == nullptr) {
 		return m_particules[0]->getVelocity().scalarProduct(m_contactNormal);
 	}
@@ -31,10 +34,6 @@ void ParticleContact::resolve() {
 	resolveInterpenetration();
 }
 
-void ParticleContact::setParticules(Particule* p1, Particule* p2) {
-	m_particules[0] = p1;
-	m_particules[1] = p2;
-}
 
 void ParticleContact::setContactNormal(Vecteur3D cn) {
 	m_contactNormal = cn;

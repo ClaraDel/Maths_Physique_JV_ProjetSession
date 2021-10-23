@@ -4,7 +4,6 @@
 #include <cmath>
 
 using namespace std;
-
 Particule::Particule(double m, Vecteur3D pos, Vecteur3D vit, double d){
 	masse = m;
 	position = pos;
