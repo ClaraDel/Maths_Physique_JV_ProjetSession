@@ -5,7 +5,7 @@
 #include "Game2.h"
 #include <ctime>
 
-
+#define SIZE 5
 using namespace std;
 
 Game2::Game2(string nameGame, string descriptionGame) : GameBase(nameGame, descriptionGame)
@@ -17,6 +17,7 @@ Game2::Game2(string nameGame, string descriptionGame) : GameBase(nameGame, descr
 	Y = 1;
 	Z = 5;
 	m_nbParticules = 5;
+	m_cables = vector<ParticleCable*>();
 	m_blob = vector<Particule*>(); 
 	particuleSize = 0.07 ;
 	particuleRestitution = 0.6;
@@ -73,6 +74,12 @@ void Game2::createBlob(){
 			m_blob[i]->setPosition(Vecteur3D(-2.1, m_groundHeight + 2*particuleSize, 0.0));
 		else if (i == 4)
 			m_blob[i]->setPosition(Vecteur3D(-1.9, m_groundHeight + 2 * particuleSize, 0.0));
+	}
+	for (int i = 0; i < m_nbParticules; i++) {
+		for (int k = i + 1; k < m_nbParticules; k++) {
+			ParticleCable* particuleCable = new ParticleCable(m_blob[i], m_blob[k], l0 * 5);
+			m_cables.push_back(particuleCable);
+		}
 	}
 }
 
@@ -158,7 +165,17 @@ void Game2::doUpdatePhysics() {
 		}
 	}
 
-	//cout << m_blob[0]->getPosition();
+	//cables
+	for (int i = 0; i < m_cables.size(); i++) {
+		ParticleContact* contacts = new ParticleContact();
+		unsigned numContactsGround = m_cables[i]->addContact(contacts, 2 * m_nbParticules);
+		if (numContactsGround > 0) {
+			vector<ParticleContact*> contactArray;
+			contactArray.push_back(&contacts[i]);
+			m_resolver.resolveContacts(contactArray);
+		}
+	}
+	
 	checkWaterInteractions();
 	
 	m_registry.UpdateForce(deltaTime); //update each force 

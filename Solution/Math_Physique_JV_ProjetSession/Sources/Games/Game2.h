@@ -10,6 +10,7 @@
 #include "../Physic/ForceGenerator/ConstantForce.h"
 #include"../Physic/Collision/ParticleContactResolver.h"
 #include"../Physic/Collision/ParticleContact.h"
+#include"../Physic/Collision/ParticleCable.h"
 #include"../Physic/Collision/ParticleContactGenerator.h"
 #include "../Physic/ForceGenerator/ParticleBuoyancy.h"
 #ifndef DEF_GAME2
@@ -28,6 +29,7 @@ private :
 	double l0;
 	float particuleRestitution ;
 	ParticleForceRegistry m_registry;
+	std::vector<ParticleCable*> m_cables;
 	std::vector<ParticleContact*> particuleContactList;	
 	ParticleContactResolver m_resolver;
 	std::vector<Particule*> m_blob;

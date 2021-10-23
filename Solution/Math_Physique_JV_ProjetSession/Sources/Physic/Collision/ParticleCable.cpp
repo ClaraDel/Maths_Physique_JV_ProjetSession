@@ -1,10 +1,10 @@
 #include "ParticleCable.h"
 
-ParticleCable::ParticleCable(Particule* p1, Particule* p2, float length)
+ParticleCable::ParticleCable(Particule* p1, Particule* p2, float mLength)
 {
 	particule[0] = p1;
 	particule[1] = p2;
-	maxLenght = length;
+	maxLenght = mLength;
 }
 
 unsigned int ParticleCable::addContact(ParticleContact* contact, unsigned int limit) const
