@@ -128,7 +128,7 @@ void Game2::checkGroundCollisions(){
 			float penetration = radius - m_blob[i]->getPosition().getX();
 			Vecteur3D normal = Vecteur3D(1.0, 0.0, 0.0);
 			ParticleContact* particleContact = new ParticleContact(m_blob[i], NULL, 0.5, penetration, normal);
-			particuleContactList.push_back(particleContacst);
+			particuleContactList.push_back(particleContact);
 		}
 	}
 }
