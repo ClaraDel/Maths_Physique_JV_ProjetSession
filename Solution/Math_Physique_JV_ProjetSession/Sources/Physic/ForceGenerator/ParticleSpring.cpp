@@ -14,6 +14,7 @@ void ParticleSpring::UpdateForce(Particule* particule, double duration)
 	Vecteur3D A(particule->getPosition());
 	Vecteur3D B(m_other->getPosition());
 
+	//Hooke's Law
 	force  = -m_k  * ((A  -  B).norm() - m_l0)  *  (A  -  B).normalization();
 	particule->addForce(force);
 }

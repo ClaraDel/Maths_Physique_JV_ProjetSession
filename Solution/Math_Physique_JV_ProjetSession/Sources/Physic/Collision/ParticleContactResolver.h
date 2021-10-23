@@ -11,7 +11,7 @@ protected:
 	unsigned int iteractionsUsed;
 
 public:
-
+	// resolve each contact according to their separatingVelocity
 	void resolveContacts(std::vector<ParticleContact*>  particuleContactList);
 };
 

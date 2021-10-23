@@ -26,11 +26,11 @@ private :
 	int m_nbParticules;
 	float particuleSize;
 	double m_k;
-	double l0;
-	float particuleRestitution ;
+	double m_l0;
+	float m_particuleRestitution ;
 	ParticleForceRegistry m_registry;
 	std::vector<ParticleCable*> m_cables;
-	std::vector<ParticleContact*> particuleContactList;	
+	std::vector<ParticleContact*> m_particuleContactList;	
 	ParticleContactResolver m_resolver;
 	std::vector<Particule*> m_blob;
 
@@ -46,6 +46,7 @@ public :
 	void drawParticule(Particule *particule);
 	void launchParticule();
 	void doUpdatePhysics() override;
+	void doArrows(int key, int xx, int yy) override;
 
 	int launch(int argc, char* argv[]) override;
 	void doKeyboard(unsigned char key, int x, int y) override;

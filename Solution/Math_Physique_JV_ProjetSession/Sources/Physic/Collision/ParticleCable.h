@@ -10,7 +10,8 @@ class ParticleCable : public ParticleLink
 public:
 	float maxLenght;
 
-	unsigned int addContact(ParticleContact* contact, unsigned int limit) const;
+	//return 1 if there is a Cable and assign the correct information at ParticleContact
+	unsigned int addContact(ParticleContact* contact) override;
 	ParticleCable(Particule* p1, Particule* p2, float maxLenght);
 };
 

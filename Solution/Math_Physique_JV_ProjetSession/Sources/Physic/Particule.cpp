@@ -12,9 +12,6 @@ Particule::Particule(double m, Vecteur3D pos, Vecteur3D vit, double d){
 	acceleration = Vecteur3D();
 	damping = d;
 	forceApplied = Vecteur3D();
-	//vector<Vecteur3D> tablForces; //set of forces applied
-	/*Vecteur3D gravity= Vecteur3D(0, - 10 * masse, 0); //gravity is applied to all particles
-	addForce(gravity);*/
 	
 	if(m!=0){
 		inverseMasse = 1/m;

@@ -1,31 +1,30 @@
 #include "ParticleRod.h"
 
-unsigned ParticleRod::addContact(ParticleContact* contact, unsigned limit) const
+unsigned ParticleRod::addContact(ParticleContact* contact) 
 {
-	double currentLenght = ParticleLink::currentLenght(); 
-	
-	if (currentLenght == lenght){
-		return 0;
+    double currentLenght = ParticleLink::currentLenght();
 
-	} else {
-		contact->setParticules(particule[0], particule[1]);
+    if (currentLenght == lenght) {
+        return 0;
 
-		//calculate the normal between these two particle
-		Vecteur3D normal = particule[1]->getPosition() - particule[0]->getPosition();
-		normal.normalization();
+    }
+    else {
+        float penetration;
+        //calculate the normal between these two particle
+        Vecteur3D normal = particule[1]->getPosition() - particule[0]->getPosition();
+        normal.normalization();
 
-		if (currentLenght > lenght) {
-			contact->setContactNormal(normal);
-			contact->setPenetration(currentLenght - lenght);
-		} else {
-			contact->setContactNormal(-1*normal);
-			contact->setPenetration(lenght - currentLenght);
-		}
+        if (currentLenght > lenght) {
+            penetration = currentLenght - lenght;
+        }
+        else {
+            normal = -1 * normal;
+            penetration = lenght - currentLenght;
+        }
 
-		//we don't want boudiness
-		contact->setRestitution(0);
+        //we don't want boudiness
+        *contact = ParticleContact(particule[0], particule[1], 0, penetration, normal);
 
-		return 1;
-	}
+        return 1;
+    }
 }
-

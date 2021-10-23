@@ -9,8 +9,8 @@ public:
 	double lenght;
 
 public:
-
-	virtual unsigned addContact(ParticleContact* contact, unsigned limit) const;
+	//return 1 if there is a Rod and assign the correct information at ParticleContact
+	virtual unsigned addContact(ParticleContact* contact) override;
 
 };
 
