@@ -57,8 +57,8 @@ Appuyer sur configure puis sur Generate ***
 
 ### Comment jouer 
 Vous pouvez choisir entre le jeu 1 ou 2
-Pour le jeu 1 :
+* Pour le jeu 1 :
 Vous pouvez lancer des projectiles en appuyant sur espace, mais aussi faire rotater la caméra avec les touches directionnelles. 
 Appuyez sur la touche A pour changer de projectile.
-Pour le jeu 2:
-Vous pouvez déplacer le blob avec les touches W,A,S,D.
+* Pour le jeu 2:
+Vous pouvez déplacer le blob avec les touches W,A,S,D ou les touches directionnelles.
