@@ -1,4 +1,6 @@
 #include "Matrix33.h"
+
+
 Matrix33::Matrix33() {
 	for (int i = 0; i < 9; i++) {
 		values[i] = 0;
@@ -83,7 +85,7 @@ void Matrix33::SetOrientation(const Quaternion& q) {
 
 
 double Matrix33::getValue(int i) const {
-	return this->values[i];
+	return values[i];
 }
 
 Matrix33& Matrix33::operator+=(const Matrix33& other) {
@@ -100,19 +102,26 @@ Matrix33& Matrix33::operator-=(const Matrix33& other) {
 	return *this;
 }
 Matrix33& Matrix33::operator*=(const Matrix33& other) {
+	Matrix33 M;
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			for (int k = 0; k < 3; k++) {
-				values[i*3 + j] += values[3*i + k] * other.values[j + 3*k];
+				M.values[i*3 + j] += values[3*i + k] * other.values[j + 3*k];
 			}
 		}
 	}
+	*this = M;
 	return *this;
 }
 
 
 
-Matrix33& Matrix33:: operator*=(double value) {}
+Matrix33& Matrix33:: operator*=(double value) {
+	for (int i = 0;i <9 ; i++){
+		values[i]*= value;
+	}
+	return *this;
+}
 
 Matrix33 operator*(Matrix33 const& matrix1, Matrix33 const& matrix2) {
 	Matrix33 result(matrix1);
@@ -121,10 +130,12 @@ Matrix33 operator*(Matrix33 const& matrix1, Matrix33 const& matrix2) {
 }
 
 Matrix33 operator*(double value, Matrix33 const& matrix) {
-
+		Matrix33 result(matrix);
+		result *= value;
+		return result;
 }
 
-Vecteur3D operator*(Vecteur3D const& vecteur, Matrix33 const& matrix) {
+Vecteur3D operator*(Matrix33 const& matrix, Vecteur3D const& vecteur) {
 	double result[3];
 	double vector[3] = { vecteur.getX(), vecteur.getY(), vecteur.getZ() };
 	for (int i = 0; i < 3; i++) {

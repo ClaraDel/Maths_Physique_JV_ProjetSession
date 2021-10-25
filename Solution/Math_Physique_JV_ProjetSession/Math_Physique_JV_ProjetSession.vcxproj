@@ -145,9 +145,11 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sources\Games\Game2.cpp" />
+    <ClCompile Include="Sources\Games\Game3a.cpp" />
     <ClCompile Include="Sources\Games\GameBase.cpp" />
     <ClCompile Include="Sources\Games\Game1.cpp" />
     <ClCompile Include="Sources\Math\Matrix33.cpp" />
+    <ClCompile Include="Sources\Math\Matrix34.cpp" />
     <ClCompile Include="Sources\Math\Quaternion.cpp" />
     <ClCompile Include="Sources\Math\Vecteur3D.cpp" />
     <ClCompile Include="Sources\Physic\Collision\ParticleCable.cpp" />
@@ -168,9 +170,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Games\Game2.h" />
+    <ClInclude Include="Sources\Games\Game3a.h" />
     <ClInclude Include="Sources\Games\GameBase.h" />
     <ClInclude Include="Sources\Games\Game1.h" />
     <ClInclude Include="Sources\Math\Matrix33.h" />
+    <ClInclude Include="Sources\Math\Matrix34.h" />
     <ClInclude Include="Sources\Math\Quaternion.h" />
     <ClInclude Include="Sources\Math\Vecteur3D.h" />
     <ClInclude Include="Sources\Physic\Collision\ParticleRod.h" />

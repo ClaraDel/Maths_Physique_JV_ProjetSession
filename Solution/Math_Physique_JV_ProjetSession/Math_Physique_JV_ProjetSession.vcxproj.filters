@@ -92,6 +92,12 @@
     <ClCompile Include="Sources\Math\Quaternion.cpp">
       <Filter>Fichiers sources\Math</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\Math\Matrix34.cpp">
+      <Filter>Fichiers sources\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Games\Game3a.cpp">
+      <Filter>Fichiers sources\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Math\Vecteur3D.h">
@@ -156,6 +162,12 @@
     </ClInclude>
     <ClInclude Include="Sources\Math\Quaternion.h">
       <Filter>Fichiers sources\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Math\Matrix34.h">
+      <Filter>Fichiers sources\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Games\Game3a.h">
+      <Filter>Fichiers sources\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

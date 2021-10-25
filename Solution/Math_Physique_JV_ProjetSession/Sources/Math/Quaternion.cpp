@@ -34,19 +34,19 @@ void Quaternion::normalized() {
 
 }
 
-double Quaternion::getW() {
+double Quaternion::getW() const {
 	return value[0];
 }
 
-double Quaternion::getX() {
+double Quaternion::getX() const {
 	return value[1];
 }
 
-double Quaternion::getY() {
+double Quaternion::getY() const {
 	return value[2];
 }
 
-double Quaternion::getZ() {
+double Quaternion::getZ() const {
 	return value[3]; 
 }
 

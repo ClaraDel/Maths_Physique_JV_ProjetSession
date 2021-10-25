@@ -1,4 +1,5 @@
-#pragma once
+#ifndef DEF_MATRIX33
+#define DEF_MATRIX33
 #include "Vecteur3D.h"
 #include "Quaternion.h"
 class Matrix33
@@ -23,9 +24,10 @@ public:
 };
 
 //OPERATEURS ###
-Vecteur3D operator*(Vecteur3D const& vecteur, Matrix33 const& matrix);
+Vecteur3D operator*(Matrix33 const& matrix,Vecteur3D const& vecteur );
 Matrix33 operator*(double value, Matrix33 const& matrix);
 Matrix33 operator*(Matrix33 const& matrix1, Matrix33 const& matrix2);
 Matrix33 operator+(Matrix33 const& m1, Matrix33 const& m2);
 Matrix33 operator-(Matrix33 const& m1, Matrix33 const& m2);
-#pragma once
+
+#endif

@@ -1,3 +1,5 @@
+#ifndef DEF_QUATERNION
+#define DEF_QUATERNION
 #pragma once
 #include "Vecteur3D.h"
 
@@ -11,10 +13,10 @@ public:
 	Quaternion();
 	Quaternion(double x, double y, double z, double w);
 	double norm() const;
-	double getW();
-	double getX();
-	double getY();
-	double getZ();
+	double getW() const;
+	double getX() const;
+	double getY() const;
+	double getZ() const;
 	void normalized();
 	void rotateByVector(const Vecteur3D& vecteur);
 	void updateByAngularVelocity(const Vecteur3D& rotation, double duration);
@@ -32,3 +34,4 @@ Quaternion operator+(Quaternion const& q1, Quaternion const& q2);
 Quaternion operator-(Quaternion const& q1, Quaternion const& q2);
 
 
+#endif
