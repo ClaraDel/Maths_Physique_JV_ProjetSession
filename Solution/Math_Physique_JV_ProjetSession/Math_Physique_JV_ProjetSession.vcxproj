@@ -147,6 +147,8 @@
     <ClCompile Include="Sources\Games\Game2.cpp" />
     <ClCompile Include="Sources\Games\GameBase.cpp" />
     <ClCompile Include="Sources\Games\Game1.cpp" />
+    <ClCompile Include="Sources\Math\Matrix33.cpp" />
+    <ClCompile Include="Sources\Math\Quaternion.cpp" />
     <ClCompile Include="Sources\Math\Vecteur3D.cpp" />
     <ClCompile Include="Sources\Physic\Collision\ParticleCable.cpp" />
     <ClCompile Include="Sources\Physic\Collision\ParticleContact.cpp" />
@@ -168,6 +170,8 @@
     <ClInclude Include="Sources\Games\Game2.h" />
     <ClInclude Include="Sources\Games\GameBase.h" />
     <ClInclude Include="Sources\Games\Game1.h" />
+    <ClInclude Include="Sources\Math\Matrix33.h" />
+    <ClInclude Include="Sources\Math\Quaternion.h" />
     <ClInclude Include="Sources\Math\Vecteur3D.h" />
     <ClInclude Include="Sources\Physic\Collision\ParticleRod.h" />
     <ClInclude Include="Sources\Physic\Collision\ParticleCable.h" />
