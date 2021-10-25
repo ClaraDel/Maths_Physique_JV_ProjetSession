@@ -34,6 +34,22 @@ void Quaternion::normalized() {
 
 }
 
+double Quaternion::getW() {
+	return value[0];
+}
+
+double Quaternion::getX() {
+	return value[1];
+}
+
+double Quaternion::getY() {
+	return value[2];
+}
+
+double Quaternion::getZ() {
+	return value[3]; 
+}
+
 void Quaternion::rotateByVector(const Vecteur3D& vecteur) {
 	Quaternion q(0, vecteur.getX(), vecteur.getY(), vecteur.getZ());
 	(*this) *= q;
@@ -52,6 +68,7 @@ Quaternion& Quaternion::operator*=(double scaler) {
 	value[1] *= scaler;
 	value[2] *= scaler;
 	value[3] *= scaler;
+	return *this;
 
 }
 Quaternion& Quaternion::operator+=(const Quaternion& other) {

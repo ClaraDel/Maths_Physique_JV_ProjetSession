@@ -12,6 +12,8 @@ public:
 	Matrix33 Inverse();
 	Matrix33 Transpose();
 	void SetOrientation(const Quaternion& q);
+	
+	double getValue(int i) const;
 
 	Matrix33& operator+=(const Matrix33& other);
 	Matrix33& operator-=(const Matrix33& other);
@@ -21,7 +23,7 @@ public:
 };
 
 //OPERATEURS ###
-Matrix33 operator*(Vecteur3D const& vecteur, Matrix33 const& matrix);
+Vecteur3D operator*(Vecteur3D const& vecteur, Matrix33 const& matrix);
 Matrix33 operator*(double value, Matrix33 const& matrix);
 Matrix33 operator*(Matrix33 const& matrix1, Matrix33 const& matrix2);
 Matrix33 operator+(Matrix33 const& m1, Matrix33 const& m2);

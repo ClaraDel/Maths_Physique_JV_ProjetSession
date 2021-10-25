@@ -11,6 +11,10 @@ public:
 	Quaternion();
 	Quaternion(double x, double y, double z, double w);
 	double norm() const;
+	double getW();
+	double getX();
+	double getY();
+	double getZ();
 	void normalized();
 	void rotateByVector(const Vecteur3D& vecteur);
 	void updateByAngularVelocity(const Vecteur3D& rotation, double duration);

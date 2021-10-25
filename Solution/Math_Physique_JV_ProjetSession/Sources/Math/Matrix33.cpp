@@ -26,8 +26,8 @@ double Matrix33::Det() {
 
 }
 Matrix33 Matrix33::Inverse() {
+	Matrix33 M;
 	if (this->Det() != 0) {
-		Matrix33 M;
 		M.values[0] = values[4] * values[8] - values[5] * values[7]; //ei-fg
 		M.values[1] = values[2] * values[7] - values[1] * values[8]; //ch-bi
 		M.values[2] = values[1] * values[5] - values[2] * values[4]; //bf-ce
@@ -42,7 +42,9 @@ Matrix33 Matrix33::Inverse() {
 
 		return (1 / (this->Det()) * M);
 	}
+	return M;
 }
+
 Matrix33 Matrix33::Transpose() {
 	// a b c -> a d g
 	// d e f -> b e h
@@ -52,7 +54,37 @@ Matrix33 Matrix33::Transpose() {
 		values[2], values[5], values[8]);
 	return M;
 }
-void Matrix33::SetOrientation(const Quaternion& q) {}
+
+
+void Matrix33::SetOrientation(const Quaternion& q) {
+	double w = q.getW();
+	double x = q.getX();
+	double y = q.getY();
+	double z = q.getZ();
+	double xy = 2* x * y;
+	double zw = 2* z * w;
+	double xz = 2* x * z;
+	double yw = 2 * y * w;
+	double yz = 2 * y * z;
+	double xw = 2 * x * w;
+	double x2 = 2 * x * x;
+	double y2 = 2 * y * y;
+	double z2 = 2 * z * z;
+	values[0] = 1 - (y2 + z2);
+	values[1] = xy + zw;
+	values[2] = xz + yw;
+	values[3] = xy - zw; 
+	values[4] = 1 - (x2 + z2);
+	values[5] = yz + xw; 
+	values[6] = xz + yw;
+	values[7] = yz - xw;
+	values[8] = 1 - (x2 + y2);
+}
+
+
+double Matrix33::getValue(int i) const {
+	return this->values[i];
+}
 
 Matrix33& Matrix33::operator+=(const Matrix33& other) {
 	for (int i = 0; i < 9; i++) {
@@ -71,18 +103,35 @@ Matrix33& Matrix33::operator*=(const Matrix33& other) {
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			for (int k = 0; k < 3; k++) {
-				values[i + j] += values[i + k] * other.values[j + k];
+				values[i*3 + j] += values[3*i + k] * other.values[j + 3*k];
 			}
 		}
 	}
 	return *this;
 }
-Matrix33& Matrix33::operator*=(const Vecteur3D& other) {
 
-}
+
+
 Matrix33& Matrix33:: operator*=(double value) {}
 
+Matrix33 operator*(Matrix33 const& matrix1, Matrix33 const& matrix2) {
+	Matrix33 result(matrix1);
+	result *= matrix2;
+	return result;
+}
 
 Matrix33 operator*(double value, Matrix33 const& matrix) {
+
+}
+
+Vecteur3D operator*(Vecteur3D const& vecteur, Matrix33 const& matrix) {
+	double result[3];
+	double vector[3] = { vecteur.getX(), vecteur.getY(), vecteur.getZ() };
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			result[i] += matrix.getValue(i * 3 + j) * vector[j];
+		}
+	}
+	return Vecteur3D(result[0], result[1], result[2]);
 
 }
