@@ -7,6 +7,7 @@
 #include "Sources/Games/GameBase.h"
 #include "Sources/Games/Game1.h"
 #include "Sources/Games/Game2.h"
+#include "Sources/Games/Game3a.h"
 
 
 using namespace std;  
@@ -30,7 +31,7 @@ int main(int argc, char* argv[]) {
 	//so we can use the console
 	initConsole();
 	
-	int nbGames = 2;
+	int nbGames = 3;
 	bool gameRunning = true;
 
 	while (gameRunning) {
@@ -39,6 +40,7 @@ int main(int argc, char* argv[]) {
 		while (!gameChosen) {
 			cout << "Game 1 (Phase 1) - Launching some projectiles" << endl;	
 			cout << "Game 2 (Phase 2) - Blob" << endl;
+			cout << "Game 3 (Phase 3) - Rotate rigidbody" << endl;
 
 			cout << "Which game do you choose ? " << endl;
 			cin >> nbGameChosen;
@@ -56,6 +58,11 @@ int main(int argc, char* argv[]) {
 		case 2: {
 			Game2 game2("Phase 2", "Controlling a blob");
 			game2.launch(argc, argv);
+			break;
+		}
+		case 3: {
+			Game3a game3a("Phase 3", "Rotate rigidbody");
+			game3a.launch(argc, argv);
 			break;
 		}
 		default:

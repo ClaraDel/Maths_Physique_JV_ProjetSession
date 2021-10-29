@@ -98,6 +98,9 @@
     <ClCompile Include="Sources\Games\Game3a.cpp">
       <Filter>Fichiers sources\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\Physic\RigidBody.cpp">
+      <Filter>Fichiers sources\Physic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Math\Vecteur3D.h">
@@ -168,6 +171,9 @@
     </ClInclude>
     <ClInclude Include="Sources\Games\Game3a.h">
       <Filter>Fichiers sources\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\RigidBody.h">
+      <Filter>Fichiers sources\Physic</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

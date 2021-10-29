@@ -167,6 +167,7 @@
     <ClCompile Include="Sources\Physic\ForceGenerator\ParticleGravity.cpp" />
     <ClCompile Include="Sources\Physic\ForceGenerator\ParticleSpring.cpp" />
     <ClCompile Include="Sources\Physic\Particule.cpp" />
+    <ClCompile Include="Sources\Physic\RigidBody.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Games\Game2.h" />
@@ -192,6 +193,7 @@
     <ClInclude Include="Sources\Physic\ForceGenerator\ParticleGravity.h" />
     <ClInclude Include="Sources\Physic\ForceGenerator\ParticleSpring.h" />
     <ClInclude Include="Sources\Physic\Particule.h" />
+    <ClInclude Include="Sources\Physic\RigidBody.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

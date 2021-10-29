@@ -17,7 +17,7 @@ public:
 	double getX() const;
 	double getY() const;
 	double getZ() const;
-	void normalized();
+	void normalize();
 	void rotateByVector(const Vecteur3D& vecteur);
 	void updateByAngularVelocity(const Vecteur3D& rotation, double duration);
 

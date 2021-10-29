@@ -21,7 +21,8 @@ double Quaternion::norm() const
 	n = sqrt((pow(value[0], 2) + pow(value[1], 2) + pow(value[2], 2) + pow(value[3], 2)));
 	return n;
 }
-void Quaternion::normalized() {
+
+void Quaternion::normalize() {
 	double n(this->norm());
 	if (n == 0) {
 		value[0] = 1;
@@ -59,10 +60,9 @@ void Quaternion::updateByAngularVelocity(const Vecteur3D& rotation, double durat
 	Quaternion q(0, rotation.getX(), rotation.getY(), rotation.getZ());
 	q *= duration;
 	q *= *this;
-	q *= 0.5;
-	*this += q;
-
+	q *= 1.5;
 }
+
 Quaternion& Quaternion::operator*=(double scaler) {
 	value[0] *= scaler;
 	value[1] *= scaler;

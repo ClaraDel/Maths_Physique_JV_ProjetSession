@@ -9,15 +9,10 @@
 #define ProjectileMax 7
 using namespace std;
 
-//PARTICULE'S ATTRIBUTES
-int projectileChosen = 0; //type of projectile chosen
-int shape = 0;// 0 -> Sphere, 1-> Cube, 2->Torus, 3-> Teapot,4->ellipse 3D
-Vecteur3D rvbColor; //Particule color 
-Vecteur3D formSize; //vector that contains information about particle's shape 
-
-
 Game1::Game1(string nameGame, string descriptionGame) : GameBase(nameGame, descriptionGame)
 {
+	formSize = Vecteur3D();
+	rvbColor = Vecteur3D();
 	partTabl = vector<Particule*>();
 	m_registry = ParticleForceRegistry();
 }
@@ -49,7 +44,7 @@ void Game1::drawParticule(Particule* particule) {
 	glTranslatef(position.getX(), position.getY(), position.getZ());
 
 	//choose the shape of your particle 
-	switch (shape) {
+	switch (shapeOfRb) {
 	case 0:
 		//a sphere
 		//parameters: radius,slices (number of disvisions aroud z), stacks ( number of divisions along z)
@@ -91,7 +86,7 @@ void Game1::launchParticule() {
 		case 0:
 			//Tennis ball: weight 58g , diameter 6cm, color yellow
 			p = new Particule(0.058, Vecteur3D(X, 0.75, Z), Vecteur3D(0, 5, 10), 0.99);
-			shape = 0;
+			shapeOfRb = 0;
 			rvbColor = Vecteur3D(1.0, 1.0, 0);
 			formSize = Vecteur3D(0.03, 100, 100);
 			partTabl.push_back(p);
@@ -100,7 +95,7 @@ void Game1::launchParticule() {
 		case 1:
 			//Basket ball: weight 600g, diameter 24cm, color orange 
 			p = new Particule(0.6, Vecteur3D(X, 0.75, Z), Vecteur3D(0, 5, 4), 0.99);
-			shape = 0;
+			shapeOfRb = 0;
 			rvbColor = Vecteur3D(1.0, 0.5, 0);
 			formSize = Vecteur3D(0.12, 100, 100);
 			partTabl.push_back(p);
@@ -109,7 +104,7 @@ void Game1::launchParticule() {
 			//Bowling ball: weight 7kg, diameter 21cm, color red
 			p = new Particule(7, Vecteur3D(X, 1.5, Z), Vecteur3D(0, 0, 10), 0.99);
 			partTabl.push_back(p);
-			shape = 0;
+			shapeOfRb = 0;
 			rvbColor = Vecteur3D(1.0, 0, 0);
 			formSize = Vecteur3D(0.10, 100, 100);
 			break;
@@ -117,7 +112,7 @@ void Game1::launchParticule() {
 			//Golf ball: weight 45g, diameter 4,27, color white
 			p = new Particule(0.045, Vecteur3D(X, 0.75, Z), Vecteur3D(0, 10, 10), 0.99);
 			partTabl.push_back(p);
-			shape = 0;
+			shapeOfRb = 0;
 			rvbColor = Vecteur3D(1, 1, 1);
 			formSize = Vecteur3D(0.0227, 30, 30);
 			break;
@@ -125,7 +120,7 @@ void Game1::launchParticule() {
 			//Box: weight 10kg, size 30 cm, color brown 
 			p = new Particule(10, Vecteur3D(X, 1, Z), Vecteur3D(0, 2, 5), 0.99);
 			partTabl.push_back(p);
-			shape = 1;
+			shapeOfRb = 1;
 			rvbColor = Vecteur3D(0.1, 0, 0);
 			formSize = Vecteur3D(0.3, 0, 0);
 			break;
@@ -133,7 +128,7 @@ void Game1::launchParticule() {
 			//Donuts: weight 50g, dimaeter 7cm,  color pink
 			p = new Particule(0.05, Vecteur3D(X, 1, Z), Vecteur3D(0, 0, 15), 0.99);
 			partTabl.push_back(p);
-			shape = 2;
+			shapeOfRb = 2;
 			rvbColor = Vecteur3D(2.0, 0.5, 1);
 			formSize = Vecteur3D(0.03, 0.06, 100);
 			break;
@@ -141,14 +136,14 @@ void Game1::launchParticule() {
 			//Teapot: weight 594g, size 20cm, color purple
 			p = new Particule(0.594, Vecteur3D(X, 0.75, Z), Vecteur3D(0, 5, 5), 0.99);
 			partTabl.push_back(p);
-			shape = 3;
+			shapeOfRb = 3;
 			rvbColor = Vecteur3D(0.5, 0.5, 0.5);
 			formSize = Vecteur3D(0.20, 0, 0);
 			break;
 		default:
 			p = new Particule(200, Vecteur3D(X, 1.5, Z), Vecteur3D(0, 0, 10), 0.99);
 			partTabl.push_back(p);
-			shape = 0;
+			shapeOfRb = 0;
 			rvbColor = Vecteur3D(0, 0, 0);
 			formSize = Vecteur3D(0.5, 100, 100);
 			break;

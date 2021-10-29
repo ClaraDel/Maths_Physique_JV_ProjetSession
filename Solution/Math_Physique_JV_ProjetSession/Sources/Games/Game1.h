@@ -11,6 +11,14 @@
 
 class Game1 : public GameBase {
 private : 
+
+	//PARTICULE'S ATTRIBUTES
+	int projectileChosen = 0; //type of projectile chosen
+	int shapeOfRb = 0;// 0 -> Sphere, 1-> Cube, 2->Torus, 3-> Teapot,4->ellipse 3D
+	Vecteur3D rvbColor; //Particule color 
+	Vecteur3D formSize; //vector that contains information about particle's shape 
+
+
 	std::vector<Particule*> partTabl;
 	ParticleForceRegistry m_registry;
 
