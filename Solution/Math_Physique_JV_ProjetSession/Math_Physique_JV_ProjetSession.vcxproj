@@ -155,6 +155,7 @@
     <ClCompile Include="Sources\Physic\Collision\ParticleCable.cpp" />
     <ClCompile Include="Sources\Physic\Collision\ParticleContact.cpp" />
     <ClCompile Include="Sources\Physic\Collision\ParticleContactGenerator.cpp" />
+    <ClCompile Include="Sources\Physic\Collision\ParticleContactRegistry.cpp" />
     <ClCompile Include="Sources\Physic\Collision\ParticleContactResolver.cpp" />
     <ClCompile Include="Sources\Physic\Collision\ParticleLink.cpp" />
     <ClCompile Include="Sources\Physic\Collision\ParticleRod.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="Sources\Math\Matrix34.h" />
     <ClInclude Include="Sources\Math\Quaternion.h" />
     <ClInclude Include="Sources\Math\Vecteur3D.h" />
+    <ClInclude Include="Sources\Physic\Collision\ParticleContactRegistry.h" />
     <ClInclude Include="Sources\Physic\Collision\ParticleRod.h" />
     <ClInclude Include="Sources\Physic\Collision\ParticleCable.h" />
     <ClInclude Include="Sources\Physic\Collision\ParticleContact.h" />

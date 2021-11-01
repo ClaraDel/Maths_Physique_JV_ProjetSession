@@ -11,6 +11,7 @@
 #include"../Physic/Collision/ParticleContactResolver.h"
 #include"../Physic/Collision/ParticleContact.h"
 #include"../Physic/Collision/ParticleCable.h"
+#include"../Physic/Collision/ParticleContactRegistry.h"
 #include"../Physic/Collision/ParticleContactGenerator.h"
 #include "../Physic/ForceGenerator/ParticleBuoyancy.h"
 #ifndef DEF_GAME2
@@ -28,9 +29,9 @@ private :
 	double m_k;
 	double m_l0;
 	float m_particuleRestitution ;
-	ParticleForceRegistry m_registry;
+	ParticleForceRegistry m_forceRegistry;
 	std::vector<ParticleCable*> m_cables;
-	std::vector<ParticleContact*> m_particuleContactList;	
+	ParticleContactRegistry m_contactRegistry;	
 	ParticleContactResolver m_resolver;
 	std::vector<Particule*> m_blob;
 

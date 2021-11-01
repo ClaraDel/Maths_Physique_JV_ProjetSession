@@ -2,6 +2,7 @@
 #ifndef DEF_PARTICLECONTACTRESOLV
 #define DEF_PARTICLECONTACTRESOLV
 #include "ParticleContact.h"
+#include "ParticleContactRegistry.h"
 
 class ParticleContactResolver
 {

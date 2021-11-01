@@ -101,6 +101,9 @@
     <ClCompile Include="Sources\Physic\RigidBody.cpp">
       <Filter>Fichiers sources\Physic</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\Physic\Collision\ParticleContactRegistry.cpp">
+      <Filter>Fichiers sources\Physic\Collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Math\Vecteur3D.h">
@@ -174,6 +177,9 @@
     </ClInclude>
     <ClInclude Include="Sources\Physic\RigidBody.h">
       <Filter>Fichiers sources\Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\Collision\ParticleContactRegistry.h">
+      <Filter>Fichiers sources\Physic\Collision</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
