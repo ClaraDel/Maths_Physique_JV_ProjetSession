@@ -2,6 +2,9 @@
 
 using namespace std;
 
+ParticleForceRegistry::ParticleForceRegistry() {
+	clear();
+}
 
 void ParticleForceRegistry::add(Particule* particule, ParticleForceGenerator* particuleFg)
 {
@@ -19,6 +22,18 @@ void ParticleForceRegistry::remove(Particule* particule, ParticleForceGenerator*
 		}
 	}
 
+}
+
+void ParticleForceRegistry::cleanInput() { //ne fonctionne pas
+	Registry::iterator i = registry.end();
+	cout << "test 1" << endl;
+	for (; i != registry.end(); i++)
+	{
+		if (dynamic_cast<ConstantForce*>(i->forceGenerator)) {
+			cout << "test 2" << endl;
+			i = registry.erase(i);
+		}
+	}
 }
 
 void ParticleForceRegistry::clear()

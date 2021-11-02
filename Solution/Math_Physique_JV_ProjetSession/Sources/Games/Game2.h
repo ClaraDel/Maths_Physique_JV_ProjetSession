@@ -39,6 +39,7 @@ public :
 	Game2(std::string nameGame, std::string descriptionGame);
 
 	void createBlob();
+	void cleanInput();
 	unsigned int createContacts();
 	void checkWaterInteractions();
 	void checkParticleCollisions();

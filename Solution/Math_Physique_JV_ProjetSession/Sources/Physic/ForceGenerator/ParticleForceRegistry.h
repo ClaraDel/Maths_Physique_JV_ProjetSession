@@ -3,6 +3,7 @@
 #define DEF_PARTICULEFORCEREGISTRY
 #include "../Particule.h"
 #include "ParticleForceGenerator.h"
+#include "ConstantForce.h"
 
 class ParticleForceRegistry 
 {
@@ -19,6 +20,8 @@ private:
 
 public:
 	//Registry accessors
+	ParticleForceRegistry();
+	void cleanInput();
 	void clear();
 	void add(Particule* particule, ParticleForceGenerator* particuleFg);
 	void remove(Particule* particule, ParticleForceGenerator* particuleFg);

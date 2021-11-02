@@ -9,6 +9,8 @@ using namespace std;
 
 Game2::Game2(string nameGame, string descriptionGame) : GameBase(nameGame, descriptionGame)
 {	
+	m_contactRegistry = ParticleContactRegistry();
+	m_forceRegistry = ParticleForceRegistry();
 	m_groundHeight = 1.5;
 	m_waterHeight = 1;
 	m_k = 20;
@@ -20,7 +22,6 @@ Game2::Game2(string nameGame, string descriptionGame) : GameBase(nameGame, descr
 	m_blob = vector<Particule*>(); 
 	particuleSize = 0.07;
 	m_particuleRestitution = 0.5;
-	m_contactRegistry = vector<ParticleContact*>();
 }
 
 
@@ -32,20 +33,25 @@ void Game2::doArrows(int key, int xx, int yy){
 	
 	case GLUT_KEY_LEFT:
 		force = new ConstantForce(Vecteur3D(-coeff, 0.0, 0.0));
+		m_forceRegistry.add(m_blob[0], force);
 		break;
 	case GLUT_KEY_DOWN:
 		force = new ConstantForce(Vecteur3D(0.0, -coeff * 4, 0.0));
+		m_forceRegistry.add(m_blob[0], force);
 		break;
 	case GLUT_KEY_UP:
 		force = new ConstantForce(Vecteur3D(0.0, coeff, 0.0));
+		m_forceRegistry.add(m_blob[0], force);
 		break;
 	case GLUT_KEY_RIGHT:
 		force = new ConstantForce(Vecteur3D(coeff, 0.0, 0.0));
+		m_forceRegistry.add(m_blob[0], force);
 		break;
 	default:
+
 		break;
 	}
-	m_forceRegistry.add(m_blob[0], force);
+	
 }
 
 
@@ -59,20 +65,23 @@ void Game2::doKeyboard(unsigned char key, int x, int y) {
 		break;
 	case 'a': 
 		force = new ConstantForce(Vecteur3D(-coeff, 0.0, 0.0));
+		m_forceRegistry.add(m_blob[0], force);
 		break;
 	case 's':
 		force = new ConstantForce(Vecteur3D(0.0, -coeff*4, 0.0));
+		m_forceRegistry.add(m_blob[0], force);
 		break;
 	case 'w':
 		force = new ConstantForce(Vecteur3D(0.0, coeff, 0.0));
+		m_forceRegistry.add(m_blob[0], force);
 		break;
 	case 'd':
 		force = new ConstantForce(Vecteur3D(coeff, 0.0, 0.0));
+		m_forceRegistry.add(m_blob[0], force);
 		break;
 	default:
 		break;
 	}
-	m_forceRegistry.add(m_blob[0], force);
 }
 
 void Game2::createBlob(){
@@ -98,6 +107,22 @@ void Game2::createBlob(){
 		else if (i == 4)
 			m_blob[i]->setPosition(Vecteur3D(-1.9, m_groundHeight + 2 * particuleSize, 0.0));
 	}
+
+	//every particle has gravity
+	for (int i = 0; i < m_nbParticules; i++)
+	{
+		m_forceRegistry.add(m_blob[i], new ParticleGravity());
+	}
+
+	//particles are bound to each other with springs
+	for (int j = 0; j < m_blob.size(); j++) {
+		for (int k = 0; k < m_blob.size(); k++) {
+			if (j != k) {
+				m_forceRegistry.add(m_blob[j], new ParticleSpring(m_blob[k], m_k, m_l0));
+			}
+		}
+	}
+
 	//we create a list of cable between each particle
 	for (int i = 0; i < m_nbParticules; i++) {
 		for (int k = i + 1; k < m_nbParticules; k++) {
@@ -107,7 +132,7 @@ void Game2::createBlob(){
 	}
 }
 
-void Game2::checkParticleCollisions() { // DANS CONTACT GENERATOR
+/*void Game2::checkParticleCollisions() { // DANS CONTACT GENERATOR
 	//for each particle, we check if it has collision with another particle
 	for (int i = 0; i < m_blob.size(); i++) {
 		for (int j = i + 1; j < m_blob.size(); j++) {
@@ -121,20 +146,23 @@ void Game2::checkParticleCollisions() { // DANS CONTACT GENERATOR
 			}
 		}
 	}
-}
+}*/
 
-void Game2::checkWaterInteractions() { // DANS CONTACT GENERATOR
+void Game2::checkWaterInteractions() { 
 	//for each particle, we check if its under water
 	for (int i = 0; i < m_nbParticules; i++) {
+		double volume = 4.f / 3.f * 3.14 * std::pow(particuleSize, 3);
+		ParticleBuoyancy* buoyancy = new ParticleBuoyancy(particuleSize, volume, m_waterHeight, 1000);
 		if (m_blob[i]->getPosition().getY() <= m_waterHeight + particuleSize && m_blob[i]->getPosition().getX() >= 0 && m_blob[i]->getPosition().getX() <= 100){
-			double volume = 4.f / 3.f * 3.14 * std::pow(particuleSize, 3);
-			ParticleBuoyancy* buoyancy = new ParticleBuoyancy(particuleSize, volume, m_waterHeight, 1000);
 			m_forceRegistry.add(m_blob[i], buoyancy);
+		}
+		else {
+			m_forceRegistry.remove(m_blob[i], buoyancy);
 		}
 	}
 }
 
-void Game2::checkGroundCollisions(){ // DANS CONTACT GENERATOR
+/*void Game2::checkGroundCollisions(){ // DANS CONTACT GENERATOR
 	for (int i = 0; i < m_nbParticules; i++) {
 		float radius = particuleSize;
 		float distance = m_blob[i]->getPosition().getY()-m_groundHeight;
@@ -158,7 +186,7 @@ void Game2::checkGroundCollisions(){ // DANS CONTACT GENERATOR
 			m_contactRegistry.push_back(particleContact);
 		}
 	}
-}
+}*/
 
 void Game2::drawParticule(Particule* particule) {
 	Vecteur3D position;
@@ -171,52 +199,26 @@ void Game2::drawParticule(Particule* particule) {
 	
 }
 
+
 void Game2::doUpdatePhysics() {
 	double deltaTime = updateTime();
-	m_contactRegistry = vector<ParticleContact*>();
 	
-	//every particle has gravity
-	for (int i = 0; i < m_nbParticules; i++)
-	{
-		m_forceRegistry.add(m_blob[i], new ParticleGravity());
-	}
+	cout << m_blob[0]->getPosition() << endl;
 
-	//particles are bound to each other with springs
-	for (int j = 0; j < m_blob.size(); j++) {
-		for (int k = 0; k < m_blob.size(); k++) {
-			if (j != k) {
-				m_forceRegistry.add(m_blob[j], new ParticleSpring(m_blob[k], m_k, m_l0));
-			}
-		}
-	}
-
-	//chek if we need cables CHANGER AVEC LE RESOLVER DE CONTACT 
-	for (int i = 0; i < m_cables.size(); i++) {
-		ParticleContact* contacts = new ParticleContact();
-		unsigned numContactsGround = m_cables[i]->addContact(contacts);
-		if (numContactsGround == 1) {
-			//this means that the distance between the two particles is > maxlenght
-			vector<ParticleContact*> contactArray;
-			contactArray.push_back(contacts);
-			m_resolver.resolveContacts(contactArray);
-		}
-	}
-	
-	checkWaterInteractions();
-	
 	m_forceRegistry.UpdateForce(deltaTime); //update each force 
-
+	checkWaterInteractions();
 
 	for (int i = 0; i < m_nbParticules; i++) {
 		m_blob[i]->integrate(deltaTime);
 	}
-	
-	checkParticleCollisions();
-	checkGroundCollisions();
 
-	m_resolver.resolveContacts(m_contactRegistry);
+	m_forceRegistry.cleanInput();
 
-	m_forceRegistry.clear();
+	m_contactRegistry.updateContact(m_blob, m_cables, particuleSize, m_particuleRestitution, m_groundHeight, m_waterHeight);
+
+	m_resolver.resolveContacts(m_contactRegistry.getContactList());
+
+	m_contactRegistry.clear();
 
 	glutPostRedisplay();
 }

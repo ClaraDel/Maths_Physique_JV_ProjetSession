@@ -16,14 +16,14 @@ private :
 	
 public :
 
+	ParticleContactRegistry();
 	std::vector<ParticleContact*> getContactList();
 	void clear();
 	void add(ParticleContact* particuleContact);
 	void remove(ParticleContact* particuleContact);
-	void updateContact(std::vector<Particule*> particuleList, std::vector<ParticleCable*> cableList);
+	void updateContact(std::vector<Particule*> particuleList, std::vector<ParticleCable*> cableList, double particuleSize, double particuleRestitution, double groundHeight, double waterHeight);
 	void checkGroundCollision(std::vector<Particule*> particuleList, double particuleSize, double groundHeight, double waterHeight);
-	void checkWaterCollision(std::vector<Particule*> particuleList);
-	void checkParticlesCollision(std::vector<Particule*> particuleList);
+	void checkParticlesCollision(std::vector<Particule*> particuleList, double particuleSize, double particuleRestitution);
 	void checkCableCollision(std::vector<ParticleCable*> cableList);
 
 };
