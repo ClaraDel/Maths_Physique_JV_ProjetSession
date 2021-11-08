@@ -88,6 +88,10 @@ double Matrix33::getValue(int i) const {
 	return values[i];
 }
 
+void Matrix33::setValue(int i, double v) {
+	values[i] = v;
+}
+
 Matrix33& Matrix33::operator+=(const Matrix33& other) {
 	for (int i = 0; i < 9; i++) {
 		values[i] += other.values[i];

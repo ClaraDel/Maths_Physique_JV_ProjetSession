@@ -15,6 +15,7 @@ public:
 	void SetOrientation(const Quaternion& q);
 	
 	double getValue(int i) const;
+	void setValue(int i, double v);
 
 	Matrix33& operator+=(const Matrix33& other);
 	Matrix33& operator-=(const Matrix33& other);
