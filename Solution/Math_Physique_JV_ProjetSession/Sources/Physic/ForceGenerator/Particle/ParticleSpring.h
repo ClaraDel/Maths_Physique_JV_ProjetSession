@@ -1,7 +1,7 @@
 #pragma once
 #ifndef DEF_PARTICULESPRING
 #define DEF_PARTICULESPRING
-#include"../Particule.h"
+#include "../../Particule.h"
 #include"ParticleForceGenerator.h"
 
 class ParticleSpring : public ParticleForceGenerator

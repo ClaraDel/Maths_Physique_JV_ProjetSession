@@ -3,7 +3,7 @@
 #include <string>
 #include "GameBase.h"
 #include "../Math/Quaternion.h"
-#include "../Physic/ForceGenerator/ParticleForceRegistry.h"
+#include "../Physic/ForceGenerator/Particle/ParticleForceRegistry.h"
 #include "../Physic/RigidBody.h"
 #include<vector>
 #include "../Physic/Particule.h"

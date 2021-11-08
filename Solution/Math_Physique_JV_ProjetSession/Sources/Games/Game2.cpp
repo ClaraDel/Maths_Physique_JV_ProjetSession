@@ -24,39 +24,33 @@ Game2::Game2(string nameGame, string descriptionGame) : GameBase(nameGame, descr
 	m_particuleRestitution = 0.5;
 }
 
-
 void Game2::doArrows(int key, int xx, int yy){
-	ConstantForce* force = new ConstantForce();
+	InputForce* force = m_forceRegistry.getInputForce();
 	double coeff = 50;
  
 	switch (key) {
 	
 	case GLUT_KEY_LEFT:
-		force = new ConstantForce(Vecteur3D(-coeff, 0.0, 0.0));
-		m_forceRegistry.add(m_blob[0], force);
+		force->changeForceValue(-coeff, 0.0, 0.0);
 		break;
 	case GLUT_KEY_DOWN:
-		force = new ConstantForce(Vecteur3D(0.0, -coeff * 4, 0.0));
-		m_forceRegistry.add(m_blob[0], force);
+		force->changeForceValue(0.0, -coeff * 4, 0.0);
 		break;
 	case GLUT_KEY_UP:
-		force = new ConstantForce(Vecteur3D(0.0, coeff, 0.0));
-		m_forceRegistry.add(m_blob[0], force);
+		force->changeForceValue(0.0, coeff, 0.0);
 		break;
 	case GLUT_KEY_RIGHT:
-		force = new ConstantForce(Vecteur3D(coeff, 0.0, 0.0));
-		m_forceRegistry.add(m_blob[0], force);
+		force->changeForceValue(coeff, 0.0, 0.0);
 		break;
 	default:
-
 		break;
 	}
 	
+	cout << force->getForce() << endl;
 }
 
-
 void Game2::doKeyboard(unsigned char key, int x, int y) {
-	ConstantForce* force = new ConstantForce();
+	InputForce* force = m_forceRegistry.getInputForce();
 	double coeff = 50;
 	
 	switch (key) {
@@ -64,24 +58,21 @@ void Game2::doKeyboard(unsigned char key, int x, int y) {
 		exit(EXIT_SUCCESS);
 		break;
 	case 'a': 
-		force = new ConstantForce(Vecteur3D(-coeff, 0.0, 0.0));
-		m_forceRegistry.add(m_blob[0], force);
+		force->changeForceValue(-coeff, 0.0, 0.0);
 		break;
 	case 's':
-		force = new ConstantForce(Vecteur3D(0.0, -coeff*4, 0.0));
-		m_forceRegistry.add(m_blob[0], force);
+		force->changeForceValue(0.0, -4*coeff, 0.0);
 		break;
 	case 'w':
-		force = new ConstantForce(Vecteur3D(0.0, coeff, 0.0));
-		m_forceRegistry.add(m_blob[0], force);
+		force->changeForceValue(0.0, coeff, 0.0);
 		break;
 	case 'd':
-		force = new ConstantForce(Vecteur3D(coeff, 0.0, 0.0));
-		m_forceRegistry.add(m_blob[0], force);
+		force->changeForceValue(coeff, 0.0, 0.0);
 		break;
 	default:
 		break;
 	}
+	cout << force->getForce() << endl;
 }
 
 void Game2::createBlob(){
@@ -130,63 +121,16 @@ void Game2::createBlob(){
 			m_cables.push_back(particuleCable);
 		}
 	}
+	
+	//we create a buoyancy force for each particle
+	for (int i = 0; i < m_nbParticules; i++)
+	{
+		m_forceRegistry.add(m_blob[i], new ParticleBuoyancy(particuleSize, 4.f / 3.f * 3.14 * std::pow(particuleSize, 3), m_waterHeight, 1000));
+	}
+
+	//we add the inputForce
+	m_forceRegistry.add(m_blob[0], new InputForce(Vecteur3D()));
 }
-
-/*void Game2::checkParticleCollisions() { // DANS CONTACT GENERATOR
-	//for each particle, we check if it has collision with another particle
-	for (int i = 0; i < m_blob.size(); i++) {
-		for (int j = i + 1; j < m_blob.size(); j++) {
-			Vecteur3D distanceVect = m_blob[i]->getPosition() - m_blob[j]->getPosition();
-			double distanceVal = distanceVect.norm();
-			if (distanceVal <= 2 * particuleSize) {
-				double penetration = 2 * particuleSize - distanceVal ;
-				Vecteur3D contactNormal = distanceVect.normalization();
-				ParticleContact* particleContact = new ParticleContact(m_blob[i],m_blob[j], m_particuleRestitution, penetration, contactNormal);
-				m_contactRegistry.push_back(particleContact);
-			}
-		}
-	}
-}*/
-
-void Game2::checkWaterInteractions() { 
-	//for each particle, we check if its under water
-	for (int i = 0; i < m_nbParticules; i++) {
-		double volume = 4.f / 3.f * 3.14 * std::pow(particuleSize, 3);
-		ParticleBuoyancy* buoyancy = new ParticleBuoyancy(particuleSize, volume, m_waterHeight, 1000);
-		if (m_blob[i]->getPosition().getY() <= m_waterHeight + particuleSize && m_blob[i]->getPosition().getX() >= 0 && m_blob[i]->getPosition().getX() <= 100){
-			m_forceRegistry.add(m_blob[i], buoyancy);
-		}
-		else {
-			m_forceRegistry.remove(m_blob[i], buoyancy);
-		}
-	}
-}
-
-/*void Game2::checkGroundCollisions(){ // DANS CONTACT GENERATOR
-	for (int i = 0; i < m_nbParticules; i++) {
-		float radius = particuleSize;
-		float distance = m_blob[i]->getPosition().getY()-m_groundHeight;
-
-		// check if the particule is above or under ground 
-		if(distance <= radius && m_blob[i]->getPosition().getX() < 0 && m_blob[i]->getPosition().getX() >= -100)
-			{
-				float penetration = radius - distance;
-				Vecteur3D normal= Vecteur3D(0.0, 1.0, 0.0);
-	            ParticleContact* particleContact = new ParticleContact(m_blob[i],NULL,0.5,penetration,normal);
-				m_contactRegistry.push_back(particleContact);	
-			}
-
-
-		//check if the particle hits the left size of the ground when it's in the water
-		if (m_blob[i]->getPosition().getX() < particuleSize && m_blob[i]->getPosition().getX() >= 0  && m_blob[i]->getPosition().getY() <= ( m_groundHeight + m_waterHeight) / 2)
-		{
-			float penetration = radius - m_blob[i]->getPosition().getX();
-			Vecteur3D normal = Vecteur3D(1.0, 0.0, 0.0);
-			ParticleContact* particleContact = new ParticleContact(m_blob[i], NULL, 0.5, penetration, normal);
-			m_contactRegistry.push_back(particleContact);
-		}
-	}
-}*/
 
 void Game2::drawParticule(Particule* particule) {
 	Vecteur3D position;
@@ -199,26 +143,26 @@ void Game2::drawParticule(Particule* particule) {
 	
 }
 
-
 void Game2::doUpdatePhysics() {
 	double deltaTime = updateTime();
-	
+
 	cout << m_blob[0]->getPosition() << endl;
 
 	m_forceRegistry.UpdateForce(deltaTime); //update each force 
-	checkWaterInteractions();
 
 	for (int i = 0; i < m_nbParticules; i++) {
 		m_blob[i]->integrate(deltaTime);
 	}
-
-	m_forceRegistry.cleanInput();
-
+	
 	m_contactRegistry.updateContact(m_blob, m_cables, particuleSize, m_particuleRestitution, m_groundHeight, m_waterHeight);
 
 	m_resolver.resolveContacts(m_contactRegistry.getContactList());
 
 	m_contactRegistry.clear();
+
+	//clean Input force
+	InputForce* force = m_forceRegistry.getInputForce();
+	force->changeForceValue(0, 0.0, 0.0);
 
 	glutPostRedisplay();
 }
@@ -274,8 +218,6 @@ void Game2::doDisplay() {
 	glClearColor(0.0f, 0.1f, 0.1f, 1.0f);//background color 
 	glEnable(GL_DEPTH_TEST);
 }
-
-
 
 int Game2::launch(int argc, char* argv[])
 {

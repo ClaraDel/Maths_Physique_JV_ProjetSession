@@ -1,9 +1,9 @@
 #pragma once
 #ifndef DEF_PARTICULEFORCEREGISTRY
 #define DEF_PARTICULEFORCEREGISTRY
-#include "../Particule.h"
+#include "../../Particule.h"
 #include "ParticleForceGenerator.h"
-#include "ConstantForce.h"
+#include "InputForce.h"
 
 class ParticleForceRegistry 
 {
@@ -21,7 +21,7 @@ private:
 public:
 	//Registry accessors
 	ParticleForceRegistry();
-	void cleanInput();
+	InputForce* getInputForce();
 	void clear();
 	void add(Particule* particule, ParticleForceGenerator* particuleFg);
 	void remove(Particule* particule, ParticleForceGenerator* particuleFg);

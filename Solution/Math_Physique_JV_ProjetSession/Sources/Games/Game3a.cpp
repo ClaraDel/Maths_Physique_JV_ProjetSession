@@ -88,6 +88,12 @@ void Game3a::createRigidBody() {
 	switch (rbChosen) {
 	case 0:
 		//cube
+		//Vecteur3D position = Vecteur3D(0, 1, 2);
+		//double masse = 5;
+		//double dx = position - 
+		//double i00 = (1/12) * masse * ( )
+		//RigidBody(Vecteur3D pos, Vecteur3D vit, double m, Quaternion orientation, double damping, Vecteur3D angVelocity, double angularDamping, Matrix33 inverseInertia)
+		// rb =  new RigidPody(Vecteur3D(0, 1, 2), Vecteur3D(),masse,Quaternion(0,0,0,1), 0.99, Vecteur3D(),0.99, Matrix33())
 		rb = new Particule(5, Vecteur3D(0, 1, 2), Vecteur3D(), 0.99);
 		shapeOfRb = 1;
 		rvbColor = Vecteur3D(2.0, 0.5, 1);

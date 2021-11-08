@@ -1,7 +1,7 @@
 #pragma once
 #ifndef DEF_PARTICULEGRAVITY
 #define DEF_PARTICULEGRAVITY
-#include"../Particule.h"
+#include "../../Particule.h"
 #include"ParticleForceGenerator.h"
 
 class ParticleGravity : public ParticleForceGenerator

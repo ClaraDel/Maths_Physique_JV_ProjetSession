@@ -14,7 +14,7 @@ RigidBody::RigidBody(Vecteur3D pos, Vecteur3D vit, double m, Quaternion orientat
 	m_damping = damping;
 	m_angularDamping = angularDamping;
 	m_forceApplied = Vecteur3D();
-	m_toqueApplied = Vecteur3D();
+	m_torqueApplied = Vecteur3D();
 	m_orientation = orientation;
 	m_angVelocity = angVelocity ;
 	m_transformMatrix = Matrix34();
@@ -27,6 +27,7 @@ RigidBody::RigidBody(Vecteur3D pos, Vecteur3D vit, double m, Quaternion orientat
 	} else {
 		m_inverseMasse = 0;
 	}
+	calculateDerivedData();
 }
 RigidBody::~RigidBody()
 {
@@ -60,6 +61,7 @@ void RigidBody::calculateTransformMatrix(Matrix34 &transformMatrix, const Vecteu
 	transformMatrix.setValue(11, position.getZ());
 }
 
+//Faudtra regarder à quoi ça correspond !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 void RigidBody::calculateTransformInertia(Matrix33& iitWorld, const Quaternion& q, const Matrix33& iitBody, const Matrix34& rotmat){
 	double t4 = rotmat.getValue(0) * iitBody.getValue(0) + rotmat.getValue(1) * iitBody.getValue(3) + rotmat.getValue(2) * iitBody.getValue(6);
 	double t9 =  rotmat.getValue(0) * iitBody.getValue(1) + rotmat.getValue(1) * iitBody.getValue(4) + rotmat.getValue(2) * iitBody.getValue(7);
@@ -89,6 +91,7 @@ void RigidBody::calculateDerivedData(){
 	calculateTransformInertia(m_inverseInertiaWorld,m_orientation,m_inverseInertia, m_transformMatrix);
 }
 
+//add the force to our rigidbody
 void RigidBody::addForce(Vecteur3D forceToAdd) {
 	m_forceApplied += forceToAdd;
 }
@@ -97,19 +100,28 @@ void RigidBody::addForce(Vecteur3D forceToAdd) {
 void RigidBody::updateVector(Vecteur3D const& integrateVector, double deltaTime, Vecteur3D& vector){
 	vector += deltaTime * integrateVector ;
 }
-
+//integrate the chosen quaternion and update its value 
+void RigidBody::updateQuaternion(Vecteur3D const& integrateQuaternion, double deltaTime, Quaternion& quaternion){
+	quaternion += Quaternion((deltaTime/2) * integrateQuaternion.getX(),(deltaTime/2) * integrateQuaternion.getY(),(deltaTime/2) * integrateQuaternion.getZ(),0);
+}
 void RigidBody::integrate(double deltaTime){
 
+	//calcul linear acceleration p: = (1/m) *f
 	accelerationCalcul();
-	m_angularAcceleration = m_inverseInertiaWorld * m_toqueApplied;
+	// calcul angular acceleration  theta: = I^-1 * to
+	m_angularAcceleration = m_inverseInertiaWorld * m_torqueApplied;
+	//update linear velocity 
 	updateVector(m_acceleration, deltaTime, m_velocity); //calculates the new velocity
-	updateVector(m_angularAcceleration, deltaTime, m_vit_angular); //calculates the new angular velocity
 	m_velocity *= pow(m_damping, deltaTime);
+	//update angular velocity 
+	updateVector(m_angularAcceleration, deltaTime, m_vit_angular); //calculates the new angular velocity
 	m_vit_angular *= pow(m_angularDamping,deltaTime);
+	//update position
 	updateVector(m_velocity, deltaTime, m_position); //calculates the new position
-	//updateVector(m_vit_angular, deltaTime, m_orientation); //calculates the new orientation
+	//update orientation 
+	updateQuaternion(m_vit_angular, deltaTime, m_orientation); //calculates the new orientation
 	calculateDerivedData();
-	m_forceApplied = Vecteur3D();
+	clearAccumulator();
 }
 
 //Application of Newton's law
@@ -117,9 +129,34 @@ void RigidBody::accelerationCalcul() {
 	m_acceleration = m_inverseMasse * m_forceApplied ;
 }
 
+//add the force at a precise point in world coordinate
+void RigidBody::addForceAtPoint(const Vecteur3D& force, const Vecteur3D& worldPoint){
+
+	Vecteur3D point = worldPoint - m_position;
+	m_forceApplied += force;
+	m_torqueApplied += point.vectorProduct(force);
+}
+//add the force at a point in local coordinate 
+void RigidBody::addForceAtBodyPoint(const Vecteur3D& force, const Vecteur3D& LocalPoint){
+	Vecteur3D point = 	m_transformMatrix.TransformPosition(LocalPoint);
+	addForceAtPoint(force, point);
+}
+
+// reset the force and toque applied 
+void RigidBody::clearAccumulator(){
+	m_forceApplied = Vecteur3D();
+	m_torqueApplied = Vecteur3D();
+}
+
+
 double RigidBody::getInverseMasse() const{
 	return m_inverseMasse;
 }
+
+double RigidBody::getMasse() const{
+	return 1/m_inverseMasse;
+}
+
 
 
 Vecteur3D RigidBody::getAcceleration() {

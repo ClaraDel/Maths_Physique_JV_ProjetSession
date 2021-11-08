@@ -3,8 +3,8 @@
 #include <string>
 #include "GameBase.h"
 #include "../Physic/Particule.h"
-#include "../Physic/ForceGenerator/ParticleGravity.h"
-#include "../Physic/ForceGenerator/ParticleForceRegistry.h"
+#include "../Physic/ForceGenerator/Particle/ParticleGravity.h"
+#include "../Physic/ForceGenerator/Particle/ParticleForceRegistry.h"
 #ifndef DEF_GAME1
 #define DEF_GAME1
 #include<vector>

@@ -4,7 +4,7 @@
 using namespace std;
 
 ParticleBuoyancy::ParticleBuoyancy(float particuleSize, double volume, double waterHeight, double liquidDensity) {
-	m_maxDepth = 1- particuleSize ;
+	m_maxDepth = waterHeight - particuleSize ;
 	m_particuleSize = particuleSize;
 	m_waterHeight = waterHeight;
 	m_volume = volume;
@@ -15,10 +15,10 @@ void ParticleBuoyancy::UpdateForce(Particule* particule, double duration)
 {
 	//submersion depth
 	double depth = particule->getPosition().getY();
-	Vecteur3D force;
+	Vecteur3D force = Vecteur3D();
 
 	//Are they out of the water ?
-	if (depth >= m_waterHeight + m_maxDepth) {
+	if (depth >= m_waterHeight + m_particuleSize) {
 		return;
 	 // are they in the water ?
 	}
