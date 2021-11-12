@@ -146,8 +146,6 @@ void Game2::drawParticule(Particule* particule) {
 void Game2::doUpdatePhysics() {
 	double deltaTime = updateTime();
 
-	cout << m_blob[0]->getPosition() << endl;
-
 	m_forceRegistry.UpdateForce(deltaTime); //update each force 
 
 	for (int i = 0; i < m_nbParticules; i++) {

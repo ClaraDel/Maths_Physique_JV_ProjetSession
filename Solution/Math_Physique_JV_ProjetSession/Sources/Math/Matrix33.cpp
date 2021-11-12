@@ -1,5 +1,6 @@
 #include "Matrix33.h"
 
+using namespace std;
 
 Matrix33::Matrix33() {
 	for (int i = 0; i < 9; i++) {
@@ -25,22 +26,22 @@ double Matrix33::Det() {
 		values[0] * values[7] * values[5] -
 		values[6] * values[4] * values[2] -
 		values[3] * values[1] * values[8]);
-
 }
+
 Matrix33 Matrix33::Inverse() {
 	Matrix33 M;
 	if (this->Det() != 0) {
-		M.values[0] = values[4] * values[8] - values[5] * values[7]; //ei-fg
+		M.values[0] = values[4] * values[8] - values[5] * values[7]; //ei-fh
 		M.values[1] = values[2] * values[7] - values[1] * values[8]; //ch-bi
 		M.values[2] = values[1] * values[5] - values[2] * values[4]; //bf-ce
 
-		M.values[3] = values[5] * values[6] - values[1] * values[8]; // fg-di
+		M.values[3] = values[5] * values[6] - values[3] * values[8]; // fg-di
 		M.values[4] = values[0] * values[8] - values[2] * values[6]; //ai-cg
 		M.values[5] = values[2] * values[3] - values[0] * values[5]; // cd -af
 
 		M.values[6] = values[3] * values[7] - values[4] * values[6]; //dh-eg
-		M.values[0] = values[1] * values[6] - values[0] * values[7]; //bg-ah
-		M.values[0] = values[0] * values[4] - values[2] * values[3]; //ae -bd
+		M.values[7] = values[1] * values[6] - values[0] * values[7]; //bg-ah
+		M.values[8] = values[0] * values[4] - values[2] * values[3]; //ae -bd
 
 		return (1 / (this->Det()) * M);
 	}
@@ -57,6 +58,17 @@ Matrix33 Matrix33::Transpose() {
 	return M;
 }
 
+
+void Matrix33::print(ostream& flux) const
+{	
+	for (int i = 0; i<9 ; i++){
+		flux << values[i] << " | " ;
+		if (i == 2 || i == 5) {
+			flux << endl;
+		}
+	}
+	
+}
 
 void Matrix33::SetOrientation(const Quaternion& q) {
 	double w = q.getW();
@@ -100,7 +112,7 @@ Matrix33& Matrix33::operator+=(const Matrix33& other) {
 }
 Matrix33& Matrix33::operator-=(const Matrix33& other) {
 	for (int i = 0; i < 9; i++) {
-		values[i] += other.values[i];
+		values[i] -= other.values[i];
 
 	}
 	return *this;
@@ -140,13 +152,20 @@ Matrix33 operator*(double value, Matrix33 const& matrix) {
 }
 
 Vecteur3D operator*(Matrix33 const& matrix, Vecteur3D const& vecteur) {
-	double result[3];
+	double result[3] = { 0,0,0 };
 	double vector[3] = { vecteur.getX(), vecteur.getY(), vecteur.getZ() };
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			result[i] += matrix.getValue(i * 3 + j) * vector[j];
+			
 		}
 	}
 	return Vecteur3D(result[0], result[1], result[2]);
+}
 
+//print a message
+std::ostream& operator<< (std::ostream& flux, Matrix33 const& matrix)
+{
+	matrix.print(flux);
+	return flux;
 }

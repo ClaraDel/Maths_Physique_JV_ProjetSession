@@ -116,6 +116,12 @@
     <ClCompile Include="Sources\Physic\ForceGenerator\Particle\InputForce.cpp">
       <Filter>Fichiers sources\Physic\ForceGenerator\Particle</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\Games\Game3b.cpp">
+      <Filter>Fichiers sources\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Physic\ForceGenerator\RigidBody\RigidBodyForceRegistry.cpp">
+      <Filter>Fichiers sources\Physic\ForceGenerator\RigidBody</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Math\Vecteur3D.h">
@@ -198,6 +204,12 @@
     </ClInclude>
     <ClInclude Include="Sources\Physic\ForceGenerator\Particle\InputForce.h">
       <Filter>Fichiers sources\Physic\ForceGenerator\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Games\Game3b.h">
+      <Filter>Fichiers sources\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\ForceGenerator\RigidBody\RigidBodyForceRegistry.h">
+      <Filter>Fichiers sources\Physic\ForceGenerator\RigidBody</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

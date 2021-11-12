@@ -1,46 +1,44 @@
 #include <iostream>
 #include <windows.h>
-#include<GL/glut.h>
+#include <GL/glut.h>
 #include <string>
 #include "Game3a.h"
 #include <ctime>
 
 #define ProjectileMax 7
+#define PI 3.14159265
 using namespace std;
-
-
-
 
 Game3a::Game3a(string nameGame, string descriptionGame) : GameBase(nameGame, descriptionGame)
 {	
 	formSize = Vecteur3D();
 	rvbColor = Vecteur3D();
-	m_registry = ParticleForceRegistry();
-	rbTabl = vector<Particule*>();
+	m_registry = RigidBodyForceRegistry();
+	rbTabl = vector<RigidBody*>();
 	rbChosen = 0;
-	ang = 35;
 }
 
-void Game3a::drawParticule(Particule* particule) {
+void Game3a::drawRigidBody(RigidBody* rigidbody) {
 	Vecteur3D position;
-	position = particule->getPosition();
+	position = rigidbody->getPosition();
 
 	glColor3f(rvbColor.getX(), rvbColor.getY(), rvbColor.getZ());
 	glPushMatrix();
 	
 	glTranslatef(position.getX(), position.getY(), position.getZ());
 
-	//choose the shape of your particle 
+	//choose the shape of the rigidbody 
 	switch (shapeOfRb) {
 	case 1:
 		//a cube
 		//parameters: size
 		
 		glMatrixMode(GL_MODELVIEW);
-		glRotatef(ang, 1.0, 0.0, 0.0);
-		glutSolidCube(formSize.getX());
 		
+		glRotatef(2*acos(rigidbody->getOrientation().getW())*180.0/PI, rigidbody->getOrientation().getX(), rigidbody->getOrientation().getY(), rigidbody->getOrientation().getZ());
+		glutSolidCube(formSize.getX());
 		break;
+
 	case 2:
 		//a torus
 		glRotatef(45.0, 1.0, 0.0, 0.0);
@@ -48,17 +46,12 @@ void Game3a::drawParticule(Particule* particule) {
 		//Number of radial divisions for the torus
 		glutSolidTorus(formSize.getX(), formSize.getY(), formSize.getZ(), 100);
 		break;
-	case 3:
-		//a teapot
-		//parameters: size
-		glutSolidTeapot(formSize.getX());
-		break;
 	default:
 		break;
 	}
 	glPopMatrix();
 
-	//we don't want to store more than 20 particles
+	//we don't want to store more than 20 rigidBody
 	if (rbTabl.size() > 20) {
 		rbTabl.erase(rbTabl.begin());
 	}
@@ -84,22 +77,33 @@ void Game3a::doKeyboard(unsigned char key, int x, int y) {
 
 
 void Game3a::createRigidBody() {
-	Particule* rb;
+	cout << endl; 
+	cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH" << endl;
+	RigidBody* rb;
 	switch (rbChosen) {
-	case 0:
+	case 0: {
 		//cube
-		//Vecteur3D position = Vecteur3D(0, 1, 2);
-		//double masse = 5;
-		//double dx = position - 
-		//double i00 = (1/12) * masse * ( )
+		Vecteur3D position = Vecteur3D(0 , 1, 2);
+		formSize = Vecteur3D(1, 1, 1);
+		double masse = 5;
+		double dx = formSize.getX();
+		double dy = formSize.getY();
+		double dz = formSize.getZ();
+		double i00 = (1.0/12.0) * masse * (dy*dy + dz*dz);
+		double i11 = (1.0/12.0) * masse * (dx*dx + dz*dz);
+		double i22 = (1.0/12.0) * masse * (dx*dx + dy*dy);
+		Matrix33 Inertia = Matrix33(i00, 0.0, 0.0, 0.0, i11, 0.0, 0.0, 0.0, i22);
+		Matrix33 inverseInertia = Inertia.Inverse();
 		//RigidBody(Vecteur3D pos, Vecteur3D vit, double m, Quaternion orientation, double damping, Vecteur3D angVelocity, double angularDamping, Matrix33 inverseInertia)
-		// rb =  new RigidPody(Vecteur3D(0, 1, 2), Vecteur3D(),masse,Quaternion(0,0,0,1), 0.99, Vecteur3D(),0.99, Matrix33())
-		rb = new Particule(5, Vecteur3D(0, 1, 2), Vecteur3D(), 0.99);
+		rb =  new RigidBody(Vecteur3D(0, 1, 2), Vecteur3D(),masse,Quaternion(0,0.5,0,0), 0.99, Vecteur3D(),0.99, inverseInertia);
 		shapeOfRb = 1;
 		rvbColor = Vecteur3D(2.0, 0.5, 1);
-		formSize = Vecteur3D(0.5, 0, 0);
+		
 		rbTabl.push_back(rb);
+		m_registry.add(rb, new RigidBodyGravity());
+		rb->addForceAtBodyPoint(Vecteur3D(-200, 3000, -1500), Vecteur3D(0.4,0,0.5));
 		break;
+	}
 	default:
 		break;
 	}
@@ -111,14 +115,13 @@ void Game3a::doUpdatePhysics() {
 
 	double deltaTime = updateTime();
 
-	cout << rbTabl.size() << endl;
-	//m_registry.UpdateForce(deltaTime); //update each force 
+	m_registry.UpdateForce(deltaTime); //update each force 
 
-	
-	//rigidbody->integrate(deltaTime); 
-	
-
-	m_registry.clear();
+	for (int i = 0; i < rbTabl.size(); i++) {
+		//calculates with respect to the position and speed of the previous frame 
+		rbTabl[i]->integrate(deltaTime); 
+		
+	}
 
 	glutPostRedisplay();
 }
@@ -142,9 +145,9 @@ void Game3a::doDisplay() {
 	glutIdleFunc(updatePhysics); 
 
 	for (int i = 0; i < rbTabl.size(); i++) {
-		// draw each particle contain in the particle board
+		// draw each rigidbody contain in the rigidbody board
 		cout << rbTabl[i]->getPosition() << endl;
-		drawParticule(rbTabl[i]);
+		drawRigidBody(rbTabl[i]);
 	}
 	
 	// swaps the buffers of the current window if double buffered

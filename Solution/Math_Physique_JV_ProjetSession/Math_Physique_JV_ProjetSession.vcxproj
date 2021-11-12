@@ -146,6 +146,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sources\Games\Game2.cpp" />
     <ClCompile Include="Sources\Games\Game3a.cpp" />
+    <ClCompile Include="Sources\Games\Game3b.cpp" />
     <ClCompile Include="Sources\Games\GameBase.cpp" />
     <ClCompile Include="Sources\Games\Game1.cpp" />
     <ClCompile Include="Sources\Math\Matrix33.cpp" />
@@ -168,6 +169,7 @@
     <ClCompile Include="Sources\Physic\ForceGenerator\Particle\ParticleGravity.cpp" />
     <ClCompile Include="Sources\Physic\ForceGenerator\Particle\ParticleSpring.cpp" />
     <ClCompile Include="Sources\Physic\ForceGenerator\RigidBody\RigidBodyForceGenerator.cpp" />
+    <ClCompile Include="Sources\Physic\ForceGenerator\RigidBody\RigidBodyForceRegistry.cpp" />
     <ClCompile Include="Sources\Physic\ForceGenerator\RigidBody\RigidBodyGravity.cpp" />
     <ClCompile Include="Sources\Physic\Particule.cpp" />
     <ClCompile Include="Sources\Physic\RigidBody.cpp" />
@@ -175,6 +177,7 @@
   <ItemGroup>
     <ClInclude Include="Sources\Games\Game2.h" />
     <ClInclude Include="Sources\Games\Game3a.h" />
+    <ClInclude Include="Sources\Games\Game3b.h" />
     <ClInclude Include="Sources\Games\GameBase.h" />
     <ClInclude Include="Sources\Games\Game1.h" />
     <ClInclude Include="Sources\Math\Matrix33.h" />
@@ -197,6 +200,7 @@
     <ClInclude Include="Sources\Physic\ForceGenerator\Particle\ParticleGravity.h" />
     <ClInclude Include="Sources\Physic\ForceGenerator\Particle\ParticleSpring.h" />
     <ClInclude Include="Sources\Physic\ForceGenerator\RigidBody\RigidBodyForceGenerator.h" />
+    <ClInclude Include="Sources\Physic\ForceGenerator\RigidBody\RigidBodyForceRegistry.h" />
     <ClInclude Include="Sources\Physic\ForceGenerator\RigidBody\RigidBodyGravity.h" />
     <ClInclude Include="Sources\Physic\Particule.h" />
     <ClInclude Include="Sources\Physic\RigidBody.h" />

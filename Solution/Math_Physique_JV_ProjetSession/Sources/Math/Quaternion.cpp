@@ -7,12 +7,13 @@ Quaternion::Quaternion() {
 	value[2] = (0, 0);
 	value[3] = (0, 0);
 }
-Quaternion::Quaternion(double x, double y, double z, double w)
+Quaternion::Quaternion(double w,double x, double y, double z)
 {
+	value[0] = w;
 	value[1] = x;
 	value[2] = y;
 	value[3] = z;
-	value[0] = w;
+	
 }
 
 double Quaternion::norm() const
