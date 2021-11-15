@@ -5,6 +5,7 @@
 #include "../Math/Quaternion.h"
 #include "../Physic/ForceGenerator/RigidBody/RigidBodyForceRegistry.h"
 #include "../Physic/ForceGenerator/RigidBody/RigidBodyGravity.h"
+#include "../Physic/ForceGenerator/RigidBody/InputForceAtPoint.h"
 #include "../Physic/RigidBody.h"
 #include<vector>
 #include <cmath>

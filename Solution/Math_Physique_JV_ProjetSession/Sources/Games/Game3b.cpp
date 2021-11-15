@@ -39,10 +39,6 @@ void Game3b::drawCars(RigidBody* rigidbody) {
 		
 	glPopMatrix();
 
-	//we don't want to store more than 20 rigidBody
-	if (rbTabl.size() > 20) {
-		rbTabl.erase(rbTabl.begin());
-	}
 }
 
 
@@ -65,9 +61,9 @@ void Game3b::createCars() {
 	RigidBody* car1;
 	RigidBody* car2;
 
-	Vecteur3D position = Vecteur3D(5.0, 0.0, 0.0);
+	Vecteur3D position = Vecteur3D(5.0, 0.0, 0.1);
 	Vecteur3D position2 = Vecteur3D(-5.0, 0.0, -5.0);
-
+	contactPoint = Vecteur3D(0.0,0.0,0.0);
 	Quaternion q1 = Quaternion(1.0, 0, 0, 0);
 	Quaternion q2 = Quaternion(cos(PI/4), 0, 1.0, 0);
 
@@ -103,11 +99,18 @@ void Game3b::doUpdatePhysics() {
 	double deltaTime = updateTime();
 
 	m_registry.UpdateForce(deltaTime); //update each force 
-
 	for (int i = 0; i < rbTabl.size(); i++) {
+		if (i % 2 == 0)
+			if (rbTabl[i+1]->getPosition().getZ() >= contactPoint.getZ()) {
+				if (rbTabl[i]->getPosition().getX() <= contactPoint.getX()) {
+					double  force = 25 * (1 / deltaTime);
+					rbTabl[i]->addForceAtPoint(Vecteur3D(force, 0, 0), contactPoint);
+					rbTabl[i+1]->addForceAtPoint(Vecteur3D(-force, 0, 0), contactPoint);
+				}
+			}
+
 		//calculates with respect to the position and speed of the previous frame 
 		rbTabl[i]->integrate(deltaTime);
-
 	}
 
 	glutPostRedisplay();

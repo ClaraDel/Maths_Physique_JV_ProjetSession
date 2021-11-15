@@ -5,6 +5,7 @@
 #include "../Math/Quaternion.h"
 #include "../Physic/ForceGenerator/RigidBody/RigidBodyForceRegistry.h"
 #include "../Physic/ForceGenerator/RigidBody/RigidBodyGravity.h"
+#include "../Physic/ForceGenerator/RigidBody/InputForceAtPoint.h"
 #include "../Physic/RigidBody.h"
 #include<vector>
 #include <cmath>
@@ -21,6 +22,7 @@ private:
     int shapeOfRb = 1;// 0 -> Sphere, 1-> Cube, 2->Torus, 3-> Teapot,4->ellipse 3D
     Vecteur3D rvbColor; //Rigidbody color 
     Vecteur3D formSize; //vector that contains information about rigidbody's shape 
+    Vecteur3D contactPoint;
     std::vector<RigidBody*> rbTabl;
 
     RigidBodyForceRegistry m_registry;

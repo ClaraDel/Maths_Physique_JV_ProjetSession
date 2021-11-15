@@ -16,6 +16,7 @@ Game3a::Game3a(string nameGame, string descriptionGame) : GameBase(nameGame, des
 	m_registry = RigidBodyForceRegistry();
 	rbTabl = vector<RigidBody*>();
 	rbChosen = 0;
+	bool InputForce = false;
 }
 
 void Game3a::drawRigidBody(RigidBody* rigidbody) {
@@ -101,7 +102,8 @@ void Game3a::createRigidBody() {
 		
 		rbTabl.push_back(rb);
 		m_registry.add(rb, new RigidBodyGravity());
-		rb->addForceAtBodyPoint(Vecteur3D(-200, 3000, -1500), Vecteur3D(0.4,0,0.5));
+		m_registry.add(rb, new InputForceAtPoint(Vecteur3D(-2, 20, -15), Vecteur3D(0.4,0,0.5)));
+		
 		break;
 	}
 	default:

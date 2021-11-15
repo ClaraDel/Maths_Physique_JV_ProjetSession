@@ -168,6 +168,7 @@
     <ClCompile Include="Sources\Physic\ForceGenerator\Particle\ParticleForceRegistry.cpp" />
     <ClCompile Include="Sources\Physic\ForceGenerator\Particle\ParticleGravity.cpp" />
     <ClCompile Include="Sources\Physic\ForceGenerator\Particle\ParticleSpring.cpp" />
+    <ClCompile Include="Sources\Physic\ForceGenerator\RigidBody\InputForceAtPoint.cpp" />
     <ClCompile Include="Sources\Physic\ForceGenerator\RigidBody\RigidBodyForceGenerator.cpp" />
     <ClCompile Include="Sources\Physic\ForceGenerator\RigidBody\RigidBodyForceRegistry.cpp" />
     <ClCompile Include="Sources\Physic\ForceGenerator\RigidBody\RigidBodyGravity.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="Sources\Physic\ForceGenerator\Particle\ParticleForceRegistry.h" />
     <ClInclude Include="Sources\Physic\ForceGenerator\Particle\ParticleGravity.h" />
     <ClInclude Include="Sources\Physic\ForceGenerator\Particle\ParticleSpring.h" />
+    <ClInclude Include="Sources\Physic\ForceGenerator\RigidBody\InputForceAtPoint.h" />
     <ClInclude Include="Sources\Physic\ForceGenerator\RigidBody\RigidBodyForceGenerator.h" />
     <ClInclude Include="Sources\Physic\ForceGenerator\RigidBody\RigidBodyForceRegistry.h" />
     <ClInclude Include="Sources\Physic\ForceGenerator\RigidBody\RigidBodyGravity.h" />
