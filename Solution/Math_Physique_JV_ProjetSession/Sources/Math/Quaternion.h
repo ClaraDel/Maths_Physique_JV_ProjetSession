@@ -11,7 +11,7 @@ private:
 
 public:
 	Quaternion();
-	Quaternion(double x, double y, double z, double w);
+	Quaternion(double w, double x, double y, double z);
 	double norm() const;
 	double getW() const;
 	double getX() const;
