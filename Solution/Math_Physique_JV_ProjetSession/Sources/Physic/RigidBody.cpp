@@ -2,7 +2,6 @@
 
 using namespace std;
 
-//create transform matrix from position and orientation
 
 RigidBody::RigidBody(Vecteur3D pos, Vecteur3D vit, double m, Quaternion orientation, double damping, Vecteur3D angVelocity, double angularDamping, Matrix33 inverseInertia){ 
 
@@ -40,6 +39,8 @@ RigidBody::~RigidBody()
 {
 }
 
+
+//create transform matrix from position and orientation
 void RigidBody::calculateTransformMatrix() {
 	double w = m_orientation.getW();
 	double x = m_orientation.getX();
@@ -93,7 +94,9 @@ void RigidBody::calculateTransformInertia(){
 //calculate the transform Matrix for the RigidBody
 void RigidBody::calculateDerivedData(){
     m_orientation.normalize();
+	//Calculate the transform Matrix 
     calculateTransformMatrix();
+	//Calculate the inertiaTensor in world sapce
 	calculateTransformInertia();
 }
 
@@ -121,9 +124,6 @@ void RigidBody::integrate(double deltaTime){
 	accelerationCalcul();
 	// calcul angular acceleration  theta: = I^-1 * torq
 	m_angularAcceleration = m_inverseInertiaWorld * m_torqueApplied;
-	//cout << "m_inverseInertiaWorld = " << m_inverseInertiaWorld <<  endl;
-	cout << "m_torqueApplied = " << m_torqueApplied << endl;
-	cout << "m_forceApplied = " << m_forceApplied << endl;
 	//update linear velocity 
 	updateVector(m_acceleration, deltaTime, m_velocity); //calculates the new velocity
 	m_velocity *= pow(m_damping, deltaTime);

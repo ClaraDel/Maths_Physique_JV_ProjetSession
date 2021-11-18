@@ -75,7 +75,6 @@ void Game1::drawParticule(Particule* particule) {
 	//we don't want to store more than 20 particles
 	if(partTabl.size() > 20){
 		partTabl.erase(partTabl.begin());
-		cout << partTabl.size();
 	}
 }
 

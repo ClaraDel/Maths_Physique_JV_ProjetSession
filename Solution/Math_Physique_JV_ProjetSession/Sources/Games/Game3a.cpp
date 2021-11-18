@@ -5,7 +5,7 @@
 #include "Game3a.h"
 #include <ctime>
 
-#define ProjectileMax 7
+#define ProjectileMax 1
 #define PI 3.14159265
 using namespace std;
 
@@ -19,6 +19,7 @@ Game3a::Game3a(string nameGame, string descriptionGame) : GameBase(nameGame, des
 	bool InputForce = false;
 }
 
+//Draw our rigidBody
 void Game3a::drawRigidBody(RigidBody* rigidbody) {
 	Vecteur3D position;
 	position = rigidbody->getPosition();
@@ -35,27 +36,15 @@ void Game3a::drawRigidBody(RigidBody* rigidbody) {
 		//parameters: size
 		
 		glMatrixMode(GL_MODELVIEW);
-		
+		//Rotate it with the calculate quaternion
 		glRotatef(2*acos(rigidbody->getOrientation().getW())*180.0/PI, rigidbody->getOrientation().getX(), rigidbody->getOrientation().getY(), rigidbody->getOrientation().getZ());
 		glutSolidCube(formSize.getX());
-		break;
-
-	case 2:
-		//a torus
-		glRotatef(45.0, 1.0, 0.0, 0.0);
-		//parameters: Inner radius of the torus, Outer radius of the torus, Number of sides for each radial section, 
-		//Number of radial divisions for the torus
-		glutSolidTorus(formSize.getX(), formSize.getY(), formSize.getZ(), 100);
 		break;
 	default:
 		break;
 	}
 	glPopMatrix();
 
-	//we don't want to store more than 20 rigidBody
-	if (rbTabl.size() > 20) {
-		rbTabl.erase(rbTabl.begin());
-	}
 }
 
 
@@ -78,8 +67,6 @@ void Game3a::doKeyboard(unsigned char key, int x, int y) {
 
 
 void Game3a::createRigidBody() {
-	cout << endl; 
-	cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH" << endl;
 	RigidBody* rb;
 	switch (rbChosen) {
 	case 0: {
@@ -93,15 +80,18 @@ void Game3a::createRigidBody() {
 		double i00 = (1.0/12.0) * masse * (dy*dy + dz*dz);
 		double i11 = (1.0/12.0) * masse * (dx*dx + dz*dz);
 		double i22 = (1.0/12.0) * masse * (dx*dx + dy*dy);
+		//Calculate the Inertia Matrix for a cube 
 		Matrix33 Inertia = Matrix33(i00, 0.0, 0.0, 0.0, i11, 0.0, 0.0, 0.0, i22);
 		Matrix33 inverseInertia = Inertia.Inverse();
-		//RigidBody(Vecteur3D pos, Vecteur3D vit, double m, Quaternion orientation, double damping, Vecteur3D angVelocity, double angularDamping, Matrix33 inverseInertia)
+		//Create our rigidBody
 		rb =  new RigidBody(Vecteur3D(0, 1, 2), Vecteur3D(),masse,Quaternion(0,0.5,0,0), 0.99, Vecteur3D(),0.99, inverseInertia);
 		shapeOfRb = 1;
 		rvbColor = Vecteur3D(2.0, 0.5, 1);
 		
 		rbTabl.push_back(rb);
+		//Add rhe gravity
 		m_registry.add(rb, new RigidBodyGravity());
+		//Add a Force to rotate our rigidbody 
 		m_registry.add(rb, new InputForceAtPoint(Vecteur3D(-2, 20, -15), Vecteur3D(0.4,0,0.5)));
 		
 		break;
@@ -148,7 +138,6 @@ void Game3a::doDisplay() {
 
 	for (int i = 0; i < rbTabl.size(); i++) {
 		// draw each rigidbody contain in the rigidbody board
-		cout << rbTabl[i]->getPosition() << endl;
 		drawRigidBody(rbTabl[i]);
 	}
 	

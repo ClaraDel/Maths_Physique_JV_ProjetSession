@@ -15,14 +15,14 @@ Quaternion::Quaternion(double w,double x, double y, double z)
 	value[3] = z;
 	
 }
-
+//His norm
 double Quaternion::norm() const
 {
 	double n(0.0);
 	n = sqrt((pow(value[0], 2) + pow(value[1], 2) + pow(value[2], 2) + pow(value[3], 2)));
 	return n;
 }
-
+//normalize the quaternion by multipling it with the inverse of his norm
 void Quaternion::normalize() {
 	double n(this->norm());
 	if (n == 0) {
@@ -52,11 +52,13 @@ double Quaternion::getZ() const {
 	return value[3]; 
 }
 
+//Rotate the quaternion by a vector 
 void Quaternion::rotateByVector(const Vecteur3D& vecteur) {
 	Quaternion q(0, vecteur.getX(), vecteur.getY(), vecteur.getZ());
 	(*this) *= q;
 
 }
+//update the quaternion with angular velocity
 void Quaternion::updateByAngularVelocity(const Vecteur3D& rotation, double duration) {
 	Quaternion q(0, rotation.getX(), rotation.getY(), rotation.getZ());
 	q *= duration;

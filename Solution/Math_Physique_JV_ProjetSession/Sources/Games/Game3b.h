@@ -7,6 +7,7 @@
 #include "../Physic/ForceGenerator/RigidBody/RigidBodyGravity.h"
 #include "../Physic/ForceGenerator/RigidBody/InputForceAtPoint.h"
 #include "../Physic/RigidBody.h"
+#include "../Physic/Collision/RigidBodyContact.h"
 #include<vector>
 #include <cmath>
 

@@ -19,6 +19,7 @@ Matrix33::Matrix33(double a, double b, double c, double d, double e, double f, d
 	values[8] = i;
 }
 
+//Calculate the determinant 
 double Matrix33::Det() {
 	return (values[0] * values[4] * values[8] +
 		values[3] * values[7] * values[2] +
@@ -28,6 +29,7 @@ double Matrix33::Det() {
 		values[3] * values[1] * values[8]);
 }
 
+//Calculate the Inverse Matrix 
 Matrix33 Matrix33::Inverse() {
 	Matrix33 M;
 	if (this->Det() != 0) {
@@ -48,6 +50,7 @@ Matrix33 Matrix33::Inverse() {
 	return M;
 }
 
+//Calculate the transpose Matrix
 Matrix33 Matrix33::Transpose() {
 	// a b c -> a d g
 	// d e f -> b e h
@@ -58,7 +61,7 @@ Matrix33 Matrix33::Transpose() {
 	return M;
 }
 
-
+//Print the Matrix
 void Matrix33::print(ostream& flux) const
 {	
 	for (int i = 0; i<9 ; i++){
@@ -70,6 +73,7 @@ void Matrix33::print(ostream& flux) const
 	
 }
 
+//Set the matrix base on a Quaternion
 void Matrix33::SetOrientation(const Quaternion& q) {
 	double w = q.getW();
 	double x = q.getX();
@@ -95,11 +99,11 @@ void Matrix33::SetOrientation(const Quaternion& q) {
 	values[8] = 1 - (x2 + y2);
 }
 
-
+//Get the value at a given index 
 double Matrix33::getValue(int i) const {
 	return values[i];
 }
-
+//Set the value at a given index 
 void Matrix33::setValue(int i, double v) {
 	values[i] = v;
 }

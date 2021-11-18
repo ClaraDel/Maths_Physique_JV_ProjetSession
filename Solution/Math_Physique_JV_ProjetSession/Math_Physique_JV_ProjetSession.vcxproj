@@ -160,6 +160,7 @@
     <ClCompile Include="Sources\Physic\Collision\ParticleContactResolver.cpp" />
     <ClCompile Include="Sources\Physic\Collision\ParticleLink.cpp" />
     <ClCompile Include="Sources\Physic\Collision\ParticleRod.cpp" />
+    <ClCompile Include="Sources\Physic\Collision\RigidBodyContact.cpp" />
     <ClCompile Include="Sources\Physic\ForceGenerator\Particle\InputForce.cpp" />
     <ClCompile Include="Sources\Physic\ForceGenerator\Particle\ParticleAnchoredSpring.cpp" />
     <ClCompile Include="Sources\Physic\ForceGenerator\Particle\ParticleBuoyancy.cpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="Sources\Physic\Collision\ParticleContactGenerator.h" />
     <ClInclude Include="Sources\Physic\Collision\ParticleContactResolver.h" />
     <ClInclude Include="Sources\Physic\Collision\ParticleLink.h" />
+    <ClInclude Include="Sources\Physic\Collision\RigidBodyContact.h" />
     <ClInclude Include="Sources\Physic\ForceGenerator\Particle\InputForce.h" />
     <ClInclude Include="Sources\Physic\ForceGenerator\Particle\ParticleAnchoredSpring.h" />
     <ClInclude Include="Sources\Physic\ForceGenerator\Particle\ParticleBuoyancy.h" />

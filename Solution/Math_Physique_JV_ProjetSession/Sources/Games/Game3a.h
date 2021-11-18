@@ -7,7 +7,7 @@
 #include "../Physic/ForceGenerator/RigidBody/RigidBodyGravity.h"
 #include "../Physic/ForceGenerator/RigidBody/InputForceAtPoint.h"
 #include "../Physic/RigidBody.h"
-#include<vector>
+#include <vector>
 #include <cmath>
 
 #ifndef DEF_GAME3

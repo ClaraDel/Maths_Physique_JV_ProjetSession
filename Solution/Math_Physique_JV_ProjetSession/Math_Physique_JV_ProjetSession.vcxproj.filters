@@ -125,6 +125,9 @@
     <ClCompile Include="Sources\Physic\ForceGenerator\RigidBody\InputForceAtPoint.cpp">
       <Filter>Fichiers sources\Physic\ForceGenerator\RigidBody</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\Physic\Collision\RigidBodyContact.cpp">
+      <Filter>Fichiers sources\Physic\Collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Math\Vecteur3D.h">
@@ -216,6 +219,9 @@
     </ClInclude>
     <ClInclude Include="Sources\Physic\ForceGenerator\RigidBody\InputForceAtPoint.h">
       <Filter>Fichiers sources\Physic\ForceGenerator\RigidBody</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\Collision\RigidBodyContact.h">
+      <Filter>Fichiers sources\Physic\Collision</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -8,6 +8,7 @@ double Matrix34::Det(){
 	return(M.Det());
 }
 
+//Get the Inverse Matrix
 Matrix34 Matrix34::Inverse() {
 	Matrix33 M = Matrix33(values[0], values[1], values[2], values[4], values[5], values[6], values[8], values[9], values[10]);
 	Matrix33 MInverse = M.Inverse();
@@ -29,6 +30,7 @@ Matrix34 Matrix34::Inverse() {
 	return resM;
 }
 
+//Set the matrix base on a Quaternion and a Vecteur3D
 void Matrix34::SetOrientationAndPosition(const Quaternion& q, const Vecteur3D& p){
 	Matrix33 M;
 	M.SetOrientation(q);
@@ -47,10 +49,11 @@ void Matrix34::SetOrientationAndPosition(const Quaternion& q, const Vecteur3D& p
 	values[10] = M.getValue(10);
 	values[11] = p.getZ();
 }
-
+//For the base change
 Vecteur3D Matrix34::localToWorld(const Vecteur3D &local, Matrix34 &transform){
 	return transform.TransformPosition(local);
 }
+
 
 Vecteur3D Matrix34::worldToLocal(const Vecteur3D &world, Matrix34 &transform){
 	Matrix34 inverse = transform;
@@ -58,6 +61,7 @@ Vecteur3D Matrix34::worldToLocal(const Vecteur3D &world, Matrix34 &transform){
 	return inverse.TransformPosition(world);
 }
 
+//transform a position
 Vecteur3D Matrix34::TransformPosition(const Vecteur3D& vector){
 	return Vecteur3D(
 		values[0] * vector.getX() + values[1] * vector.getY() + values[2] * vector.getZ() + values[3],
@@ -65,6 +69,7 @@ Vecteur3D Matrix34::TransformPosition(const Vecteur3D& vector){
 		values[8] * vector.getX() + values[9] * vector.getY() + values[10] * vector.getZ() + values[11]);
 }
 
+//Transform a direction by ignoring the translation 
 Vecteur3D Matrix34::TransformDirection(const Vecteur3D& vector) {
 	return Vecteur3D(
 		values[0] * vector.getX() + values[1] * vector.getY() + values[2] * vector.getZ(),
@@ -72,6 +77,7 @@ Vecteur3D Matrix34::TransformDirection(const Vecteur3D& vector) {
 		values[8] * vector.getX() + values[9] * vector.getY() + values[10] * vector.getZ());
 }
 
+//Return the Matrice Identy
 Matrix34& Matrix34::identity() {
 	Matrix34 result;
 	result.setValue(0, 1);
@@ -94,6 +100,7 @@ Matrix34& Matrix34::operator-=(const Matrix34& other) {
 	}
 	return *this;
 }
+
 Matrix34& Matrix34::operator*=(const Matrix34& other) {
 	Matrix34 M;
 	for (int i = 0; i < 3; i++) {

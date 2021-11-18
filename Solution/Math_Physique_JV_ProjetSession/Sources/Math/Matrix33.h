@@ -11,9 +11,13 @@ private:
 public:
 	Matrix33();
 	Matrix33(double a, double b, double c, double d, double e, double f, double g, double h, double i);
+	//Calculate the determinant of the Matrix 
 	double Det();
+	//Calculate the Inverse Matrix 
 	Matrix33 Inverse();
+	//Calculate the Transpose Matrix
 	Matrix33 Transpose();
+	//Set the matrix base on a Quaternion
 	void SetOrientation(const Quaternion& q);
 	
 	double getValue(int i) const;
@@ -24,6 +28,7 @@ public:
 	Matrix33& operator*=(const Matrix33& other);
 	Matrix33& operator*=(const Vecteur3D& other);
 	Matrix33& operator*=(double value);
+	//Print the Matrix 
 	void print(std::ostream& flux) const;
 };
 

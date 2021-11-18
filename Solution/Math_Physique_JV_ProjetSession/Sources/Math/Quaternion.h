@@ -12,13 +12,17 @@ private:
 public:
 	Quaternion();
 	Quaternion(double w, double x, double y, double z);
+	//Calculate his norm
 	double norm() const;
 	double getW() const;
 	double getX() const;
 	double getY() const;
 	double getZ() const;
+	//normalize the quaternion by multipling it with the inverse of his norm
 	void normalize();
+	//Rotate the quaternion by a vector 
 	void rotateByVector(const Vecteur3D& vecteur);
+	//update the quaternion with angular velocity
 	void updateByAngularVelocity(const Vecteur3D& rotation, double duration);
 
 	Quaternion& operator+=(const Quaternion& other);
