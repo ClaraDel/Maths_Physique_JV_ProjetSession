@@ -106,8 +106,8 @@ void Game3b::doUpdatePhysics() {
 				if (rbTabl[i]->getPosition().getX() - 0.5 <= contactPoint.getX()) {
 					//Apply the collision force 
 					double  force = 25 * (1.0 / deltaTime);
-					rbTabl[i]->addForceAtBodyPoint(Vecteur3D(force, 0, 0), Vecteur3D(0.3, 0.0, 0.5));
-					rbTabl[i + 1]->addForceAtBodyPoint(Vecteur3D(-force, 0, 0), Vecteur3D(0.0, 0.0, -sqrt(2)));
+					rbTabl[i]->addForceAtBodyPoint(Vecteur3D(force, 0, 0), Vecteur3D(-0.5, 0.0, -0.3));
+					rbTabl[i + 1]->addForceAtBodyPoint(Vecteur3D(-force, 0, 0), Vecteur3D(sqrt(2), 0.0, 0.0));
 				}
 			}
 

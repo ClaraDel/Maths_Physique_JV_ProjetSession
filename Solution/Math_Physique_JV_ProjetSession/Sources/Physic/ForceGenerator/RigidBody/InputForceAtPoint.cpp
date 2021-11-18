@@ -11,7 +11,7 @@ InputForceAtPoint::InputForceAtPoint(Vecteur3D force, Vecteur3D pointPos) {
 void InputForceAtPoint::UpdateForce(RigidBody* rigidBody, double duration)
 {
 	if (m_launch == true) {
-		rigidBody->addForceAtPoint((1.0/duration) * m_force , m_pos);
+		rigidBody->addForceAtBodyPoint((1.0/duration) * m_force , m_pos);
 		m_launch = false; 
 	}
 }

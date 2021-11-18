@@ -62,3 +62,7 @@ Vous pouvez lancer des projectiles en appuyant sur espace, mais aussi faire rota
 Appuyez sur la touche A pour changer de projectile.
 * Pour le jeu 2:
 Vous pouvez déplacer le blob avec les touches W,A,S,D ou les touches directionnelles.
+* Pour le jeu 3:
+Appuyez sur la touche espace pour lancer un cube.
+* Pour le jeu 4:
+Appuyez sur la touche espace pour lancer une simulation d'accident de voitures.
