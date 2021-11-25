@@ -2,7 +2,7 @@
 #pragma once
 #ifndef DEF_RIGIDBODYFORCEREGISTRY
 #define DEF_RIGIDBODYFORCEREGISTRY
-#include "../../RigidBody.h"
+#include "../../Objects/RigidBody.h"
 #include "RigidBodyForceGenerator.h"
 
 class RigidBodyForceRegistry

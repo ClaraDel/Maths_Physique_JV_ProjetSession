@@ -1,7 +1,7 @@
 #pragma once
 #ifndef DEF_CONSTANTFORCE
 #define DEF_CONSTANTFORCE
-#include "../../Particule.h"
+#include "../../Objects/Particule.h"
 #include"ParticleForceGenerator.h"
 
 class InputForce : public ParticleForceGenerator

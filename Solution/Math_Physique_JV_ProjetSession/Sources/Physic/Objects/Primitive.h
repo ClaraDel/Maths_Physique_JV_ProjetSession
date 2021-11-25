@@ -1,7 +1,7 @@
 #ifndef DEF_PRIMITIVE
 #define DEF_PRIMITIVE
 #include"RigidBody.h"
-#include"../Math/Matrix34.h"
+#include"../../Math/Matrix34.h"
 
 class Primitive {
 public:

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../../Physic/RigidBody.h"
+#include "../../../Physic/Objects/RigidBody.h"
 
 
 class RigidBodyForceGenerator

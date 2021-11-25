@@ -30,13 +30,16 @@
     <Filter Include="Fichiers sources\Physic\ForceGenerator\RigidBody">
       <UniqueIdentifier>{8dea6dfa-1566-4201-b2f6-d9233faafde3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Physic\Contact">
+      <UniqueIdentifier>{d0f4f1a7-74a4-47d9-a09d-b914d8e513d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Physic\Objects">
+      <UniqueIdentifier>{e4ec82f0-00c0-4c51-8dc1-c77e05c62b49}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\Physic\Particule.cpp">
-      <Filter>Fichiers sources\Physic</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Games\Game1.cpp">
       <Filter>Fichiers sources\Game</Filter>
@@ -46,24 +49,6 @@
     </ClCompile>
     <ClCompile Include="Sources\Games\Game2.cpp">
       <Filter>Fichiers sources\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\Physic\Collision\ParticleContact.cpp">
-      <Filter>Fichiers sources\Physic\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\Physic\Collision\ParticleLink.cpp">
-      <Filter>Fichiers sources\Physic\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\Physic\Collision\ParticleContactResolver.cpp">
-      <Filter>Fichiers sources\Physic\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\Physic\Collision\ParticleContactGenerator.cpp">
-      <Filter>Fichiers sources\Physic\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\Physic\Collision\ParticleCable.cpp">
-      <Filter>Fichiers sources\Physic\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\Physic\Collision\ParticleRod.cpp">
-      <Filter>Fichiers sources\Physic\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Math\Vecteur3D.cpp">
       <Filter>Fichiers sources\Math</Filter>
@@ -79,12 +64,6 @@
     </ClCompile>
     <ClCompile Include="Sources\Games\Game3a.cpp">
       <Filter>Fichiers sources\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\Physic\RigidBody.cpp">
-      <Filter>Fichiers sources\Physic</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\Physic\Collision\ParticleContactRegistry.cpp">
-      <Filter>Fichiers sources\Physic\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Physic\ForceGenerator\Particle\ParticleAnchoredSpring.cpp">
       <Filter>Fichiers sources\Physic\ForceGenerator\Particle</Filter>
@@ -125,16 +104,55 @@
     <ClCompile Include="Sources\Physic\ForceGenerator\RigidBody\InputForceAtPoint.cpp">
       <Filter>Fichiers sources\Physic\ForceGenerator\RigidBody</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\Physic\Collision\RigidBodyContact.cpp">
+    <ClCompile Include="Sources\Physic\Collision\CollisionData.cpp">
       <Filter>Fichiers sources\Physic\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Physic\Collision\PlaneCollider.cpp">
+      <Filter>Fichiers sources\Physic\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Physic\Collision\SphereCollider.cpp">
+      <Filter>Fichiers sources\Physic\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Physic\Collision\OcTree.cpp">
+      <Filter>Fichiers sources\Physic\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Physic\Contact\ParticleCable.cpp">
+      <Filter>Fichiers sources\Physic\Contact</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Physic\Contact\ParticleContact.cpp">
+      <Filter>Fichiers sources\Physic\Contact</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Physic\Contact\ParticleContactGenerator.cpp">
+      <Filter>Fichiers sources\Physic\Contact</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Physic\Contact\ParticleContactRegistry.cpp">
+      <Filter>Fichiers sources\Physic\Contact</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Physic\Contact\ParticleContactResolver.cpp">
+      <Filter>Fichiers sources\Physic\Contact</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Physic\Contact\ParticleLink.cpp">
+      <Filter>Fichiers sources\Physic\Contact</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Physic\Contact\ParticleRod.cpp">
+      <Filter>Fichiers sources\Physic\Contact</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Physic\Contact\RigidBodyContact.cpp">
+      <Filter>Fichiers sources\Physic\Contact</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Physic\Objects\Particule.cpp">
+      <Filter>Fichiers sources\Physic\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Physic\Objects\RigidBody.cpp">
+      <Filter>Fichiers sources\Physic\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Games\Game4.cpp">
+      <Filter>Fichiers sources\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Math\Vecteur3D.h">
       <Filter>Fichiers sources\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Physic\Particule.h">
-      <Filter>Fichiers sources\Physic</Filter>
     </ClInclude>
     <ClInclude Include="Sources\Games\Game1.h">
       <Filter>Fichiers sources\Game</Filter>
@@ -144,24 +162,6 @@
     </ClInclude>
     <ClInclude Include="Sources\Games\Game2.h">
       <Filter>Fichiers sources\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Physic\Collision\ParticleContact.h">
-      <Filter>Fichiers sources\Physic\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Physic\Collision\ParticleCable.h">
-      <Filter>Fichiers sources\Physic\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Physic\Collision\ParticleContactGenerator.h">
-      <Filter>Fichiers sources\Physic\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Physic\Collision\ParticleContactResolver.h">
-      <Filter>Fichiers sources\Physic\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Physic\Collision\ParticleLink.h">
-      <Filter>Fichiers sources\Physic\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Physic\Collision\ParticleRod.h">
-      <Filter>Fichiers sources\Physic\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Sources\Math\Matrix33.h">
       <Filter>Fichiers sources\Math</Filter>
@@ -174,12 +174,6 @@
     </ClInclude>
     <ClInclude Include="Sources\Games\Game3a.h">
       <Filter>Fichiers sources\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Physic\RigidBody.h">
-      <Filter>Fichiers sources\Physic</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Physic\Collision\ParticleContactRegistry.h">
-      <Filter>Fichiers sources\Physic\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Sources\Physic\ForceGenerator\Particle\ParticleAnchoredSpring.h">
       <Filter>Fichiers sources\Physic\ForceGenerator\Particle</Filter>
@@ -220,8 +214,56 @@
     <ClInclude Include="Sources\Physic\ForceGenerator\RigidBody\InputForceAtPoint.h">
       <Filter>Fichiers sources\Physic\ForceGenerator\RigidBody</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\Physic\Collision\RigidBodyContact.h">
+    <ClInclude Include="Sources\Physic\Collision\CollisionData.h">
       <Filter>Fichiers sources\Physic\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\Collision\OcTree.h">
+      <Filter>Fichiers sources\Physic\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\Contact\ParticleCable.h">
+      <Filter>Fichiers sources\Physic\Contact</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\Contact\ParticleContact.h">
+      <Filter>Fichiers sources\Physic\Contact</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\Contact\ParticleContactGenerator.h">
+      <Filter>Fichiers sources\Physic\Contact</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\Contact\ParticleContactRegistry.h">
+      <Filter>Fichiers sources\Physic\Contact</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\Contact\ParticleContactResolver.h">
+      <Filter>Fichiers sources\Physic\Contact</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\Contact\ParticleLink.h">
+      <Filter>Fichiers sources\Physic\Contact</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\Contact\ParticleRod.h">
+      <Filter>Fichiers sources\Physic\Contact</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\Contact\RigidBodyContact.h">
+      <Filter>Fichiers sources\Physic\Contact</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\Objects\Box.h">
+      <Filter>Fichiers sources\Physic\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\Objects\Particule.h">
+      <Filter>Fichiers sources\Physic\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\Objects\Plane.h">
+      <Filter>Fichiers sources\Physic\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\Objects\Primitive.h">
+      <Filter>Fichiers sources\Physic\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\Objects\RigidBody.h">
+      <Filter>Fichiers sources\Physic\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Physic\Objects\Sphere.h">
+      <Filter>Fichiers sources\Physic\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Games\Game4.h">
+      <Filter>Fichiers sources\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

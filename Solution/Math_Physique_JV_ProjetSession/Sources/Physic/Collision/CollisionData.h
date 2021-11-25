@@ -1,6 +1,8 @@
 #pragma once
 
-#include"../Particule.h"
+#include"../Objects/Particule.h"
+#include "../../Math/Vecteur3D.h"
+
 class CollisionData {
 	private:
 		// penetration of the contact

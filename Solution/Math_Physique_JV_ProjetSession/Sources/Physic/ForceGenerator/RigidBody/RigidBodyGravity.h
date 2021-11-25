@@ -1,7 +1,7 @@
 #pragma once
-#ifndef DEF_PARTICULEGRAVITY
-#define DEF_PARTICULEGRAVITY
-#include"../../RigidBody.h"
+#ifndef DEF_RIGIDBODYGRAVITY
+#define DEF_RIGIDBODYGRAVITY
+#include"../../Objects/RigidBody.h"
 #include"RigidBodyForceGenerator.h"
 
 class RigidBodyGravity : public RigidBodyForceGenerator

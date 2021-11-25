@@ -1,7 +1,7 @@
 #pragma once
 #ifndef DEF_PARTICLELINK
 #define DEF_PARTICLELINK
-#include "../Particule.h"
+
 #include "ParticleContactGenerator.h"
 
 //base class

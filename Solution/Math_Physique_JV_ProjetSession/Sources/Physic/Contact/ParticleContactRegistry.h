@@ -2,7 +2,6 @@
 #ifndef DEF_PARTICLECONTACTREGISTRY
 #define DEF_PARTICLECONTACTREGISTRY
 
-#include "../Particule.h"
 #include "ParticleContact.h"
 #include "ParticleCable.h"
 #include <vector>

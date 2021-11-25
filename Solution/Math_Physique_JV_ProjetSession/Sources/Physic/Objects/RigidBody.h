@@ -3,8 +3,8 @@
 #pragma once
 #include <iostream>
 #include<vector>
-#include "../Math/Quaternion.h"
-#include "../Math/Matrix34.h"
+#include "../../Math/Quaternion.h"
+#include "../../Math/Matrix34.h"
 
 class RigidBody{
 

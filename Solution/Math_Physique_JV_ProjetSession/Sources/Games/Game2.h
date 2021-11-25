@@ -2,17 +2,17 @@
 #include <iostream>
 #include <string>
 #include "GameBase.h"
-#include "../Physic/Particule.h"
+#include "../Physic/Objects/Particule.h"
 #include "../Physic/ForceGenerator/Particle/ParticleForceGenerator.h"
 #include "../Physic/ForceGenerator/Particle/ParticleForceRegistry.h"
 #include "../Physic/ForceGenerator/Particle/ParticleGravity.h"
 #include "../Physic/ForceGenerator/Particle/ParticleSpring.h"
 #include "../Physic/ForceGenerator/Particle/InputForce.h"
-#include"../Physic/Collision/ParticleContactResolver.h"
-#include"../Physic/Collision/ParticleContact.h"
-#include"../Physic/Collision/ParticleCable.h"
-#include"../Physic/Collision/ParticleContactRegistry.h"
-#include"../Physic/Collision/ParticleContactGenerator.h"
+#include"../Physic/Contact/ParticleContactResolver.h"
+#include"../Physic/Contact/ParticleContact.h"
+#include"../Physic/Contact/ParticleCable.h"
+#include"../Physic/Contact/ParticleContactRegistry.h"
+#include"../Physic/Contact/ParticleContactGenerator.h"
 #include "../Physic/ForceGenerator/Particle/ParticleBuoyancy.h"
 #ifndef DEF_GAME2
 #define DEF_GAME2

@@ -1,20 +1,22 @@
 #include "OcTree.h"
 
 
-OcTree::Node* OcTree::Build(Vecteur3D position, int stopDeth) {
-	if (stopDeth < 0) return NULL;
-	else {
-		Node* node = new Node;
-		node->position = position;
+void OcTree::Build(Vecteur3D position, int stopDeth) {
+	Box region = Box::Primitive(m_regionSize,m_regionSize,m_regionSize);
+	root = new Node(0, m_stopDeth,m_maxChild,region);
+	
 		
 
 	}
 
-int OcTree::GetChildIndex(const Vecteur3D &centreRb){
+int Node::GetChildIndex(const Vecteur3D &centreRb){
 	int index;
-	if(centreRb.x > position.x ) index +=1 ;
-	if(centreRb.y > position.y ) index +=2 ;
-	if(centreRb.z > position.z ) index +=4 ;
+	if(centreRb.getX() > m_boxPosition.getX() ) index +=1 ;
+	if(centreRb.getZ() > m_boxPosition.getZ() ) index +=4 ;
 	return index ;
 }
+
+
+Vecteur3D Node::getPosition(){
+	return m_boxPosition;
 }

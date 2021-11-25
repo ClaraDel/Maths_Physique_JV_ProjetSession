@@ -1,7 +1,7 @@
 #pragma once
 #ifndef DEF_PARTICULEFORCEREGISTRY
 #define DEF_PARTICULEFORCEREGISTRY
-#include "../../Particule.h"
+#include "../../Objects/Particule.h"
 #include "ParticleForceGenerator.h"
 #include "InputForce.h"
 

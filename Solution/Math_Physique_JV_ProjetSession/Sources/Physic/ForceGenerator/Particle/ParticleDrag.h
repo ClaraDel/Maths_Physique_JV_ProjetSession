@@ -1,7 +1,7 @@
 #pragma once
 #ifndef DEF_PARTICULEDRAG
 #define DEF_PARTICULEDRAG
-#include "../../Particule.h"
+#include"../../Objects/Particule.h"
 #include"ParticleForceGenerator.h"
 
 class ParticleDrag: public ParticleForceGenerator

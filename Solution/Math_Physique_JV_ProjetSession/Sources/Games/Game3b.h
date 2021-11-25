@@ -6,8 +6,8 @@
 #include "../Physic/ForceGenerator/RigidBody/RigidBodyForceRegistry.h"
 #include "../Physic/ForceGenerator/RigidBody/RigidBodyGravity.h"
 #include "../Physic/ForceGenerator/RigidBody/InputForceAtPoint.h"
-#include "../Physic/RigidBody.h"
-#include "../Physic/Collision/RigidBodyContact.h"
+#include "../Physic/Objects/RigidBody.h"
+#include "../Physic/Contact/RigidBodyContact.h"
 #include<vector>
 #include <cmath>
 
