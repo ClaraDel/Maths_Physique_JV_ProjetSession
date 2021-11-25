@@ -199,8 +199,16 @@ void RigidBody::setAcceleration(double const x, double const y, double const z) 
 	m_acceleration = Vecteur3D(x, y, z);
 }
 
+void RigidBody::setAngularAcceleration(double const x, double const y, double const z) {
+	m_angularAcceleration = Vecteur3D(x, y, z);
+}
+
 void RigidBody::setVelocity(double const x, double const y, double const z) {
 	m_velocity = Vecteur3D(x, y, z);
+}
+
+void RigidBody::setAngularVelocity(double const x, double const y, double const z) {
+	m_vit_angular = Vecteur3D(x, y, z);
 }
 
 void RigidBody::setVelocity(Vecteur3D v) {

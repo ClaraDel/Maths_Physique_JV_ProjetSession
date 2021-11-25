@@ -7,5 +7,6 @@ class Primitive {
 public:
 	RigidBody* body;
 	Matrix34 offset;
+	virtual bool insideRegion(const Box& region) = 0;
 };
 #endif

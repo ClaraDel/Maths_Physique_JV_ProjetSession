@@ -54,7 +54,9 @@ public :
     void setPosition(Vecteur3D const& position);
 
     void setAcceleration(double const x, double const y, double const z);
+    void setAngularAcceleration(double const x, double const y, double const z);
     void setVelocity(double const x, double const y, double const z);
+    void setAngularVelocity(double const x, double const y, double const z);
     void setVelocity(Vecteur3D v);
 
     

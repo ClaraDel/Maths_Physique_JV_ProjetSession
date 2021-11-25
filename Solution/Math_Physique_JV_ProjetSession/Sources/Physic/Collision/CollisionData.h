@@ -2,6 +2,7 @@
 
 #include"../Objects/Particule.h"
 #include "../../Math/Vecteur3D.h"
+#include<iostream>;
 
 class CollisionData {
 	private:
@@ -18,6 +19,10 @@ class CollisionData {
 		double getPenetration();
 
 		void setContactPoint(Vecteur3D contactPoint);
-		void setContactPoint(Vecteur3D contactNormal);
+		void setContactNormal(Vecteur3D contactNormal);
 		void setPenetration(double penetration);
+
+		void print(std::ostream& flux) const;
 };
+
+std::ostream& operator<< (std::ostream& flux, CollisionData const& data);

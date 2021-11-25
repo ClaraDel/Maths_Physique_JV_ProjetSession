@@ -4,8 +4,13 @@
 #include "Primitive.h"
 
 class Plane : public Primitive {
-public:
+private:
+	Vecteur3D center;
 	Vecteur3D normal;
 	double offset;
+public:
+	bool Plane::insideRegion(const Box& region){
+		
+	}
 };
 #endif

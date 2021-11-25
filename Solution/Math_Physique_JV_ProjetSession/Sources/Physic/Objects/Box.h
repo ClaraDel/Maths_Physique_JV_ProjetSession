@@ -1,20 +1,40 @@
 #pragma once
 #ifndef DEF_BOX
 #define DEF_BOX
-#include "Primitive.h"
 
-class Box : public Primitive {
+class Box  {
 public:
 	double m_height ;
 	double m_width ;
 	double m_depth ;
-	//Vecteur3D halfSize;
+	Vecteur3D m_position ;
 
-	Primitive(double height, double width, double depth){
+	Box(double height, double width, double depth, Vecteur3D position){
 		m_height = height ;
 		m_width = width ;
 		m_depth = depth ;
+		m_position = position;
 	}
+	
+	
+	Vecteur3D getPosition(){
+		return m_position;
+	}
+
+	double getHeight() {
+		return m_height;
+	}
+
+	double getWidth() {
+		return m_width;
+	}
+
+	double getDepth() {
+		return m_depth;
+	}
+	
+
+	
 };
 #endif
 #pragma once
