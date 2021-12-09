@@ -14,6 +14,7 @@ class CollisionData {
 		Vecteur3D m_contactPoint;
 
 	public:
+		CollisionData();
 		Vecteur3D getContactPoint();
 		Vecteur3D getContactNormal();
 		double getPenetration();

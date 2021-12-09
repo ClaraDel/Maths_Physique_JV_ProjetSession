@@ -33,17 +33,22 @@ class Node {
 		void subdivise(); //subdivise the node in subregions
 		bool isLeaf(); //return true if the node has no child
 		void AddPrimitive(std::vector<Primitive> primitives);
-		void browse(std::vector<std::vector<Primitive>>& possibleCollision);
+		void browse(std::vector<PossibleCollision>& possibleCollision);
 };
 
 class OcTree {
 	private:
 		Node* root;
 		double m_regionSize;
+		std::vector<Primitive> m_primitivesToAdd
 
 	public:
 		void Build();
-		std::vector<std::vector<Primitive>> getPossibleCollision();
-		OcTree(int m_maxLevel, double regionSize );
+		std::vector<PossibleCollision> getPossibleCollision();
+		OcTree(int maxLevel, double regionSize, int maxPrimitive ){
+			m_maxLevel = maxLevel ;
+			regionSize = m_regionSize ;
+			m_maxPrimitive = maxPrimitive ;
+		};
 		void Clear();
 };

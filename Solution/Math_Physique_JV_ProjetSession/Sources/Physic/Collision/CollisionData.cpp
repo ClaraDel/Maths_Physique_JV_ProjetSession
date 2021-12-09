@@ -1,6 +1,12 @@
 #include "CollisionData.h"
 
 
+CollisionData::CollisionData() {
+	m_penetration = 0;
+	m_contactNormal = Vecteur3D();
+	m_contactPoint = Vecteur3D();
+}
+
 Vecteur3D CollisionData::getContactPoint(){
 	return m_contactPoint;
 }

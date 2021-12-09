@@ -11,6 +11,9 @@
 #include "../Physic/Contact/RigidBodyContact.h"
 #include "../Physic/Collision/OcTree.h"
 #include "../Physic/Collision/CollisionData.h"
+#include "../Physic/Objects/Box.h"
+#include "../Physic/Objects/Plane.h"
+#include "../Physic/Collision/PossibleCollision.h"
 #include<vector>
 #include <cmath>
 #include <iostream>
@@ -26,6 +29,7 @@ private :
     RigidBody* m_cube;
     Vecteur3D m_rvbColor; //Rigidbody color 
     Vecteur3D m_formSize; //vector that contains information about rigidbody's shape 
+    vector<Primitive> primitives;
     
     bool isLauch;
     int directionChosen;
@@ -45,6 +49,8 @@ public :
     void drawCube();
     void drawWalls();
     void createCube(Vecteur3D force);
+    void createWalls(vector<Primitive> primitive));
+    CollisionData* SearchCollision();
     void launchDemo();
     void CheckCollision();
 

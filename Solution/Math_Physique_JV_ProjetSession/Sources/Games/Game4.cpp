@@ -8,11 +8,13 @@
 using namespace std;
 
 #define PI 3.14159265
-#define MaxCases 3
+#define MaxDirection 3
 
 Game4::Game4(string nameGame, string descriptionGame) : GameBase(nameGame, descriptionGame)
 {
-	m_tree = ;
+	m_primitives = vector<Primitive>();
+	createWall(m_primitives);
+	m_tree = Octree(4, 1000, 2);
 	m_cube = 0;
 	m_formSize = Vecteur3D();
 	m_rvbColor = Vecteur3D();
@@ -28,7 +30,7 @@ void Game4::doKeyboard(unsigned char key, int x, int y) {
 
 	switch (key) {
 	case 97: // 'a' key
-		directionChosen = (directionChosen + 1) % MaxCases;
+		directionChosen = (directionChosen + 1) % MaxDirection;
 		break;
 	case 32: //space bar
 		launchDemo();
@@ -66,15 +68,55 @@ void Game4::drawWalls() {
 	//Draw ground EXAMPLE GAME2
 	glColor3f(0.1, 0.0, 0.0); //brown
 	glBegin(GL_QUADS);
-	glVertex3f(-100, 0, 0);
-	glVertex3f(-100, -150, 0.0);
-	glVertex3f(0.0, -150, 0.0);
-	glVertex3f(0.0, 0, 0.0);
+	glVertex3f(0, 0, -50);
+	glVertex3f(0, 100, -50));
+	glVertex3f(0.0, 100, 50);
+	glVertex3f(0.0, 0.0 ,50);
+	glEnd();
+
+	glColor3f(0.1, 0.0, 0.0); //brown
+	glBegin(GL_QUADS);
+	glVertex3f(0, 0, 50);
+	glVertex3f(100, 0, 50);
+	glVertex3f(100, 100, 50);
+	glVertex3f(0, 100, 50);
+	glEnd();
+
+	glColor3f(0.1, 0.0, 0.0); //brown
+	glBegin(GL_QUADS);
+	glVertex3f(0, 0, -50);
+	glVertex3f(100, 0, -50);
+	glVertex3f(100, 100, -50);
+	glVertex3f(0, 100, -50);
+	glEnd();
+
+	glColor3f(0.1, 0.0, 0.0); //brown
+	glBegin(GL_QUADS);
+	glVertex3f(0,0,-50);
+	glVertex3f(100,0,-50);
+	glVertex3f(100,0,50);
+	glVertex3f(0,0,50);
 	glEnd();
 	
+	glColor3f(0.1, 0.0, 0.0); //brown
+	glBegin(GL_QUADS);
+	glVertex3f(0,100,-50);
+	glVertex3f(100,100,-50);
+	glVertex3f(100,100,50);
+	glVertex3f(0,100,50);
+	glEnd();
 }
 
-void Game4::createCube(Vecteur3D force) {
+void Game4::createWalls(vector<Primitive> primitive){
+	primitive.push_back(Plane(Vecteur3D(0,50,0),Vecteur3D(1,0,0)));
+	primitive.push_back(Plane(Vecteur3D(50,50,50),Vecteur3D(0,0,1)));
+	primitive.push_back(Plane(Vecteur3D(50,50,-50),Vecteur3D(0,0,-1)));
+	primitive.push_back(Plane(Vecteur3D(50,0,0),Vecteur3D(0,1,0)));
+	primitive.push_back(Plane(Vecteur3D(50,50,0),Vecteur3D(0,-1,0)));
+
+}
+
+void Game4::createCube(Vecteur3D force , vector<Primitive> primitive) {
 	Vecteur3D position = Vecteur3D(0, 1, 2);
 	m_formSize = Vecteur3D(1, 1, 1);
 	double masse = 5;
@@ -88,20 +130,24 @@ void Game4::createCube(Vecteur3D force) {
 	Matrix33 Inertia = Matrix33(i00, 0.0, 0.0, 0.0, i11, 0.0, 0.0, 0.0, i22);
 	Matrix33 inverseInertia = Inertia.Inverse();
 	//Create our rigidBody
-	m_cube = new RigidBody(Vecteur3D(0, 1, 2), Vecteur3D(), masse, Quaternion(0, 0.5, 0, 0), 0.99, Vecteur3D(), 0.99, inverseInertia);
+	m_cube = new RigidBody(Vecteur3D(0, 50, 0), Vecteur3D(), masse, Quaternion(0, 0.5, 0, 0), 0.99, Vecteur3D(), 0.99, inverseInertia);
 	m_rvbColor = Vecteur3D(2.0, 0.5, 1);
 
 	//Add the gravity
 	m_registry.add(m_cube, new RigidBodyGravity());
 	//Add a Force to rotate our rigidbody 
 	m_registry.add(m_cube, new InputForceAtPoint(force, Vecteur3D(0.4, 0, 0.5)));
+
+	//Add to the octree
+	primitive.push_back(Sphere(m_cube,0.5));
+
 }
 
 
 void Game4::launchDemo() {
 	m_cube = nullptr;
 	m_registry.clear();
-
+	
 	Vecteur3D force = Vecteur3D(-2, 20, -15);
 	switch (directionChosen){
 	case 0 :
@@ -116,22 +162,13 @@ void Game4::launchDemo() {
 	default :
 		break;
 	}
-
 	createCube(force);
+	
 }
 
-void Game4::CheckCollision() {
-	//check collision
-	CollisionData data = CollisionData();
-	//.....
 
-	//if y en a une on print les infos du point de contact
-	cout << data;
-	//on stop le cube
-	m_cube->setVelocity(0, 0, 0);
-	m_cube->setAcceleration(0, 0, 0);
-	m_cube->setAngularVelocity(0, 0, 0);
-	m_cube->setAngularAcceleration(0, 0, 0);
+CollisionData* Game4::SearchCollision() {
+	return nullptr;
 }
 
 
@@ -148,10 +185,65 @@ void Game4::doUpdatePhysics() {
 		//calculates with respect to the position and speed of the previous frame 
 		m_cube->integrate(deltaTime);
 
-		CheckCollision();
+		UpdateOctree();
+		vector<PossibleCollision> possibleCollisions = m_tree->getPossibleCollision();
+		//à modifier
+
+		for each  (PossibleCollision possibleCollision in possibleCollisions)
+		{
+			CollisionData data = possibleCollision.narrowPhaseCollisions();
+
+			//arrête la simulation si une collision a bien eu lieu
+			PrintAndStop(data);
+		}
+		
 	}
 	
 	glutPostRedisplay();
+}
+
+void Game4::UpdateOctree(){
+	m_tree.clear();
+	m_tree.build(m_primitives);
+}
+
+void Game4::PrintAndStop(CollisionData data){
+	if (data != CollisionData()) {
+		cout << data;
+		//on stop le cube
+		m_cube->setVelocity(0, 0, 0);
+		m_cube->setAcceleration(0, 0, 0);
+		m_cube->setAngularVelocity(0, 0, 0);
+		m_cube->setAngularAcceleration(0, 0, 0);
+	}
+	
+}
+
+void Game4::doDisplay() {
+	//clear buffer (indicate the buffer to clear)
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
+	//replaces the current matrix with the identity matrix
+	glLoadIdentity(); 
+
+	//specifies the position of the eye point, the reference point
+	//and the direction of the up vector
+	gluLookAt(100, 0, 0, 0.0, 0.0, 0.0,0.0,1.0, 0.0); 
+
+	// rotate of beta along the axes X
+	glRotatef(beta, 1, 0, 0);
+
+	//apply the fonction updatePhysics
+	glutIdleFunc(updatePhysics); 
+
+	drawWalls();
+	drawCube();
+	
+	// swaps the buffers of the current window if double buffered
+	glutSwapBuffers();
+	
+	glClearColor(0.0f, 0.1f, 0.1f, 1.0f);//background color 
+	glEnable(GL_DEPTH_TEST);
+	
 }
 
 int Game4::launch(int argc, char* argv[])
@@ -161,7 +253,7 @@ int Game4::launch(int argc, char* argv[])
 
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(100, 100);
-	glutInitWindowSize(1280, 720);
+	glutInitWindowSize(1000, 1000);
 	glutCreateWindow("Bim bam boum");
 
 	//give to glut our function for display, reshape, keyboard input and arrows management
@@ -170,7 +262,7 @@ int Game4::launch(int argc, char* argv[])
 	glutKeyboardFunc(keyboard);
 	glutSpecialFunc(arrows);
 
-	drawWalls();
+	
 
 
 	glutMainLoop();
