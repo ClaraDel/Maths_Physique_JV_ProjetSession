@@ -3,6 +3,7 @@
 #include "../../Math/Vecteur3D.h"
 #include "../Objects/Box.h"
 #include "../Objects/Primitive.h"
+#include "PossibleCollision.h"
 
 class Node {
 	private :
