@@ -107,16 +107,16 @@ void Game4::drawWalls() {
 	glEnd();
 }
 
-void Game4::createWalls(vector<Primitive> primitive){
-	primitive.push_back(Plane(Vecteur3D(0,50,0),Vecteur3D(1,0,0)));
-	primitive.push_back(Plane(Vecteur3D(50,50,50),Vecteur3D(0,0,1)));
-	primitive.push_back(Plane(Vecteur3D(50,50,-50),Vecteur3D(0,0,-1)));
-	primitive.push_back(Plane(Vecteur3D(50,0,0),Vecteur3D(0,1,0)));
-	primitive.push_back(Plane(Vecteur3D(50,50,0),Vecteur3D(0,-1,0)));
+void Game4::createWalls(){
+	m_primitives.push_back(Plane(Vecteur3D(0,50,0),Vecteur3D(1,0,0)));
+	m_primitives.push_back(Plane(Vecteur3D(50,50,50),Vecteur3D(0,0,1)));
+	m_primitives.push_back(Plane(Vecteur3D(50,50,-50),Vecteur3D(0,0,-1)));
+	m_primitives.push_back(Plane(Vecteur3D(50,0,0),Vecteur3D(0,1,0)));
+	m_primitives.push_back(Plane(Vecteur3D(50,50,0),Vecteur3D(0,-1,0)));
 
 }
 
-void Game4::createCube(Vecteur3D force , vector<Primitive> primitive) {
+void Game4::createCube(Vecteur3D force ) {
 	Vecteur3D position = Vecteur3D(0, 1, 2);
 	m_formSize = Vecteur3D(1, 1, 1);
 	double masse = 5;
@@ -139,13 +139,14 @@ void Game4::createCube(Vecteur3D force , vector<Primitive> primitive) {
 	m_registry.add(m_cube, new InputForceAtPoint(force, Vecteur3D(0.4, 0, 0.5)));
 
 	//Add to the octree
-	primitive.push_back(Sphere(m_cube,0.5));
+	m_primitives.push_back(Sphere(m_cube,0.5));
 
 }
 
 
 void Game4::launchDemo() {
 	m_cube = nullptr;
+	m_primitives.erase(m_primitves.end());
 	m_registry.clear();
 	
 	Vecteur3D force = Vecteur3D(-2, 20, -15);
@@ -164,11 +165,6 @@ void Game4::launchDemo() {
 	}
 	createCube(force);
 	
-}
-
-
-CollisionData* Game4::SearchCollision() {
-	return nullptr;
 }
 
 
@@ -263,7 +259,7 @@ int Game4::launch(int argc, char* argv[])
 	glutSpecialFunc(arrows);
 
 	
-
+	createWalls();
 
 	glutMainLoop();
 	return EXIT_SUCCESS;

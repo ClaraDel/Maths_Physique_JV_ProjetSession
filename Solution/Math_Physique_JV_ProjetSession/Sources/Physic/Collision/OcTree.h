@@ -40,7 +40,7 @@ class OcTree {
 	private:
 		Node* root;
 		double m_regionSize;
-		std::vector<Primitive> m_primitivesToAdd
+		std::vector<Primitive> m_primitivesToAdd;
 
 	public:
 		void Build();
