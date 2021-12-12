@@ -5,6 +5,9 @@
 #include "../Objects/Primitive.h"
 #include "PossibleCollision.h"
 
+#ifndef DEF_OCTREE
+#define DEF_OCTREE
+
 class Node {
 	private :
 		Box m_region;
@@ -15,19 +18,19 @@ class Node {
 		int m_maxLevel;
 		
 	public :
-		Node(int level, int maxPrimitive, int maxLevel, Box region){
+		Node(int level, int maxPrimitive, int maxLevel, Box region) {
 			m_level = level;
 			m_region = region;
 			m_maxPrimitive = maxPrimitive;
 			m_maxLevel = maxLevel;
 		};
 
-		Node(int level, Box region){
+		Node(int level, Box region) {
 			m_level = level;
 			m_region = region;
-			m_maxPrimitive =2;
+			m_maxPrimitive = 2;
 			m_maxLevel = 6;
-		};
+		}
 
 		Vecteur3D getPosition();
 		int GetChildIndex(const Vecteur3D& centreRb);
@@ -41,15 +44,18 @@ class OcTree {
 	private:
 		Node* root;
 		double m_regionSize;
+		double m_maxLevel;
+		double m_maxPrimitive;
 		std::vector<Primitive> m_primitivesToAdd;
 
 	public:
-		void Build();
+		void Build(std::vector<Primitive> primitivesToAdd);
 		std::vector<PossibleCollision> getPossibleCollision();
 		OcTree(int maxLevel, double regionSize, int maxPrimitive ){
 			m_maxLevel = maxLevel ;
-			regionSize = m_regionSize ;
+			m_regionSize = regionSize ;
 			m_maxPrimitive = maxPrimitive ;
-		};
+		}
 		void Clear();
 };
+#endif

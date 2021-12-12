@@ -1,7 +1,7 @@
 #pragma once
-#ifndef DEF_GAME4
-#define DEF_GAME4
 
+#include <iostream>
+#include <string>
 #include "GameBase.h"
 #include "../Math/Quaternion.h"
 #include "../Physic/ForceGenerator/RigidBody/RigidBodyForceRegistry.h"
@@ -16,9 +16,9 @@
 #include "../Physic/Collision/PossibleCollision.h"
 #include<vector>
 #include <cmath>
-#include <iostream>
-#include <string>
 
+#ifndef DEF_GAME4
+#define DEF_GAME4
 
 class Game4 : public GameBase {
 
@@ -29,7 +29,7 @@ private :
     RigidBody* m_cube;
     Vecteur3D m_rvbColor; //Rigidbody color 
     Vecteur3D m_formSize; //vector that contains information about rigidbody's shape 
-    vector<Primitive> primitives;
+    std::vector<Primitive> m_primitives;
     
     bool isLauch;
     int directionChosen;
@@ -49,7 +49,7 @@ public :
     void drawCube();
     void drawWalls();
     void createCube(Vecteur3D force);
-    void createWalls(vector<Primitive> primitive));
+    void createWalls();
     CollisionData* SearchCollision();
     void launchDemo();
     void CheckCollision();

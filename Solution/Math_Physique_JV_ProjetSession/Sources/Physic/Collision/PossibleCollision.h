@@ -1,12 +1,13 @@
 #pragma once
-#ifndef DEF_POSSIBLECOLLISION
-#define DEF_POSSIBLECOLLISION
+
 
 #include "../Objects/Primitive.h"
 #include "CollisionData.h"
 #include "../Objects/Plane.h"
 #include "../Objects/Sphere.h"
 
+#ifndef DEF_POSSIBLECOLLISION
+#define DEF_POSSIBLECOLLISIONs
 class PossibleCollision {
     private :
         std::pair<Primitive,Primitive> primitives;
@@ -17,6 +18,10 @@ class PossibleCollision {
             primitives.second = primitive2;
      
        }
+        PossibleCollision() {
+            primitives.first = Primitive();
+            primitives.second = Primitive();
+        }
 
 
         CollisionData narrowPhaseCollisions();

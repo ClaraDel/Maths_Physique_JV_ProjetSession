@@ -1,19 +1,21 @@
-#include "Game4.h"
 #include <iostream>
 #include <windows.h>
 #include <GL/glut.h>
 #include <string>
+#include "Game4.h"
 #include <ctime>
 
-using namespace std;
 
 #define PI 3.14159265
 #define MaxDirection 3
 
+using namespace std;
+
+
 Game4::Game4(string nameGame, string descriptionGame) : GameBase(nameGame, descriptionGame)
 {
 	m_primitives = vector<Primitive>();
-	createWall(m_primitives);
+	createWalls();
 	m_tree = Octree(4, 1000, 2);
 	m_cube = 0;
 	m_formSize = Vecteur3D();
@@ -146,7 +148,7 @@ void Game4::createCube(Vecteur3D force ) {
 
 void Game4::launchDemo() {
 	m_cube = nullptr;
-	m_primitives.erase(m_primitves.end());
+	m_primitives.erase(m_primitives.end());
 	m_registry.clear();
 	
 	Vecteur3D force = Vecteur3D(-2, 20, -15);

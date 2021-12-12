@@ -15,6 +15,12 @@ public:
 		m_depth = depth ;
 		m_position = position;
 	}
+	Box() {
+		m_height = 0;
+		m_width = 0;
+		m_depth = 0;
+		m_position = Vecteur3D();
+	}
 	
 	
 	Vecteur3D getPosition(){
