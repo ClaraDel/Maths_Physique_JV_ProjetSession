@@ -11,7 +11,7 @@
 class Node {
 	private :
 		Box m_region;
-		std::vector<Primitive> m_primitives;
+		std::vector<Primitive*> m_primitives;
 		std::vector<Node*> m_children;
 		int m_level; //profondeur du noeuds		
 		int m_maxPrimitive;	
@@ -32,11 +32,10 @@ class Node {
 			m_maxLevel = 6;
 		}
 
-		Vecteur3D getPosition();
 		int GetChildIndex(const Vecteur3D& centreRb);
 		void subdivise(); //subdivise the node in subregions
 		bool isLeaf(); //return true if the node has no child
-		void AddPrimitive(std::vector<Primitive> primitives);
+		void AddPrimitive(std::vector<Primitive*> primitives);
 		void browse(std::vector<PossibleCollision>& possibleCollision);
 };
 
@@ -46,10 +45,10 @@ class OcTree {
 		double m_regionSize;
 		double m_maxLevel;
 		double m_maxPrimitive;
-		std::vector<Primitive> m_primitivesToAdd;
+		std::vector<Primitive*> m_primitivesToAdd;
 
 	public:
-		void Build(std::vector<Primitive> primitivesToAdd);
+		void Build(std::vector<Primitive*> primitivesToAdd);
 		std::vector<PossibleCollision> getPossibleCollision();
 		OcTree(int maxLevel, double regionSize, int maxPrimitive ){
 			m_maxLevel = maxLevel ;

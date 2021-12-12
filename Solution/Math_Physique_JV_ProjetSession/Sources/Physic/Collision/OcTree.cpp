@@ -2,7 +2,7 @@
 
 using namespace std;
 
-void OcTree::Build(vector<Primitive> primitivesToAdd) {
+void OcTree::Build(vector<Primitive*> primitivesToAdd) {
 	double middle = m_regionSize/2;
 	Box region = Box(m_regionSize, m_regionSize, m_regionSize, Vecteur3D(0,50,0));
 	root = new Node(0, m_maxPrimitive, m_maxLevel, region) ;
@@ -17,9 +17,9 @@ vector<PossibleCollision> OcTree::getPossibleCollision(){
 	return result;
 }
 
-void Node::AddPrimitive(std::vector<Primitive> primitives){
+void Node::AddPrimitive(std::vector<Primitive*> primitives){
 	for (int i = 0; i < primitives.size(); i++) {
-		if(primitives[i].insideRegion(m_region)){
+		if(primitives[i]->insideRegion(m_region)){
 			m_primitives.push_back(primitives[i]);
 		}
 	}
@@ -39,9 +39,9 @@ int Node::GetChildIndex(const Vecteur3D &centreRb){
 void Node::browse(vector<PossibleCollision>& possibleCollision){
 	if(isLeaf()){
 		if(m_primitives.size()>1){
-			for(int i= 0,i<m_primitives.size(), i++){
-				for(int j=i+1,j<m_primitives.size(),j++){
-					possibleCollision.push_back(m_primitives[i],m_primitives[j]);
+			for (int i = 0; i < m_primitives.size(); i++) {
+				for (int j = i + 1; j < m_primitives.size(); j++) {
+					possibleCollision.push_back(PossibleCollision(m_primitives[i], m_primitives[j]));
 				}
 			}
 			

@@ -10,18 +10,10 @@
 #define DEF_POSSIBLECOLLISIONs
 class PossibleCollision {
     private :
-        std::pair<Primitive,Primitive> primitives;
+        std::pair<Primitive*,Primitive*> primitives;
 
     public :
-        PossibleCollision(Primitive primitive1, Primitive primitive2){
-            primitives.first = primitive1;
-            primitives.second = primitive2;
-     
-       }
-        PossibleCollision() {
-            primitives.first = Primitive();
-            primitives.second = Primitive();
-        }
+        PossibleCollision(Primitive* primitive1, Primitive* primitive2);
 
 
         CollisionData narrowPhaseCollisions();

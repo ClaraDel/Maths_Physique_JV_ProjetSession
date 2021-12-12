@@ -7,9 +7,11 @@
 class Sphere : public Primitive {
 public:
 	double m_radius;
+
 	Sphere(RigidBody* rigid, double radius) {
 		body = rigid;
 		m_radius = radius;
+		m_dimensionAttribute.push_back(radius);
 	}
 
 	std::string getType() {

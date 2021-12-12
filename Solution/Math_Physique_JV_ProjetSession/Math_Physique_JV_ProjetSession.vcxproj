@@ -156,8 +156,7 @@
     <ClCompile Include="Sources\Math\Vecteur3D.cpp" />
     <ClCompile Include="Sources\Physic\Collision\CollisionData.cpp" />
     <ClCompile Include="Sources\Physic\Collision\OcTree.cpp" />
-    <ClCompile Include="Sources\Physic\Collision\PlaneCollider.cpp" />
-    <ClCompile Include="Sources\Physic\Collision\SphereCollider.cpp" />
+    <ClCompile Include="Sources\Physic\Collision\PossibleCollision.cpp" />
     <ClCompile Include="Sources\Physic\Contact\ParticleCable.cpp" />
     <ClCompile Include="Sources\Physic\Contact\ParticleContact.cpp" />
     <ClCompile Include="Sources\Physic\Contact\ParticleContactGenerator.cpp" />
@@ -194,6 +193,7 @@
     <ClInclude Include="Sources\Math\Vecteur3D.h" />
     <ClInclude Include="Sources\Physic\Collision\CollisionData.h" />
     <ClInclude Include="Sources\Physic\Collision\OcTree.h" />
+    <ClInclude Include="Sources\Physic\Collision\PossibleCollision.h" />
     <ClInclude Include="Sources\Physic\Contact\ParticleCable.h" />
     <ClInclude Include="Sources\Physic\Contact\ParticleContact.h" />
     <ClInclude Include="Sources\Physic\Contact\ParticleContactGenerator.h" />

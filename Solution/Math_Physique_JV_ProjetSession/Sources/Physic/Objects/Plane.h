@@ -27,6 +27,10 @@ public:
 		return m_center;
 	}
 
+	double getOffset() const{
+		return m_offset;
+	}
+
 	bool insideRegion(Box& region) {
 		bool inside = true;
 		Vecteur3D regionCenter = region.getPosition();
@@ -43,5 +47,8 @@ public:
 			m_offset = -(m_normal.getX() * m_center.getX() + m_normal.getY() * m_center.getY() + m_normal.getZ() * m_center.getZ());
 	}
 
+	Vecteur3D getCentre() {
+		return m_center;
+	}
 };
 #endif
