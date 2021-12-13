@@ -14,9 +14,9 @@ using namespace std;
 
 Game4::Game4(string nameGame, string descriptionGame) : GameBase(nameGame, descriptionGame)
 {
-	m_primitives = vector<Primitive>();
+	m_primitives = vector<Primitive*>();
 	createWalls();
-	m_tree = Octree(4, 1000, 2);
+	m_tree = OcTree(4, 1000, 2);
 	m_cube = 0;
 	m_formSize = Vecteur3D();
 	m_rvbColor = Vecteur3D();
@@ -71,7 +71,7 @@ void Game4::drawWalls() {
 	glColor3f(0.1, 0.0, 0.0); //brown
 	glBegin(GL_QUADS);
 	glVertex3f(0, 0, -50);
-	glVertex3f(0, 100, -50));
+	glVertex3f(0, 100, -50);
 	glVertex3f(0.0, 100, 50);
 	glVertex3f(0.0, 0.0 ,50);
 	glEnd();
@@ -110,11 +110,11 @@ void Game4::drawWalls() {
 }
 
 void Game4::createWalls(){
-	m_primitives.push_back(Plane(Vecteur3D(0,50,0),Vecteur3D(1,0,0)));
-	m_primitives.push_back(Plane(Vecteur3D(50,50,50),Vecteur3D(0,0,1)));
-	m_primitives.push_back(Plane(Vecteur3D(50,50,-50),Vecteur3D(0,0,-1)));
-	m_primitives.push_back(Plane(Vecteur3D(50,0,0),Vecteur3D(0,1,0)));
-	m_primitives.push_back(Plane(Vecteur3D(50,50,0),Vecteur3D(0,-1,0)));
+	m_primitives.push_back(new Plane(Vecteur3D(0,50,0),Vecteur3D(1,0,0)));
+	m_primitives.push_back(new Plane(Vecteur3D(50,50,50),Vecteur3D(0,0,1)));
+	m_primitives.push_back(new Plane(Vecteur3D(50,50,-50),Vecteur3D(0,0,-1)));
+	m_primitives.push_back(new Plane(Vecteur3D(50,0,0),Vecteur3D(0,1,0)));
+	m_primitives.push_back(new Plane(Vecteur3D(50,50,0),Vecteur3D(0,-1,0)));
 
 }
 
@@ -141,14 +141,19 @@ void Game4::createCube(Vecteur3D force ) {
 	m_registry.add(m_cube, new InputForceAtPoint(force, Vecteur3D(0.4, 0, 0.5)));
 
 	//Add to the octree
-	m_primitives.push_back(Sphere(m_cube,0.5));
+	m_primitives.push_back(new Sphere(m_cube,0.5));
 
 }
 
 
 void Game4::launchDemo() {
+
+	if (m_cube != nullptr) {
+		m_primitives.erase(m_primitives.end());
+	}
+
 	m_cube = nullptr;
-	m_primitives.erase(m_primitives.end());
+	
 	m_registry.clear();
 	
 	Vecteur3D force = Vecteur3D(-2, 20, -15);
@@ -174,6 +179,7 @@ void Game4::launchDemo() {
 //the cube in each frame time
 void Game4::doUpdatePhysics() {
 
+	//cout << m_primitives.size() << endl;
 	double deltaTime = updateTime();
 
 	//check if there is a cube and if it's not already in collision with a wall
@@ -183,13 +189,15 @@ void Game4::doUpdatePhysics() {
 		//calculates with respect to the position and speed of the previous frame 
 		m_cube->integrate(deltaTime);
 
+		cout << m_cube->getPosition() << endl;
+
 		UpdateOctree();
-		vector<PossibleCollision> possibleCollisions = m_tree->getPossibleCollision();
+		vector<PossibleCollision> possibleCollisions = m_tree.getPossibleCollision();
 		//à modifier
 
-		for each  (PossibleCollision possibleCollision in possibleCollisions)
+		for (int i = 0; i < possibleCollisions.size(); i++)
 		{
-			CollisionData data = possibleCollision.narrowPhaseCollisions();
+			CollisionData data = possibleCollisions[i].narrowPhaseCollisions();
 
 			//arrête la simulation si une collision a bien eu lieu
 			PrintAndStop(data);
@@ -201,8 +209,8 @@ void Game4::doUpdatePhysics() {
 }
 
 void Game4::UpdateOctree(){
-	m_tree.clear();
-	m_tree.build(m_primitives);
+	m_tree.Clear();
+	m_tree.Build(m_primitives);
 }
 
 void Game4::PrintAndStop(CollisionData data){
@@ -259,9 +267,6 @@ int Game4::launch(int argc, char* argv[])
 	glutReshapeFunc(reshape);
 	glutKeyboardFunc(keyboard);
 	glutSpecialFunc(arrows);
-
-	
-	createWalls();
 
 	glutMainLoop();
 	return EXIT_SUCCESS;

@@ -23,7 +23,11 @@ class CollisionData {
 		void setContactNormal(Vecteur3D contactNormal);
 		void setPenetration(double penetration);
 
+		bool isEqual(CollisionData const& data) const;
+
 		void print(std::ostream& flux) const;
 };
 
+bool operator==(CollisionData const& a, CollisionData const& b);
+bool operator!=(CollisionData const& a, CollisionData const& b);
 std::ostream& operator<< (std::ostream& flux, CollisionData const& data);

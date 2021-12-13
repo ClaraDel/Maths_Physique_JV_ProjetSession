@@ -29,7 +29,7 @@ private :
     RigidBody* m_cube;
     Vecteur3D m_rvbColor; //Rigidbody color 
     Vecteur3D m_formSize; //vector that contains information about rigidbody's shape 
-    std::vector<Primitive> m_primitives;
+    std::vector<Primitive*> m_primitives;
     
     bool isLauch;
     int directionChosen;
@@ -50,9 +50,9 @@ public :
     void drawWalls();
     void createCube(Vecteur3D force);
     void createWalls();
-    CollisionData* SearchCollision();
     void launchDemo();
-    void CheckCollision();
+    void UpdateOctree();
+    void PrintAndStop(CollisionData data);
 
     int launch(int argc, char* argv[]) override;
     void doKeyboard(unsigned char key, int x, int y) override;

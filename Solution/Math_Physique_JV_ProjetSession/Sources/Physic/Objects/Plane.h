@@ -14,7 +14,6 @@ private:
 
 public:
 
-
 	std::string getType() {
 		return "Plane";
 	}

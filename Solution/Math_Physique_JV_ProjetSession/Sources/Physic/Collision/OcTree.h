@@ -23,6 +23,8 @@ class Node {
 			m_region = region;
 			m_maxPrimitive = maxPrimitive;
 			m_maxLevel = maxLevel;
+			m_primitives = std::vector<Primitive*>() ;
+			m_children = std::vector<Node*>();
 		};
 
 		Node(int level, Box region) {
@@ -30,6 +32,16 @@ class Node {
 			m_region = region;
 			m_maxPrimitive = 2;
 			m_maxLevel = 6;
+			m_primitives = std::vector<Primitive*>() ;
+			m_children = std::vector<Node*>();
+		}
+		Node() {
+			m_level = 4;
+			m_region = Box(100, 100,100, Vecteur3D());
+			m_maxPrimitive = 2;
+			m_maxLevel = 6;
+			m_primitives = std::vector<Primitive*>() ;
+			m_children = std::vector<Node*>();
 		}
 
 		int GetChildIndex(const Vecteur3D& centreRb);
@@ -37,6 +49,7 @@ class Node {
 		bool isLeaf(); //return true if the node has no child
 		void AddPrimitive(std::vector<Primitive*> primitives);
 		void browse(std::vector<PossibleCollision>& possibleCollision);
+		~Node();
 };
 
 class OcTree {
@@ -54,7 +67,17 @@ class OcTree {
 			m_maxLevel = maxLevel ;
 			m_regionSize = regionSize ;
 			m_maxPrimitive = maxPrimitive ;
+			m_primitivesToAdd = std::vector<Primitive*>();
+			root = new Node();
+		}
+		OcTree() {
+			m_maxLevel = 4;
+			m_regionSize = 100;
+			m_maxPrimitive = 2;
+			m_primitivesToAdd = std::vector<Primitive*>();
+			root = new Node();
 		}
 		void Clear();
+		~OcTree();
 };
 #endif

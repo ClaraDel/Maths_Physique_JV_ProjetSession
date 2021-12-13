@@ -29,7 +29,7 @@ void Node::AddPrimitive(std::vector<Primitive*> primitives){
 }
 
 int Node::GetChildIndex(const Vecteur3D &centreRb){
-	int index;
+	int index = 0;
 	if(centreRb.getX() > m_region.m_position.getX() ) index +=1 ;
 	if(centreRb.getY() > m_region.m_position.getY() ) index +=2 ;
 	if(centreRb.getZ() > m_region.m_position.getZ() ) index +=4 ;
@@ -85,6 +85,7 @@ bool Node::isLeaf() {
 void OcTree::Clear() {
 	delete root ;
 }
+
 OcTree::~OcTree() {
 	Clear();
 }

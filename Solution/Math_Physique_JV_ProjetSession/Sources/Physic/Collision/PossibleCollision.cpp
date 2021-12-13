@@ -16,7 +16,7 @@ CollisionData PossibleCollision::narrowPhaseCollisions(){
 		double d = plane.getOffset();
 
 		double distance = normal.getX()*posSphere.getX()+normal.getY()*posSphere.getY()+normal.getZ()*posSphere.getZ();
-		if(distance <= d){
+		if(distance <= d + sphere.getRadius()){
 			data.setPenetration(d-distance);
 			data.setContactNormal(normal);
 			data.setContactPoint(Vecteur3D(posSphere.getX(),posSphere.getY(),posSphere.getZ()));
@@ -30,16 +30,16 @@ CollisionData PossibleCollision::narrowPhaseCollisions(){
 		Vecteur3D posSphere = primitives.first->body->getPosition();
 		Vecteur3D normal = plane.getNormal();
 		double d = plane.getOffset();
-		double equation_plan = normal.getX()*posSphere.getX()+normal.getY()*posSphere.getY()+normal.getZ()*posSphere.getZ() + d;
-		if(equation_plan <= 0){
-			//revoir la pénétration itou
-			data.setPenetration(plane.getCentre() - posSphere);
+		//double equation_plan = normal.getX()*posSphere.getX()+normal.getY()*posSphere.getY()+normal.getZ()*posSphere.getZ() + d;
+		double distance = normal.getX()*posSphere.getX()+normal.getY()*posSphere.getY()+normal.getZ()*posSphere.getZ();
+		if(distance <= d + sphere.getRadius()){
+			data.setPenetration(d-distance);
 			data.setContactNormal(normal);
 			data.setContactPoint(Vecteur3D(posSphere.getX(),posSphere.getY(),posSphere.getZ()));
 		}
 	} 
 	
-	else if(primitives.first->getType()== "Sphere" && primitives.second->getType()== "Sphere"){
+	/*else if(primitives.first->getType()== "Sphere" && primitives.second->getType()== "Sphere"){
 		Vecteur3D posSphere1 = primitives.first->body->getPosition();
 		Vecteur3D posSphere2 = primitives.second->body->getPosition();
 		double distance = sqrt((posSphere1.getX() * posSphere2.getX() + posSphere1.getY() * posSphere2.getY() + posSphere1.getZ() * posSphere2.getZ()));
@@ -49,6 +49,6 @@ CollisionData PossibleCollision::narrowPhaseCollisions(){
 			//voir si on le si on fait ou pas
 			data.setContactPoint(Vecteur3D(aled));
 		}
-	}
+	}*/
     return data;
 }

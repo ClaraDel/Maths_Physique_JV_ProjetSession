@@ -45,3 +45,25 @@ std::ostream& operator<< (std::ostream& flux, CollisionData const& data)
 	data.print(flux);
 	return flux;
 }
+
+bool CollisionData::isEqual(CollisionData const& data) const
+{ 
+	if ( m_penetration == data.m_penetration  && m_contactNormal == data.m_contactNormal && m_contactPoint == data.m_contactPoint) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+bool operator==(CollisionData const& a,CollisionData const& b)
+{
+	return a.isEqual(b);
+}
+
+bool operator!=(CollisionData const& a,CollisionData const& b)
+{
+	if (a == b) 
+		return false;
+	else
+		return true;
+}
