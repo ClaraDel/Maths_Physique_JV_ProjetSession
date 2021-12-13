@@ -132,13 +132,13 @@ void Game4::createCube(Vecteur3D force ) {
 	Matrix33 Inertia = Matrix33(i00, 0.0, 0.0, 0.0, i11, 0.0, 0.0, 0.0, i22);
 	Matrix33 inverseInertia = Inertia.Inverse();
 	//Create our rigidBody
-	m_cube = new RigidBody(Vecteur3D(0, 50, 0), Vecteur3D(), masse, Quaternion(0, 0.5, 0, 0), 0.99, Vecteur3D(), 0.99, inverseInertia);
+	m_cube = new RigidBody(Vecteur3D(0, 50, 0), Vecteur3D(0,20,0), masse, Quaternion(0, 0.5, 0, 0), 0.99, Vecteur3D(), 0.99, inverseInertia);
 	m_rvbColor = Vecteur3D(2.0, 0.5, 1);
 
 	//Add the gravity
 	m_registry.add(m_cube, new RigidBodyGravity());
 	//Add a Force to rotate our rigidbody 
-	m_registry.add(m_cube, new InputForceAtPoint(force, Vecteur3D(0.4, 0, 0.5)));
+	m_registry.add(m_cube, new InputForceAtPoint(force, Vecteur3D(0, 0, 0)));
 
 	//Add to the octree
 	m_primitives.push_back(new Sphere(m_cube,0.5));
@@ -184,12 +184,13 @@ void Game4::doUpdatePhysics() {
 
 	//check if there is a cube and if it's not already in collision with a wall
 	if (m_cube != nullptr && m_cube->getVelocity() != Vecteur3D()) {
+		cout << m_cube->getPosition() << endl;
 		m_registry.UpdateForce(deltaTime); //update each force 
 
 		//calculates with respect to the position and speed of the previous frame 
 		m_cube->integrate(deltaTime);
 
-		cout << m_cube->getPosition() << endl;
+		
 
 		UpdateOctree();
 		vector<PossibleCollision> possibleCollisions = m_tree.getPossibleCollision();

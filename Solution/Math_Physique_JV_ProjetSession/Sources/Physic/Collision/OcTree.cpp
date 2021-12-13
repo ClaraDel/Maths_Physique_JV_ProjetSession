@@ -83,7 +83,10 @@ bool Node::isLeaf() {
 }
 
 void OcTree::Clear() {
-	delete root ;
+	if (root != nullptr) {
+		delete root;
+		root = nullptr;
+	}
 }
 
 OcTree::~OcTree() {
@@ -91,8 +94,14 @@ OcTree::~OcTree() {
 }
 
 Node::~Node(){
-	for(int i =0;i<m_children.size();i++){
-		if (m_children[i] != nullptr) delete m_children[i];
+
+	cout << m_children.size() << endl;
+	if (!m_children.empty()) {
+		for (Node* node : m_children) {
+			if (node != nullptr) delete node;
+		}
 	}
+	
+	
 	m_children.clear();
 }
