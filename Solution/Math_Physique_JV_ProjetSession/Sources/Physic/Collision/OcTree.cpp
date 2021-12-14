@@ -4,7 +4,7 @@ using namespace std;
 
 void OcTree::Build(vector<Primitive*> primitivesToAdd) {
 	double middle = m_regionSize/2;
-	Box region = Box(m_regionSize, m_regionSize, m_regionSize, Vecteur3D(0,50,0));
+	Box region = Box(m_regionSize, m_regionSize, m_regionSize, Vecteur3D(5,5,0));
 	root = new Node(0, m_maxPrimitive, m_maxLevel, region) ;
 	root->AddPrimitive(primitivesToAdd);
 }

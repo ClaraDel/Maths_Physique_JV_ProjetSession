@@ -36,7 +36,7 @@ class Node {
 			m_children = std::vector<Node*>();
 		}
 		Node() {
-			m_level = 4;
+			m_level = 0;
 			m_region = Box(10, 10,10, Vecteur3D());
 			m_maxPrimitive = 2;
 			m_maxLevel = 6;
@@ -63,7 +63,7 @@ class OcTree {
 	public:
 		void Build(std::vector<Primitive*> primitivesToAdd);
 		std::vector<PossibleCollision> getPossibleCollision();
-		OcTree(int maxLevel, double regionSize, int maxPrimitive ){
+		OcTree(int maxLevel, double regionSize, int maxPrimitive){
 			m_maxLevel = maxLevel ;
 			m_regionSize = regionSize ;
 			m_maxPrimitive = maxPrimitive ;

@@ -16,7 +16,7 @@ Game4::Game4(string nameGame, string descriptionGame) : GameBase(nameGame, descr
 {
 	m_primitives = vector<Primitive*>();
 	createWalls();
-	m_tree = OcTree(4, 10, 2);
+	m_tree = OcTree(3, 10, 4);
 	m_cube = 0;
 	m_formSize = Vecteur3D();
 	m_rvbColor = Vecteur3D();
@@ -142,7 +142,7 @@ void Game4::createCube(Vecteur3D force ) {
 	//Add the gravity
 	m_registry.add(m_cube, new RigidBodyGravity());
 	//Add a Force to rotate our rigidbody 
-	m_registry.add(m_cube, new InputForceAtPoint(force, Vecteur3D(0, 0, 0)));
+	m_registry.add(m_cube, new InputForceAtPoint(force, Vecteur3D(0.4, 0, 0.5)));
 
 	//Add to the octree
 	m_primitives.push_back(new Sphere(m_cube,0.5));
@@ -220,6 +220,7 @@ void Game4::UpdateOctree(){
 }
 
 void Game4::PrintAndStop(CollisionData data){
+	cout << "Here";
 	if (data != CollisionData()) {
 		cout <<"Data"<< data;
 		//on stop le cube
