@@ -16,12 +16,13 @@ Game4::Game4(string nameGame, string descriptionGame) : GameBase(nameGame, descr
 {
 	m_primitives = vector<Primitive*>();
 	createWalls();
-	m_tree = OcTree(4, 1000, 2);
+	m_tree = OcTree(4, 10, 2);
 	m_cube = 0;
 	m_formSize = Vecteur3D();
 	m_rvbColor = Vecteur3D();
 	directionChosen = 0;
 	m_registry = RigidBodyForceRegistry();
+	pause_game = false;
 	X = 0.1;
 	Z = 0.0;
 	Y = 20.0;
@@ -49,7 +50,6 @@ void Game4::drawCube() {
 	if (m_cube != nullptr) {
 		Vecteur3D position;
 		position = m_cube->getPosition();
-
 		glColor3f(m_rvbColor.getX(), m_rvbColor.getY(), m_rvbColor.getZ());
 		glPushMatrix();
 
@@ -68,58 +68,62 @@ void Game4::drawCube() {
 void Game4::drawWalls() {
 
 	//Draw ground EXAMPLE GAME2
-	glColor3f(0.1, 0.0, 0.0); //brown
-	glBegin(GL_QUADS);
-	glVertex3f(0, 0, -50);
-	glVertex3f(0, 100, -50);
-	glVertex3f(0.0, 100, 50);
-	glVertex3f(0.0, 0.0 ,50);
+
+	glColor3f(0.0, 0.0, 1.0); //roof blue
+	glBegin(GL_POLYGON);
+	glVertex3f(0, 10, -5);
+	glVertex3f(10, 10, -5);
+	glVertex3f(10, 10, 5);
+	glVertex3f(0, 10, 5);
 	glEnd();
 
-	glColor3f(0.1, 0.0, 0.0); //brown
-	glBegin(GL_QUADS);
-	glVertex3f(0, 0, 50);
-	glVertex3f(100, 0, 50);
-	glVertex3f(100, 100, 50);
-	glVertex3f(0, 100, 50);
+	glColor3f(1.0, 0.0, 0.0); //back red
+	glBegin(GL_POLYGON);
+	glVertex3f(0, 0, -5);
+	glVertex3f(0, 10, -5);
+	glVertex3f(0.0, 10, 5);
+	glVertex3f(0.0, 0.0, 5);
 	glEnd();
 
-	glColor3f(0.1, 0.0, 0.0); //brown
-	glBegin(GL_QUADS);
-	glVertex3f(0, 0, -50);
-	glVertex3f(100, 0, -50);
-	glVertex3f(100, 100, -50);
-	glVertex3f(0, 100, -50);
+	glColor3f(0.0, 1.0, 0.0); //left wall green
+	glBegin(GL_POLYGON);
+	glVertex3f(0, 0, 5);
+	glVertex3f(10, 0, 5);
+	glVertex3f(10, 10, 5);
+	glVertex3f(0, 10, 5);
 	glEnd();
 
-	glColor3f(0.1, 0.0, 0.0); //brown
-	glBegin(GL_QUADS);
-	glVertex3f(0,0,-50);
-	glVertex3f(100,0,-50);
-	glVertex3f(100,0,50);
-	glVertex3f(0,0,50);
+	glColor3f(0.1, 0.0, 0.0); //right wall brown 
+	glBegin(GL_POLYGON);
+	glVertex3f(0, 0, -5);
+	glVertex3f(10, 0, -5);
+	glVertex3f(10, 10, -5);
+	glVertex3f(0, 10, -5);
+	glEnd();
+
+	glColor3f(1.0, 0.0, 1.0); //ground purple
+	glBegin(GL_POLYGON);
+	glVertex3f(0, 0, -5);
+	glVertex3f(10, 0, -5);
+	glVertex3f(10, 0, 5);
+	glVertex3f(0, 0, 5);
 	glEnd();
 	
-	glColor3f(0.1, 0.0, 0.0); //brown
-	glBegin(GL_QUADS);
-	glVertex3f(0,100,-50);
-	glVertex3f(100,100,-50);
-	glVertex3f(100,100,50);
-	glVertex3f(0,100,50);
-	glEnd();
+	
+	
+	
 }
 
 void Game4::createWalls(){
-	m_primitives.push_back(new Plane(Vecteur3D(0,50,0),Vecteur3D(1,0,0)));
-	m_primitives.push_back(new Plane(Vecteur3D(50,50,50),Vecteur3D(0,0,1)));
-	m_primitives.push_back(new Plane(Vecteur3D(50,50,-50),Vecteur3D(0,0,-1)));
-	m_primitives.push_back(new Plane(Vecteur3D(50,0,0),Vecteur3D(0,1,0)));
-	m_primitives.push_back(new Plane(Vecteur3D(50,50,0),Vecteur3D(0,-1,0)));
+	m_primitives.push_back(new Plane(Vecteur3D(0,5,0),Vecteur3D(1,0,0)));
+	m_primitives.push_back(new Plane(Vecteur3D(5,5,-5),Vecteur3D(0,0,1)));
+	m_primitives.push_back(new Plane(Vecteur3D(5,5,5),Vecteur3D(0,0,-1)));
+	m_primitives.push_back(new Plane(Vecteur3D(5,0,0),Vecteur3D(0,1,0)));
+	m_primitives.push_back(new Plane(Vecteur3D(5,5,0),Vecteur3D(0,-1,0)));
 
 }
 
 void Game4::createCube(Vecteur3D force ) {
-	Vecteur3D position = Vecteur3D(0, 1, 2);
 	m_formSize = Vecteur3D(1, 1, 1);
 	double masse = 5;
 	double dx = m_formSize.getX();
@@ -132,7 +136,7 @@ void Game4::createCube(Vecteur3D force ) {
 	Matrix33 Inertia = Matrix33(i00, 0.0, 0.0, 0.0, i11, 0.0, 0.0, 0.0, i22);
 	Matrix33 inverseInertia = Inertia.Inverse();
 	//Create our rigidBody
-	m_cube = new RigidBody(Vecteur3D(0, 50, 0), Vecteur3D(0,20,0), masse, Quaternion(0, 0.5, 0, 0), 0.99, Vecteur3D(), 0.99, inverseInertia);
+	m_cube = new RigidBody(Vecteur3D(5, 5, 0), Vecteur3D(), masse, Quaternion(0, 0.5, 0, 0), 0.99, Vecteur3D(), 0.99, inverseInertia);
 	m_rvbColor = Vecteur3D(2.0, 0.5, 1);
 
 	//Add the gravity
@@ -149,7 +153,7 @@ void Game4::createCube(Vecteur3D force ) {
 void Game4::launchDemo() {
 
 	if (m_cube != nullptr) {
-		m_primitives.erase(m_primitives.end());
+		m_primitives.pop_back();
 	}
 
 	m_cube = nullptr;
@@ -183,16 +187,16 @@ void Game4::doUpdatePhysics() {
 	double deltaTime = updateTime();
 
 	//check if there is a cube and if it's not already in collision with a wall
-	if (m_cube != nullptr && m_cube->getVelocity() != Vecteur3D()) {
-		cout << m_cube->getPosition() << endl;
+
+	if (m_cube != nullptr && !pause_game){//&& m_cube->getVelocity() != Vecteur3D()) {
+
 		m_registry.UpdateForce(deltaTime); //update each force 
 
 		//calculates with respect to the position and speed of the previous frame 
 		m_cube->integrate(deltaTime);
 
-		
-
-		UpdateOctree();
+		//UpdateOctree();
+		m_tree.Build(m_primitives);
 		vector<PossibleCollision> possibleCollisions = m_tree.getPossibleCollision();
 		//à modifier
 
@@ -203,6 +207,7 @@ void Game4::doUpdatePhysics() {
 			//arrête la simulation si une collision a bien eu lieu
 			PrintAndStop(data);
 		}
+		m_tree.Clear();
 		
 	}
 	
@@ -210,14 +215,15 @@ void Game4::doUpdatePhysics() {
 }
 
 void Game4::UpdateOctree(){
-	m_tree.Clear();
-	m_tree.Build(m_primitives);
+	
+	
 }
 
 void Game4::PrintAndStop(CollisionData data){
 	if (data != CollisionData()) {
-		cout << data;
+		cout <<"Data"<< data;
 		//on stop le cube
+		pause_game = true;
 		m_cube->setVelocity(0, 0, 0);
 		m_cube->setAcceleration(0, 0, 0);
 		m_cube->setAngularVelocity(0, 0, 0);
@@ -234,11 +240,8 @@ void Game4::doDisplay() {
 
 	//specifies the position of the eye point, the reference point
 	//and the direction of the up vector
-	gluLookAt(100, 0, 0, 0.0, 0.0, 0.0,0.0,1.0, 0.0); 
-
-	// rotate of beta along the axes X
-	glRotatef(beta, 1, 0, 0);
-
+	gluLookAt(20,5, 0, 5, 5, 0.0,0.0,1.0, 0.0); 
+	
 	//apply the fonction updatePhysics
 	glutIdleFunc(updatePhysics); 
 
@@ -259,8 +262,9 @@ int Game4::launch(int argc, char* argv[])
 	glutInit(&argc, argv);
 
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+	
 	glutInitWindowPosition(100, 100);
-	glutInitWindowSize(1000, 1000);
+	glutInitWindowSize(1280, 720);
 	glutCreateWindow("Bim bam boum");
 
 	//give to glut our function for display, reshape, keyboard input and arrows management

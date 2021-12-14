@@ -24,7 +24,7 @@ class Game4 : public GameBase {
 
 private :
 	OcTree m_tree;
-
+    bool pause_game;
     //rigidbody
     RigidBody* m_cube;
     Vecteur3D m_rvbColor; //Rigidbody color 
