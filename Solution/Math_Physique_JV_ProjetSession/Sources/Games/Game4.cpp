@@ -158,7 +158,6 @@ void Game4::launchDemo() {
 
 	m_cube = nullptr;
 	
-	m_registry.clear();
 	
 	Vecteur3D force = Vecteur3D(-2, 20, -15);
 	switch (directionChosen){
@@ -188,7 +187,7 @@ void Game4::doUpdatePhysics() {
 
 	//check if there is a cube and if it's not already in collision with a wall
 
-	if (m_cube != nullptr && !pause_game){//&& m_cube->getVelocity() != Vecteur3D()) {
+	if (m_cube != nullptr ){//&& m_cube->getVelocity() != Vecteur3D()) {
 
 		m_registry.UpdateForce(deltaTime); //update each force 
 
@@ -226,11 +225,11 @@ void Game4::PrintAndStop(CollisionData data){
 	if (data != CollisionData()) {
 		cout <<"Data"<< data;
 		//on stop le cube
-		pause_game = true;
 		m_cube->setVelocity(0, 0, 0);
 		m_cube->setAcceleration(0, 0, 0);
 		m_cube->setAngularVelocity(0, 0, 0);
 		m_cube->setAngularAcceleration(0, 0, 0);
+		m_registry.clear();
 	}
 	
 }
