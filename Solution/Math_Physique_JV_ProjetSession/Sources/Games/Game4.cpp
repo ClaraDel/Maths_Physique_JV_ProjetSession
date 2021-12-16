@@ -4,6 +4,7 @@
 #include <string>
 #include "Game4.h"
 #include <ctime>
+#include <cmath>
 
 
 #define PI 3.14159265
@@ -32,9 +33,6 @@ Game4::Game4(string nameGame, string descriptionGame) : GameBase(nameGame, descr
 void Game4::doKeyboard(unsigned char key, int x, int y) {
 
 	switch (key) {
-	case 97: // 'a' key
-		directionChosen = (directionChosen + 1) % MaxDirection;
-		break;
 	case 32: //space bar
 		launchDemo();
 		break;
@@ -145,34 +143,23 @@ void Game4::createCube(Vecteur3D force ) {
 	m_registry.add(m_cube, new InputForceAtPoint(force, Vecteur3D(0.4, 0, 0.5)));
 
 	//Add to the octree
-	m_primitives.push_back(new Sphere(m_cube,0.5));
+	m_primitives.push_back(new Sphere(m_cube,0.5* sqrt(2)));
 
 }
 
 
 void Game4::launchDemo() {
 
+	pause_game = false;	
 	if (m_cube != nullptr) {
 		m_primitives.pop_back();
 	}
 
 	m_cube = nullptr;
 	
+	int randomPlage = 40;
+	Vecteur3D force = 2 * Vecteur3D(rand() % randomPlage - randomPlage/2 , rand() % randomPlage + 1, rand() % randomPlage - randomPlage/2);
 	
-	Vecteur3D force = Vecteur3D(-2, 20, -15);
-	switch (directionChosen){
-	case 0 :
-		force += Vecteur3D(-(rand() % 10 + 1),0,0);
-		break;
-	case 1:
-		force += Vecteur3D(0, (rand() % 10 + 1), 0);
-		break;
-	case 2:
-		force += Vecteur3D(0, 0, -(rand() % 10 + 1));
-		break;
-	default :
-		break;
-	}
 	createCube(force);
 	
 }
@@ -187,51 +174,47 @@ void Game4::doUpdatePhysics() {
 
 	//check if there is a cube and if it's not already in collision with a wall
 
-	if (m_cube != nullptr ){//&& m_cube->getVelocity() != Vecteur3D()) {
+	if (m_cube != nullptr && !pause_game){
 
 		m_registry.UpdateForce(deltaTime); //update each force 
 
 		//calculates with respect to the position and speed of the previous frame 
 		m_cube->integrate(deltaTime);
 
-		//UpdateOctree();
 		m_tree.Build(m_primitives);
 		vector<PossibleCollision> possibleCollisions = m_tree.getPossibleCollision();
-		//à modifier
 
 		for (int i = 0; i < possibleCollisions.size(); i++)
 		{
 			CollisionData data = possibleCollisions[i].narrowPhaseCollisions();
 
-			//arrête la simulation si une collision a bien eu lieu
-			PrintAndStop(data);
+			//stop simulation if there is a collision
+			if (data != CollisionData()) {
+				pause_game = true;	
+				PrintAndStop(data);
+				return;
+			}
+			
 		}
 		m_tree.Clear();
 		
 	}
 
-	cout << " " << endl;
-	cout << "new update physic" << endl;
+	//cout << " " << endl;
+	//cout << "new update physic" << endl;
 	
 	glutPostRedisplay();
 }
 
-void Game4::UpdateOctree(){
-	
-	
-}
 
 void Game4::PrintAndStop(CollisionData data){
-	if (data != CollisionData()) {
-		cout <<"Data"<< data;
-		//on stop le cube
-		m_cube->setVelocity(0, 0, 0);
-		m_cube->setAcceleration(0, 0, 0);
-		m_cube->setAngularVelocity(0, 0, 0);
-		m_cube->setAngularAcceleration(0, 0, 0);
-		m_registry.clear();
-	}
-	
+	cout << data << endl;
+	//on stop le cube
+	m_cube->setVelocity(0, 0, 0);
+	m_cube->setAcceleration(0, 0, 0);
+	m_cube->setAngularVelocity(0, 0, 0);
+	m_cube->setAngularAcceleration(0, 0, 0);
+	m_registry.clear();
 }
 
 void Game4::doDisplay() {

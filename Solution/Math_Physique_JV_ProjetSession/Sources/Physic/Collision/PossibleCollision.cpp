@@ -16,9 +16,9 @@ CollisionData PossibleCollision::narrowPhaseCollisions(){
 		double d = plane.getOffset();
 
 		double equation_plan = normal.getX()*posSphere.getX()+normal.getY()*posSphere.getY()+normal.getZ()*posSphere.getZ() + d;
-		double distance = equation_plan / normal.norm();
+		double distance = equation_plan / normal.norm() - sphere.getRadius();
 		if(equation_plan <= sphere.getRadius()){
-			data.setPenetration(distance);
+			data.setPenetration(abs(distance));
 			data.setContactNormal(normal);
 			data.setContactPoint(Vecteur3D(posSphere.getX(),posSphere.getY(),posSphere.getZ()));
 		}
@@ -32,7 +32,7 @@ CollisionData PossibleCollision::narrowPhaseCollisions(){
 		Vecteur3D normal = plane.getNormal();
 		double d = plane.getOffset();
 		double equation_plan = normal.getX()*posSphere.getX()+normal.getY()*posSphere.getY()+normal.getZ()*posSphere.getZ() + d;
-		double distance = equation_plan / normal.norm();
+		double distance = equation_plan / normal.norm() - sphere.getRadius();
 		if(equation_plan <= sphere.getRadius()){
 			data.setPenetration(distance);
 			data.setContactNormal(normal);
