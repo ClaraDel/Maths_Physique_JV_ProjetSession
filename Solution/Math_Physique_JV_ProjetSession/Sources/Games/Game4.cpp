@@ -8,7 +8,6 @@
 
 
 #define PI 3.14159265
-#define MaxDirection 3
 
 using namespace std;
 
