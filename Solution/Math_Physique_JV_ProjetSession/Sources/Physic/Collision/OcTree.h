@@ -30,16 +30,16 @@ class Node {
 		Node(int level, Box region) {
 			m_level = level;
 			m_region = region;
-			m_maxPrimitive = 2;
-			m_maxLevel = 6;
+			m_maxPrimitive = 3;
+			m_maxLevel = 3;
 			m_primitives = std::vector<Primitive*>() ;
 			m_children = std::vector<Node*>();
 		}
 		Node() {
 			m_level = 0;
 			m_region = Box(10, 10,10, Vecteur3D());
-			m_maxPrimitive = 2;
-			m_maxLevel = 6;
+			m_maxPrimitive = 3;
+			m_maxLevel = 3;
 			m_primitives = std::vector<Primitive*>() ;
 			m_children = std::vector<Node*>();
 		}
@@ -71,9 +71,9 @@ class OcTree {
 			root = new Node();
 		}
 		OcTree() {
-			m_maxLevel = 4;
+			m_maxLevel = 3;
 			m_regionSize = 10;
-			m_maxPrimitive = 2;
+			m_maxPrimitive = 3;
 			m_primitivesToAdd = std::vector<Primitive*>();
 			root = new Node();
 		}

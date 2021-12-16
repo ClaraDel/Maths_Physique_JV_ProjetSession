@@ -3,6 +3,7 @@
 #include "Primitive.h"
 #include "Box.h"
 #include "../../Math/Vecteur3D.h"
+#include <iostream>
 
 #ifndef DEF_PLANE
 #define DEF_PLANE
@@ -31,13 +32,23 @@ public:
 	}
 
 	bool insideRegion(Box& region) {
-		bool inside = true;
+		bool inside1 = false;
+		bool inside2 = false;
+		bool inside3 = false;
 		Vecteur3D regionCenter = region.getPosition();
 		Vecteur3D normal = getNormal();
 		Vecteur3D center = getCenter();
-		return (((normal.getX() != 0 && std::abs(regionCenter.getX() - center.getX()) <= region.m_width * 0.5) || normal.getX() == 0)
-			&& ((normal.getY() != 0 && std::abs(regionCenter.getY() - center.getY()) <= region.m_height * 0.5) || normal.getY() == 0)
-			&& ((normal.getZ() != 0 && std::abs(regionCenter.getZ() - center.getZ() <= region.m_depth * 0.5 || normal.getZ() == 0))));
+		
+		if ((normal.getX() != 0 && std::abs(regionCenter.getX() - center.getX()) <= region.m_width * 0.5) || normal.getX() == 0){
+			inside1 = true;
+		}
+		if ((normal.getY() != 0 && std::abs(regionCenter.getY() - center.getY()) <= region.m_height * 0.5) || normal.getY() == 0){
+			inside2 = true;
+		}
+		if ((normal.getZ() != 0 && std::abs(regionCenter.getZ() - center.getZ()) <= region.m_depth * 0.5 )|| normal.getZ() == 0){
+			inside3 = true ;
+		}
+		return inside1*inside2*inside3 ;
 	}
 
 	Plane(Vecteur3D center, Vecteur3D normal) {

@@ -16,7 +16,7 @@ Game4::Game4(string nameGame, string descriptionGame) : GameBase(nameGame, descr
 {
 	m_primitives = vector<Primitive*>();
 	createWalls();
-	m_tree = OcTree(3, 10, 4);
+	m_tree = OcTree(3, 10, 3);
 	m_cube = 0;
 	m_formSize = Vecteur3D();
 	m_rvbColor = Vecteur3D();
@@ -119,7 +119,7 @@ void Game4::createWalls(){
 	m_primitives.push_back(new Plane(Vecteur3D(5,5,-5),Vecteur3D(0,0,1)));
 	m_primitives.push_back(new Plane(Vecteur3D(5,5,5),Vecteur3D(0,0,-1)));
 	m_primitives.push_back(new Plane(Vecteur3D(5,0,0),Vecteur3D(0,1,0)));
-	m_primitives.push_back(new Plane(Vecteur3D(5,5,0),Vecteur3D(0,-1,0)));
+	m_primitives.push_back(new Plane(Vecteur3D(5,10,0),Vecteur3D(0,-1,0)));
 
 }
 
@@ -210,6 +210,9 @@ void Game4::doUpdatePhysics() {
 		m_tree.Clear();
 		
 	}
+
+	cout << " " << endl;
+	cout << "new update physic" << endl;
 	
 	glutPostRedisplay();
 }
@@ -220,7 +223,6 @@ void Game4::UpdateOctree(){
 }
 
 void Game4::PrintAndStop(CollisionData data){
-	cout << "Here";
 	if (data != CollisionData()) {
 		cout <<"Data"<< data;
 		//on stop le cube

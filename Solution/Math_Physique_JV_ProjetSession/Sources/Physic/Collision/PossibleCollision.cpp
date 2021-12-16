@@ -9,15 +9,16 @@ CollisionData PossibleCollision::narrowPhaseCollisions(){
 	CollisionData data = CollisionData();
 	if(primitives.first->getType() == "Plane" && primitives.second->getType() == "Sphere"){
 		
-        Plane& plane = dynamic_cast<Plane&>(*primitives.second);
-        Sphere& sphere = dynamic_cast<Sphere&>(*primitives.first);
+        Plane& plane = dynamic_cast<Plane&>(*primitives.first);
+        Sphere& sphere = dynamic_cast<Sphere&>(*primitives.second);
 		Vecteur3D posSphere = primitives.second->body->getPosition();
 		Vecteur3D normal = plane.getNormal();
 		double d = plane.getOffset();
 
-		double distance = normal.getX()*posSphere.getX()+normal.getY()*posSphere.getY()+normal.getZ()*posSphere.getZ();
-		if(distance <= d + sphere.getRadius()){
-			data.setPenetration(d-distance);
+		double equation_plan = normal.getX()*posSphere.getX()+normal.getY()*posSphere.getY()+normal.getZ()*posSphere.getZ() + d;
+		double distance = equation_plan / normal.norm();
+		if(equation_plan <= sphere.getRadius()){
+			data.setPenetration(distance);
 			data.setContactNormal(normal);
 			data.setContactPoint(Vecteur3D(posSphere.getX(),posSphere.getY(),posSphere.getZ()));
 		}
@@ -30,10 +31,10 @@ CollisionData PossibleCollision::narrowPhaseCollisions(){
 		Vecteur3D posSphere = primitives.first->body->getPosition();
 		Vecteur3D normal = plane.getNormal();
 		double d = plane.getOffset();
-		//double equation_plan = normal.getX()*posSphere.getX()+normal.getY()*posSphere.getY()+normal.getZ()*posSphere.getZ() + d;
-		double distance = normal.getX()*posSphere.getX()+normal.getY()*posSphere.getY()+normal.getZ()*posSphere.getZ();
-		if(distance <= d + sphere.getRadius()){
-			data.setPenetration(d-distance);
+		double equation_plan = normal.getX()*posSphere.getX()+normal.getY()*posSphere.getY()+normal.getZ()*posSphere.getZ() + d;
+		double distance = equation_plan / normal.norm();
+		if(equation_plan <= sphere.getRadius()){
+			data.setPenetration(distance);
 			data.setContactNormal(normal);
 			data.setContactPoint(Vecteur3D(posSphere.getX(),posSphere.getY(),posSphere.getZ()));
 		}

@@ -21,9 +21,11 @@ void Node::AddPrimitive(std::vector<Primitive*> primitives){
 	for (int i = 0; i < primitives.size(); i++) {
 		if(primitives[i]->insideRegion(m_region)){
 			m_primitives.push_back(primitives[i]);
+			cout << "m_primitives n." << primitives[i] << " added in level " << m_level << ", regionWidth " << m_region.getWidth() << " conter " << m_region.getPosition() << endl ;
 		}
 	}
 	if(m_primitives.size() > m_maxPrimitive && m_level < m_maxLevel){
+		cout << "call subdivise from AddPrimitive with level = " << m_level << " and m_primitives.size() = " << m_primitives.size() << endl;
 		subdivise();
 	}
 }
@@ -54,6 +56,7 @@ void Node::browse(vector<PossibleCollision>& possibleCollision){
 }
 
 void Node::subdivise(){	
+	
 	for (int i=0; i<8; i++){
 		Vecteur3D boxPosition = Vecteur3D();
 		if(i < 4) {
@@ -76,6 +79,7 @@ void Node::subdivise(){
 		node->AddPrimitive(m_primitives);
 		m_children.push_back(node);
 	}
+	cout << "level " << m_level << " subdivised" ;
 }
 
 bool Node::isLeaf() {
@@ -95,7 +99,6 @@ OcTree::~OcTree() {
 
 Node::~Node(){
 
-	cout << m_children.size() << endl;
 	if (!m_children.empty()) {
 		for (Node* node : m_children) {
 			if (node != nullptr) delete node;
