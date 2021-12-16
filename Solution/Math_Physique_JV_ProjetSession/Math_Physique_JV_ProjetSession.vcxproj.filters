@@ -146,6 +146,18 @@
     <ClCompile Include="Sources\Physic\Collision\PossibleCollision.cpp">
       <Filter>Fichiers sources\Physic\Collision</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\Physic\Objects\Box.cpp">
+      <Filter>Fichiers sources\Physic\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Physic\Objects\Plane.cpp">
+      <Filter>Fichiers sources\Physic\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Physic\Objects\Sphere.cpp">
+      <Filter>Fichiers sources\Physic\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Physic\Objects\Primitive.cpp">
+      <Filter>Fichiers sources\Physic\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Math\Vecteur3D.h">

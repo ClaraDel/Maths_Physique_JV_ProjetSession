@@ -2,6 +2,8 @@
 #ifndef DEF_BOX
 #define DEF_BOX
 
+#include "../../Math/Vecteur3D.h"
+
 class Box  {
 public:
 	double m_height ;

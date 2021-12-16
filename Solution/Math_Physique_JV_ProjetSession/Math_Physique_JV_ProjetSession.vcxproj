@@ -177,8 +177,12 @@
     <ClCompile Include="Sources\Physic\ForceGenerator\RigidBody\RigidBodyForceGenerator.cpp" />
     <ClCompile Include="Sources\Physic\ForceGenerator\RigidBody\RigidBodyForceRegistry.cpp" />
     <ClCompile Include="Sources\Physic\ForceGenerator\RigidBody\RigidBodyGravity.cpp" />
+    <ClCompile Include="Sources\Physic\Objects\Box.cpp" />
     <ClCompile Include="Sources\Physic\Objects\Particule.cpp" />
+    <ClCompile Include="Sources\Physic\Objects\Plane.cpp" />
+    <ClCompile Include="Sources\Physic\Objects\Primitive.cpp" />
     <ClCompile Include="Sources\Physic\Objects\RigidBody.cpp" />
+    <ClCompile Include="Sources\Physic\Objects\Sphere.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Games\Game2.h" />
