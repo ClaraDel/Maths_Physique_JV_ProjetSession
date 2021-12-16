@@ -1,4 +1,3 @@
-
 # Maths_Physique_JV_ProjetSession
 Construction d’un moteur physique de jeux vidéo
 Bienvenue sur la deuxième phase du projet de construction d’un moteur physique de jeux vidéo.
@@ -66,3 +65,5 @@ Vous pouvez déplacer le blob avec les touches W,A,S,D ou les touches directionn
 Appuyez sur la touche espace pour lancer un cube.
 * Pour le jeu 4:
 Appuyez sur la touche espace pour lancer une simulation d'accident de voitures.
+*Pour le jeu 5 :
+Appuyez sur espace pour lancer un cube. Les données liées à la collision s'affichent dans la console.
